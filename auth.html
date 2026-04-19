@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THREE BODY Auth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --surface: rgba(255, 255, 255, 0.84);
+      --line: rgba(17, 17, 17, 0.08);
+      --text: #111111;
+      --muted: #6c6a67;
+      --accent: #5f685e;
+      --accent-soft: #edf1f6;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(173, 189, 210, 0.24), transparent 24%),
+        linear-gradient(180deg, #fbfaf8 0%, var(--bg) 100%);
+    }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 44px;
+    }
+
+    .topbar a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      background: rgba(17, 17, 17, 0.05);
+      border-radius: 999px;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .hero,
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 32px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px rgba(17, 17, 17, 0.06);
+    }
+
+    .hero {
+      padding: 42px 38px;
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(17, 17, 17, 0.44);
+    }
+
+    .hero h1,
+    .panel h2 {
+      font-family: "Noto Serif", serif;
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-top: 18px;
+    }
+
+    .hero p,
+    .panel p,
+    .field-note {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .hero-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .hero-item {
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--line);
+    }
+
+    .hero-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .panel {
+      padding: 38px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 8px;
+      padding: 6px;
+      background: rgba(17, 17, 17, 0.04);
+      border-radius: 999px;
+      margin: 24px 0 26px;
+    }
+
+    .tab-button {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 12px 18px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-button.is-active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .provider-button,
+    .submit-button {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 16px;
+      font: inherit;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(93, 97, 90, 0.12);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .provider-button {
+      margin-bottom: 14px;
+      padding: 16px 18px;
+      background: rgba(247, 225, 17, 0.45);
+      color: #3d3608;
+      font-weight: 700;
+    }
+
+    .submit-button {
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, 0.3);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .provider-button:hover,
+    .submit-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.74);
+      box-shadow: 0 14px 34px rgba(93, 97, 90, 0.18);
+    }
+
+    .provider-button:hover {
+      background: rgba(247, 225, 17, 0.58);
+    }
+
+    .submit-button:hover {
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .fields {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field-group input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 14px 16px;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .field-group input:focus {
+      outline: 2px solid rgba(17, 17, 17, 0.08);
+      border-color: rgba(17, 17, 17, 0.22);
+    }
+
+    .status {
+      min-height: 24px;
+      margin: 12px 0 0;
+      font-size: 14px;
+    }
+
+    .status[data-tone="error"] { color: #bc2d2d; }
+    .status[data-tone="success"] { color: #1f6b38; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 22px;
+      color: rgba(17, 17, 17, 0.35);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(17, 17, 17, 0.08);
+    }
+
+    .field-note {
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    code {
+      background: rgba(17, 17, 17, 0.06);
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a href="index.html" data-i18n="common_back_to_tbcos">Back to TBcos</a>
+      <div class="topbar-meta">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <a href="account.html" data-i18n="common_my_account">My Account</a>
+      </div>
+    </div>
+
+    <div class="layout">
+      <section class="hero">
+        <div>
+          <p class="eyebrow" data-i18n="auth_eyebrow">Buyer Access</p>
+          <h1 data-i18n="auth_heading">Log in for partner access and materials.</h1>
+          <p style="margin-top: 22px;" data-i18n="auth_intro">
+            This entry point is designed for brand partners, distributors, and buyers who want continued access to TBcos materials, account-based inquiries, and future partner-only content.
+          </p>
+          <div class="hero-list">
+            <article class="hero-item">
+              <strong data-i18n="auth_feature_1_title">Email and Kakao sign-in</strong>
+              <span data-i18n="auth_feature_1_desc">Support Korean buyer behavior with email and Kakao as the primary access routes.</span>
+            </article>
+            <article class="hero-item">
+              <strong data-i18n="auth_feature_2_title">Partner-ready account structure</strong>
+              <span data-i18n="auth_feature_2_desc">Every new account can later map to approval status, buyer role, and company information.</span>
+            </article>
+            <article class="hero-item">
+              <strong data-i18n="auth_feature_3_title">Flexible for gated pages</strong>
+              <span data-i18n="auth_feature_3_desc">Ideal for future sample requests, brand decks, inquiry history, and distributor-only documents.</span>
+            </article>
+          </div>
+        </div>
+        <p class="field-note" data-i18n="auth_note">
+          Note: Supabase OAuth callbacks do not work well from <code>file://</code> URLs. For Kakao or email callback testing, use a local server such as <code>http://localhost:8000</code> or your deployed domain.
+        </p>
+      </section>
+
+      <section class="panel">
+        <p class="eyebrow" data-i18n="auth_panel_eyebrow">Supabase Auth</p>
+        <h2 data-i18n="auth_panel_heading">Sign in or create your account.</h2>
+        <p style="margin-top: 16px;" data-i18n="auth_panel_desc">
+          Start with a partner account so we can later connect buyers to gated materials and account-based workflows.
+        </p>
+
+        <div class="tabs">
+          <button class="tab-button is-active" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
+          <button class="tab-button" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
+        </div>
+
+        <div id="authStatus" class="status" data-tone="neutral"></div>
+
+        <section data-auth-panel="signin">
+          <button type="button" class="provider-button" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
+          <div class="divider" data-i18n="auth_or">or</div>
+          <form id="signInForm" class="fields">
+            <div class="field-group">
+              <label for="signInEmail" data-i18n="auth_work_email">Work Email</label>
+              <input id="signInEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required>
+            </div>
+            <div class="field-group">
+              <label for="signInPassword" data-i18n="auth_password">Password</label>
+              <input id="signInPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required>
+            </div>
+            <button class="submit-button" type="submit" data-i18n="auth_signin_button">Sign In</button>
+          </form>
+        </section>
+
+        <section data-auth-panel="signup" hidden>
+          <button type="button" class="provider-button" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
+          <div class="divider" data-i18n="auth_or">or</div>
+          <form id="signUpForm" class="fields">
+            <div class="field-group">
+              <label for="signUpName" data-i18n="auth_full_name">Full Name</label>
+              <input id="signUpName" type="text" placeholder="Your name" data-i18n-placeholder="auth_full_name_placeholder" required>
+            </div>
+            <div class="field-group">
+              <label for="signUpCompany" data-i18n="auth_company">Company</label>
+              <input id="signUpCompany" type="text" placeholder="Company name" data-i18n-placeholder="auth_company_placeholder" required>
+            </div>
+            <div class="field-group">
+              <label for="signUpEmail" data-i18n="auth_work_email">Work Email</label>
+              <input id="signUpEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required>
+            </div>
+            <div class="field-group">
+              <label for="signUpPassword" data-i18n="auth_password">Password</label>
+              <input id="signUpPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required>
+            </div>
+            <button class="submit-button" type="submit" data-i18n="auth_signup_button">Create Account</button>
+          </form>
+        </section>
+      </section>
+    </div>
+  </div>
+  <script type="module" src="assets/js/auth-ui.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TBcos — Gravity-Defying Elegance</title>
+  <title>THREE BODY — Gravity-Defying Elegance</title>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap"
@@ -40,6 +40,9 @@
       --text: #111111;
       --text-secondary: #666666;
       --accent: #111111;
+      --control-accent: #6b6f67;
+      --control-accent-strong: #5d615a;
+      --control-contrast: #f7f5ef;
       --radius: 20px;
       --container: 1120px;
     }
@@ -119,6 +122,48 @@
       color: var(--text);
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 20px;
+    }
+
+    .auth-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      min-width: 120px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .auth-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .auth-chip.primary {
+      background: var(--control-accent);
+      color: var(--control-contrast);
+      border-color: var(--control-accent);
+    }
+
+    .auth-chip.ghost {
+      background: transparent;
+    }
+
     .lang-switcher {
       display: flex;
       align-items: center;
@@ -140,9 +185,9 @@
     }
 
     .lang-btn.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
+      background: var(--control-accent);
+      color: var(--control-contrast);
+      border-color: var(--control-accent);
     }
 
     .nav-mobile-menu {
@@ -230,20 +275,26 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--text);
-      color: var(--bg);
+      background: rgba(255, 255, 255, 0.26);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       padding: 14px 32px;
       border-radius: 100px;
       font-size: 14px;
       font-weight: 600;
       text-decoration: none;
       letter-spacing: -0.2px;
-      transition: transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 10px 30px rgba(93, 97, 90, 0.12);
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s, border-color 0.25s;
     }
 
     .hero-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.34);
+      border-color: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 14px 34px rgba(93, 97, 90, 0.18);
     }
 
     section {
@@ -339,9 +390,9 @@
     .about-card-big {
       grid-column: 1 / -1;
       display: flex;
-      gap: 40px;
+      gap: 24px;
       align-items: center;
-      padding: 48px;
+      padding: 28px;
     }
 
     .about-card-big .about-text {
@@ -350,9 +401,14 @@
 
     .about-visual {
       flex: 1;
-      height: 220px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #e8e8ec, #d4d4db);
+      min-width: 42%;
+      height: 250px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 18px 40px rgba(92, 98, 96, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -364,13 +420,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255, 255, 255, 0.15) 10px,
-        rgba(255, 255, 255, 0.15) 12px
-      );
+      background: linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.14));
+      pointer-events: none;
     }
 
     .about-visual-text {
@@ -379,6 +430,14 @@
       color: rgba(0, 0, 0, 0.12);
       letter-spacing: -1px;
       font-weight: 400;
+    }
+
+    .about-visual-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
     }
 
     .showroom-grid {
@@ -534,23 +593,43 @@
       min-height: 100px;
     }
 
+    .consent-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .consent-row input {
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
     .form-submit {
       width: 100%;
       padding: 14px;
-      background: var(--text);
-      color: var(--bg);
-      border: none;
+      background: rgba(255, 255, 255, 0.3);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-radius: 100px;
       font-family: "DM Sans", sans-serif;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 28px rgba(93, 97, 90, 0.12);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
     }
 
     .form-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.38);
+      border-color: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 12px 30px rgba(93, 97, 90, 0.18);
     }
 
     .form-success {
@@ -623,6 +702,33 @@
       color: var(--text);
     }
 
+    .company-meta {
+      margin-top: 24px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .company-meta p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .legal-links a,
+    .consent-row a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    }
+
     .reveal {
       opacity: 0;
       transform: translateY(32px);
@@ -643,6 +749,8 @@
     @media (max-width: 900px) {
       .nav-links { display: none !important; }
       .lang-switcher { display: none; }
+      .nav-actions { display: none; }
+      .auth-chip { min-width: 96px; }
       .nav-mobile-btn {
         display: flex !important;
         align-items: center;
@@ -675,8 +783,8 @@
   <div class="site-wrap" id="app">
     <nav>
       <div class="nav-inner">
-        <a href="#hero" class="nav-logo" aria-label="TBcos home">
-          <img src="assets/tbcos-logo.jpg" alt="TBcos Cosmetics logo">
+        <a href="#hero" class="nav-logo" aria-label="THREE BODY home">
+          <img src="assets/tbcos-logo.jpg" alt="THREE BODY logo">
         </a>
         <ul class="nav-links">
           <li><a href="#about" data-i18n="nav_about">About</a></li>
@@ -688,6 +796,7 @@
           <button type="button" class="lang-btn active" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="ko">KR</button>
         </div>
+        <div class="nav-actions" id="authNavDesktop"></div>
         <button class="nav-mobile-btn" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
           <i data-lucide="menu" style="width:24px;height:24px"></i>
         </button>
@@ -700,6 +809,7 @@
       </button>
       <button type="button" class="lang-btn active" data-lang="en" style="position:absolute;top:22px;left:24px;">EN</button>
       <button type="button" class="lang-btn" data-lang="ko" style="position:absolute;top:22px;left:80px;">KR</button>
+      <div id="authNavMobile" style="position:absolute;top:20px;left:140px;display:flex;gap:8px;"></div>
       <a href="#about" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_about">About</a>
       <a href="#odm" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_odm">ODM / OEM</a>
       <a href="#showroom" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_brand">LUXFOLLICLE</a>
@@ -720,7 +830,7 @@
 
     <section id="about">
       <div class="container">
-        <p class="section-tag reveal" data-i18n="about_tag">About TBcos</p>
+        <p class="section-tag reveal" data-i18n="about_tag">About THREE BODY</p>
         <h2 class="section-title reveal" id="aboutHeading">The Science Behind Beauty</h2>
         <p class="section-desc reveal" id="aboutDesc" data-i18n="about_desc">Over 4 years of cosmetics manufacturing excellence, driven by relentless R&amp;D innovation and certified global quality standards.</p>
         <div class="bento about-grid">
@@ -730,7 +840,7 @@
               <p style="color:var(--text-secondary);line-height:1.7;font-size:15px" data-i18n="about_big_desc">Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.</p>
             </div>
             <div class="about-visual">
-              <span class="about-visual-text">TBcos R&amp;D</span>
+              <img class="about-visual-image" src="assets/three-body-rnd.png" alt="THREE BODY R&D lab scene">
             </div>
           </div>
           <div class="bento-card reveal reveal-delay-1">
@@ -887,6 +997,13 @@
                 <label for="cf-msg" data-i18n="form_message_label">Message</label>
                 <textarea id="cf-msg" placeholder="Tell us about your project..." data-i18n-placeholder="form_message_placeholder"></textarea>
               </div>
+              <label class="consent-row">
+                <input type="checkbox" id="cf-privacy" required>
+                <span>
+                  <span data-i18n="form_privacy_label">I agree to the collection and use of personal information for inquiry handling.</span>
+                  <a href="privacy.html" target="_blank" rel="noopener" data-i18n="form_privacy_link">View Privacy Policy</a>
+                </span>
+              </label>
               <button type="submit" class="form-submit" data-i18n="form_submit">Send Inquiry</button>
             </form>
             <div class="form-success" id="formSuccess">
@@ -902,12 +1019,22 @@
     <footer>
       <div class="container">
         <div class="footer-inner">
-          <p data-i18n="footer_copy">© 2024 TBcos Co., Ltd. All rights reserved.</p>
+          <p data-i18n="footer_copy">© 2024 THREE BODY. All rights reserved.</p>
           <div class="footer-links">
             <a href="#hero" data-i18n="footer_home">Home</a>
             <a href="#about" data-i18n="footer_about">About</a>
             <a href="#contact" data-i18n="footer_contact">Contact</a>
           </div>
+        </div>
+        <div class="company-meta">
+          <p data-i18n="footer_company">THREE BODY | Representative: JEONG CHUL | Business Registration No. 651-73-00480 | Incheon, South Korea | inquiry@tb-cos.kr</p>
+          <p data-i18n="footer_note">This website is provided for company introduction, partner inquiries, and member access. Online ordering and payment are not provided on this site.</p>
+        </div>
+        <div class="legal-links">
+          <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="footer_terms">Terms of Use</a>
+          <a href="privacy-en.html" data-i18n="footer_privacy_en">Privacy Policy (EN)</a>
+          <a href="terms-en.html" data-i18n="footer_terms_en">Terms of Use (EN)</a>
         </div>
       </div>
     </footer>
@@ -922,7 +1049,7 @@
       background_color: "#f8f9fa",
       surface_color: "#ffffff",
       text_color: "#111111",
-      primary_action_color: "#111111",
+      primary_action_color: "#6b6f67",
       secondary_action_color: "#666666",
       font_family: "DM Sans",
       font_size: 16
@@ -938,9 +1065,9 @@
         hero_slogan: "Transparent Technology,\nAwakening Essential Beauty.",
         hero_subtitle: "Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.",
         hero_cta: "Start a Project",
-        about_tag: "About TBcos",
+        about_tag: "About THREE BODY",
         about_heading: "The Science Behind Beauty",
-        about_desc: "Over {years} years of cosmetics manufacturing excellence, driven by relentless R&D innovation and certified global quality standards.",
+        about_desc: "Although our journey is still young, we have continued to grow through the expertise built in cosmetics manufacturing, ongoing R&D innovation, and global quality certifications, always striving to deliver better value and continuous progress.",
         about_big_title: "Gravity-Defying Elegance",
         about_big_desc: "Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.",
         about_card1_title: "CGMP & ISO 22716",
@@ -988,13 +1115,21 @@
         form_type_other: "Other",
         form_message_label: "Message",
         form_message_placeholder: "Tell us about your project...",
+        form_privacy_label: "I agree to the collection and use of personal information for inquiry handling.",
+        form_privacy_link: "View Privacy Policy",
         form_submit: "Send Inquiry",
         success_title: "Thank you!",
         success_desc: "We've received your inquiry and will respond within 1–2 business days.",
-        footer_copy: "© 2024 TBcos Co., Ltd. All rights reserved.",
+        footer_copy: "© 2024 THREE BODY. All rights reserved.",
         footer_home: "Home",
         footer_about: "About",
         footer_contact: "Contact",
+        footer_company: "THREE BODY | Representative: JEONG CHUL | Business Registration No. 651-73-00480 | Incheon, South Korea | inquiry@tb-cos.kr",
+        footer_note: "This website is provided for company introduction, partner inquiries, and member access. Online ordering and payment are not provided on this site.",
+        footer_privacy: "Privacy Policy",
+        footer_terms: "Terms of Use",
+        footer_privacy_en: "Privacy Policy (EN)",
+        footer_terms_en: "Terms of Use (EN)",
         alert_missing_url: "Please add your Google Apps Script URL first.",
         send_loading: "Sending...",
         send_failed: "Send Failed. Try Again"
@@ -1008,15 +1143,15 @@
         hero_slogan: "투명한 기술력,\n본질을 깨우는 아름다움.",
         hero_subtitle: "투명한 기술력과 중력에 저항하는 우아함. 제형 개발부터 완제품 생산까지, 당신의 비전을 현실로 만듭니다.",
         hero_cta: "프로젝트 시작하기",
-        about_tag: "TBcos 소개",
+        about_tag: "THREE BODY 소개",
         about_heading: "아름다움 뒤에 있는 과학",
-        about_desc: "{years}년 이상의 화장품 제조 경험과 끊임없는 R&D 혁신, 그리고 글로벌 품질 인증을 바탕으로 성장해왔습니다.",
+        about_desc: "비록 짧은 시간이었지만, 화장품 제조를 통해 축적한 전문성과 끊임없는 R&D 혁신, 글로벌 품질 인증을 기반으로 성장해왔으며, 더 나은 가치와 지속적인 발전을 위해 오늘도 최선을 다하고 있습니다.",
         about_big_title: "중력에 저항하는 우아함",
         about_big_desc: "우리의 철학은 기존의 아름다움을 넘어섭니다. 가볍게 느껴지지만 깊은 결과를 전하는 포뮬러를 설계하며, 이는 수십 년의 정교한 연구를 통해 완성한 역설입니다.",
         about_card1_title: "CGMP 및 ISO 22716",
         about_card1_desc: "글로벌 화장품 안전 및 품질 기준을 충족하는 인증 제조 시설을 운영합니다.",
         about_card2_title: "R&D",
-        about_card2_desc: "TBcos는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 정교하게 개발하는 연구개발 기능을 운영합니다.",
+        about_card2_desc: "THREE BODY는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 정교하게 개발하는 연구개발 기능을 운영합니다.",
         odm_tag: "제조 솔루션",
         odm_title: "원스톱 ODM / OEM",
         odm_desc: "컨셉부터 출시까지 전 과정을 책임지는 뷰티 제조 시스템입니다. 브랜드 구축에 집중하실 수 있도록 전 단계를 지원합니다.",
@@ -1044,7 +1179,7 @@
         product4_tag: "비건 바디 케어",
         contact_tag: "문의하기",
         contact_heading: "함께 아름다운 결과를 만듭니다",
-        contact_desc: "새로운 뷰티 브랜드를 시작하든 기존 라인을 확장하든, TBcos 팀이 당신의 비전을 현실로 만들어드립니다.",
+        contact_desc: "새로운 뷰티 브랜드를 시작하든 기존 라인을 확장하든, THREE BODY 팀이 당신의 비전을 현실로 만들어드립니다.",
         contact_location: "인천, 대한민국",
         form_name_label: "이름",
         form_name_placeholder: "이름을 입력하세요",
@@ -1058,19 +1193,28 @@
         form_type_other: "기타",
         form_message_label: "메시지",
         form_message_placeholder: "프로젝트에 대해 알려주세요...",
+        form_privacy_label: "문의 처리 목적의 개인정보 수집 및 이용에 동의합니다.",
+        form_privacy_link: "개인정보처리방침 보기",
         form_submit: "문의 보내기",
         success_title: "감사합니다!",
         success_desc: "문의가 접수되었습니다. 영업일 기준 1~2일 내에 답변드리겠습니다.",
-        footer_copy: "© 2024 TBcos Co., Ltd. All rights reserved.",
+        footer_copy: "© 2024 THREE BODY. All rights reserved.",
         footer_home: "홈",
         footer_about: "회사 소개",
         footer_contact: "문의",
+        footer_company: "THREE BODY | 대표자 JEONG CHUL | 사업자등록번호 651-73-00480 | 인천, 대한민국 | inquiry@tb-cos.kr",
+        footer_note: "이 사이트는 회사 소개, 파트너 문의, 회원 접근을 위한 목적으로 운영되며 온라인 주문 및 결제 기능은 제공하지 않습니다.",
+        footer_privacy: "개인정보처리방침",
+        footer_terms: "이용약관",
+        footer_privacy_en: "개인정보처리방침 영문 참고본",
+        footer_terms_en: "이용약관 영문 참고본",
         alert_missing_url: "먼저 Google Apps Script URL을 입력해 주세요.",
         send_loading: "전송 중...",
         send_failed: "전송 실패. 다시 시도해 주세요."
       }
     };
 
+    const LANGUAGE_STORAGE_KEY = "tbcos-language";
     let currentLanguage = "en";
     const foundingYear = 2022;
 
@@ -1144,6 +1288,7 @@
       const copy = translations[language] || translations.en;
 
       document.documentElement.lang = language === "ko" ? "ko" : "en";
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
 
       document.querySelectorAll("[data-i18n]").forEach((element) => {
         const key = element.dataset.i18n;
@@ -1170,6 +1315,10 @@
       document.querySelectorAll(".lang-btn").forEach((button) => {
         button.classList.toggle("active", button.dataset.lang === language);
       });
+
+      document.dispatchEvent(new CustomEvent("tbcos:languagechange", {
+        detail: { language: currentLanguage }
+      }));
     }
 
     document.querySelectorAll(".lang-btn").forEach((button) => {
@@ -1178,7 +1327,9 @@
       });
     });
 
-    setLanguage("en");
+    const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const preferredLanguage = savedLanguage || (navigator.language && navigator.language.startsWith("ko") ? "ko" : "en");
+    setLanguage(preferredLanguage);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -1215,7 +1366,7 @@
         phone: "",
         inquiry_type: document.getElementById("cf-type").value,
         message: document.getElementById("cf-msg").value.trim(),
-        privacy_consent: "agreed",
+        privacy_consent: document.getElementById("cf-privacy").checked ? "agreed" : "not_agreed",
         source_page: window.location.href,
         user_agent: window.navigator.userAgent
       };
@@ -1243,5 +1394,6 @@
 
     lucide.createIcons();
   </script>
+  <script type="module" src="assets/js/session-ui.js"></script>
 </body>
 </html>

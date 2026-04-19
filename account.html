@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THREE BODY Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --surface: rgba(255, 255, 255, 0.84);
+      --line: rgba(17, 17, 17, 0.08);
+      --text: #111111;
+      --muted: #6c6a67;
+      --accent: #5f685e;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(173, 189, 210, 0.2), transparent 24%),
+        linear-gradient(180deg, #fbfaf8 0%, var(--bg) 100%);
+    }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+
+    .topbar a,
+    .topbar button {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      background: rgba(17, 17, 17, 0.05);
+      border-radius: 999px;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+    }
+
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 32px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px rgba(17, 17, 17, 0.06);
+      padding: 34px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(17, 17, 17, 0.44);
+      margin-bottom: 12px;
+    }
+
+    h1,
+    h2 {
+      font-family: "Noto Serif", serif;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.02;
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .stats {
+      display: grid;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .stat {
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .list {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .list-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+    }
+
+    .empty {
+      max-width: 700px;
+      margin: 70px auto 0;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 32px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 24px 60px rgba(17, 17, 17, 0.06);
+      padding: 42px 34px;
+    }
+
+    code {
+      background: rgba(17, 17, 17, 0.06);
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a href="index.html" data-i18n="common_back_to_tbcos">Back to TBcos</a>
+      <div class="topbar-meta">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <button type="button" data-signout data-i18n="common_log_out">Log Out</button>
+      </div>
+    </div>
+
+    <section id="accountEmpty" class="empty" hidden>
+      <h2 data-i18n="account_loading_title">Loading account</h2>
+      <p style="margin-top: 16px;" data-i18n="account_loading_desc">Checking your session and account details.</p>
+    </section>
+
+    <section id="accountContent" hidden>
+      <div class="grid">
+        <article class="panel">
+          <p class="eyebrow" data-i18n="account_eyebrow">Partner Account</p>
+          <h1 id="accountName">THREE BODY Partner</h1>
+          <p style="margin-top: 18px;" data-i18n="account_intro">
+            This account area is the starting point for gated documents, inquiry history, sample requests, and partner-specific resources.
+          </p>
+
+          <div class="stats">
+            <div class="stat">
+              <strong data-i18n="account_email_label">Email</strong>
+              <span id="accountEmail">-</span>
+            </div>
+            <div class="stat">
+              <strong data-i18n="account_company_label">Company</strong>
+              <span id="accountCompany">-</span>
+            </div>
+            <div class="stat">
+              <strong data-i18n="account_provider_label">Provider</strong>
+              <span id="accountProvider">-</span>
+            </div>
+            <div class="stat">
+              <strong data-i18n="account_status_label">Status</strong>
+              <span id="accountStatus">pending</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <p class="eyebrow" data-i18n="account_next_eyebrow">Next Steps</p>
+          <h2 data-i18n="account_next_heading">Recommended partner flow</h2>
+          <div class="list">
+            <div class="list-item">
+              <strong data-i18n="account_step_1_title">1. Approve buyer access</strong>
+              <p data-i18n="account_step_1_desc">Store a buyer profile in your database and move new members from pending to approved.</p>
+            </div>
+            <div class="list-item">
+              <strong data-i18n="account_step_2_title">2. Gate internal materials</strong>
+              <p data-i18n="account_step_2_desc">Add protected pages for decks, brand kits, product catalogs, or distributor documents.</p>
+            </div>
+            <div class="list-item">
+              <strong data-i18n="account_step_3_title">3. Connect inquiries</strong>
+              <p data-i18n="account_step_3_desc">Link inquiry history to the signed-in partner so repeat conversations stay organized.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="assets/js/account-page.js"></script>
+</body>
+</html>
