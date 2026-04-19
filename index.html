@@ -1,270 +1,1247 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en" style="height:100%">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LAB:ON COSMETICS | 화장품 주문제작 전문</title>
-  <meta
-    name="description"
-    content="한국 화장품 OEM·ODM·브랜드 개발 전문 기업. 기획부터 제형 개발, 디자인, 생산, 납품까지 원스톱으로 지원합니다."
+  <title>TBcos — Gravity-Defying Elegance</title>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet"
   >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=SUIT:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      height: 100%;
+      font-family: "DM Sans", sans-serif;
+      background: #f8f9fa;
+      color: #111;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #111111;
+      --text-secondary: #666666;
+      --accent: #111111;
+      --radius: 20px;
+      --container: 1120px;
+    }
+
+    .site-wrap {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(248, 249, 250, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: background 0.3s;
+    }
+
+    .nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      display: block;
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      background: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-mobile-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 20px;
+    }
+
+    .lang-btn {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.65);
+      color: var(--text-secondary);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .nav-mobile-menu.open {
+      display: flex;
+    }
+
+    .nav-mobile-menu a {
+      font-size: 24px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .nav-mobile-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(200, 200, 220, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: "Noto Serif", serif;
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: -0.2px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: "Noto Serif", serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .bento {
+      display: grid;
+      gap: 16px;
+    }
+
+    .bento-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 36px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    .bento-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .bento-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .bento-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .odm-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .odm-step-num {
+      font-family: "Noto Serif", serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.08);
+      margin-bottom: 12px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .about-card-big {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      padding: 48px;
+    }
+
+    .about-card-big .about-text {
+      flex: 1;
+    }
+
+    .about-visual {
+      flex: 1;
+      height: 220px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #e8e8ec, #d4d4db);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.15) 10px,
+        rgba(255, 255, 255, 0.15) 12px
+      );
+    }
+
+    .about-visual-text {
+      font-family: "Noto Serif", serif;
+      font-size: 28px;
+      color: rgba(0, 0, 0, 0.12);
+      letter-spacing: -1px;
+      font-weight: 400;
+    }
+
+    .showroom-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .product-card {
+      background: var(--product-bg, var(--surface));
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    .product-img {
+      height: 280px;
+      background: var(--product-bg, linear-gradient(160deg, #ededf0, #dddde2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-img::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      filter: blur(40px);
+    }
+
+    .product-emoji {
+      font-size: 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.14));
+    }
+
+    .product-info {
+      padding: 28px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .product-info h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 0;
+      letter-spacing: -0.3px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+    }
+
+    .product-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .contact-form {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.1px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--text);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 100px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .form-success.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .form-success i {
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spin-icon {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-inner p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none !important; }
+      .lang-switcher { display: none; }
+      .nav-mobile-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      .odm-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-card-big {
+        flex-direction: column;
+        padding: 32px;
+      }
+      .showroom-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .odm-grid { grid-template-columns: 1fr; }
+      .hero { padding: 120px 0 64px; }
+      .product-img {
+        height: 320px;
+      }
+      .product-photo {
+        object-fit: contain;
+        padding: 18px;
+      }
+    }
+  </style>
 </head>
-<body>
-  <div class="page-shell">
-    <header class="site-header">
-      <div class="brand-mark">
-        <span class="brand-dot"></span>
-        <span class="brand-name">LAB:ON COSMETICS</span>
+<body style="height:100%">
+  <div class="site-wrap" id="app">
+    <nav>
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo" aria-label="TBcos home">
+          <img src="assets/tbcos-logo.jpg" alt="TBcos Cosmetics logo">
+        </a>
+        <ul class="nav-links">
+          <li><a href="#about" data-i18n="nav_about">About</a></li>
+          <li><a href="#odm" data-i18n="nav_odm">ODM / OEM</a></li>
+          <li><a href="#showroom" data-i18n="nav_brand">LUXFOLLICLE</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <button class="nav-mobile-btn" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
+          <i data-lucide="menu" style="width:24px;height:24px"></i>
+        </button>
       </div>
-      <nav class="site-nav">
-        <a href="#about">회사소개</a>
-        <a href="#services">서비스</a>
-        <a href="#products">제품군</a>
-        <a href="#process">진행절차</a>
-        <a href="#contact">문의</a>
-      </nav>
-      <a class="nav-cta" href="#contact">상담 요청</a>
+    </nav>
+
+    <div class="nav-mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+      <button class="nav-mobile-close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">
+        <i data-lucide="x" style="width:28px;height:28px"></i>
+      </button>
+      <button type="button" class="lang-btn active" data-lang="en" style="position:absolute;top:22px;left:24px;">EN</button>
+      <button type="button" class="lang-btn" data-lang="ko" style="position:absolute;top:22px;left:80px;">KR</button>
+      <a href="#about" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_about">About</a>
+      <a href="#odm" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_odm">ODM / OEM</a>
+      <a href="#showroom" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_brand">LUXFOLLICLE</a>
+      <a href="#contact" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_contact">Contact</a>
+    </div>
+
+    <header class="hero" id="hero">
+      <div class="container">
+        <p class="hero-eyebrow reveal" id="heroEyebrow" data-i18n="hero_eyebrow">Since 2022 · South Korea</p>
+        <h1 class="reveal" id="heroSlogan">Transparent Technology,<br>Awakening Essential Beauty.</h1>
+        <p class="hero-sub reveal" id="heroSubtitle">Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.</p>
+        <a href="#contact" class="hero-cta reveal">
+          <span data-i18n="hero_cta">Start a Project</span>
+          <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
+        </a>
+      </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">K-BEAUTY OEM / ODM / PRIVATE LABEL</p>
-          <h1>브랜드의 아이디어를<br>시장에 통하는 화장품으로 만듭니다.</h1>
-          <p class="hero-text">
-            스킨케어와 바디케어, 기능성 화장품까지. 한국에서 주문제작과 판매를 진행하는
-            브랜드를 위해 기획, 제형 개발, 디자인 협업, 생산, 납품까지 한 번에 연결합니다.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#contact">제품 상담하기</a>
-            <a class="button button-secondary" href="#products">제품군 보기</a>
+    <section id="about">
+      <div class="container">
+        <p class="section-tag reveal" data-i18n="about_tag">About TBcos</p>
+        <h2 class="section-title reveal" id="aboutHeading">The Science Behind Beauty</h2>
+        <p class="section-desc reveal" id="aboutDesc" data-i18n="about_desc">Over 4 years of cosmetics manufacturing excellence, driven by relentless R&amp;D innovation and certified global quality standards.</p>
+        <div class="bento about-grid">
+          <div class="bento-card about-card-big reveal">
+            <div class="about-text">
+              <h3 style="font-size:22px;margin-bottom:12px" data-i18n="about_big_title">Gravity-Defying Elegance</h3>
+              <p style="color:var(--text-secondary);line-height:1.7;font-size:15px" data-i18n="about_big_desc">Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.</p>
+            </div>
+            <div class="about-visual">
+              <span class="about-visual-text">TBcos R&amp;D</span>
+            </div>
           </div>
-          <ul class="hero-metrics">
-            <li>
-              <strong>One-stop</strong>
-              <span>기획부터 생산까지</span>
-            </li>
-            <li>
-              <strong>Flexible MOQ</strong>
-              <span>브랜드 규모에 맞춘 제안</span>
-            </li>
-            <li>
-              <strong>Fast Launch</strong>
-              <span>출시 일정에 맞춘 운영</span>
-            </li>
-          </ul>
-        </div>
-        <div class="hero-panel">
-          <div class="feature-card large">
-            <p class="card-label">핵심 제안</p>
-            <h2>시장성과 브랜드 톤을 함께 설계하는 제조 파트너</h2>
-            <p>
-              단순 생산이 아닌, 판매 채널과 타깃 고객을 고려한 제품 개발로 브랜드 경쟁력을 높입니다.
-            </p>
+          <div class="bento-card reveal reveal-delay-1">
+            <div class="bento-icon">
+              <i data-lucide="shield-check" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="about_card1_title">CGMP &amp; ISO 22716</h3>
+            <p data-i18n="about_card1_desc">Certified manufacturing facilities meeting the highest global cosmetics safety and quality benchmarks.</p>
           </div>
-          <div class="feature-grid">
-            <article class="feature-card">
-              <p class="card-label">Formula</p>
-              <h3>제형 개발</h3>
-              <p>텍스처, 향, 효능 방향에 맞춘 맞춤 설계</p>
-            </article>
-            <article class="feature-card">
-              <p class="card-label">Design</p>
-              <h3>패키지 연계</h3>
-              <p>용기, 단상자, 라벨 방향성까지 협업</p>
-            </article>
-            <article class="feature-card">
-              <p class="card-label">Launch</p>
-              <h3>출시 대응</h3>
-              <p>납기와 판매 일정 중심의 현실적인 진행</p>
-            </article>
+          <div class="bento-card reveal reveal-delay-2">
+            <div class="bento-icon">
+              <i data-lucide="microscope" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="about_card2_title">Advanced R&amp;D Centre</h3>
+            <p data-i18n="about_card2_desc">Dedicated research lab with 30+ formulation scientists developing cutting-edge skincare and haircare technologies.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="about section" id="about">
-        <div class="section-heading">
-          <p class="eyebrow">ABOUT US</p>
-          <h2>브랜드의 성장을 함께 설계하는 화장품 제조 파트너</h2>
+    <section id="odm" style="background:var(--surface)">
+      <div class="container">
+        <p class="section-tag reveal" data-i18n="odm_tag">Manufacturing Solutions</p>
+        <h2 class="section-title reveal" data-i18n="odm_title">One-Stop ODM / OEM</h2>
+        <p class="section-desc reveal" data-i18n="odm_desc">End-to-end beauty manufacturing — from concept to shelf. We handle every step so you can focus on building your brand.</p>
+        <div class="bento odm-grid">
+          <div class="bento-card reveal">
+            <div class="odm-step-num">01</div>
+            <div class="bento-icon">
+              <i data-lucide="search" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="odm_card1_title">Market Research</h3>
+            <p data-i18n="odm_card1_desc">Trend analysis and competitive landscape insights tailored to your target demographic.</p>
+          </div>
+          <div class="bento-card reveal reveal-delay-1">
+            <div class="odm-step-num">02</div>
+            <div class="bento-icon">
+              <i data-lucide="flask-conical" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="odm_card2_title">Formulation R&amp;D</h3>
+            <p data-i18n="odm_card2_desc">Custom formula development with rigorous stability testing and efficacy validation.</p>
+          </div>
+          <div class="bento-card reveal reveal-delay-2">
+            <div class="odm-step-num">03</div>
+            <div class="bento-icon">
+              <i data-lucide="palette" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="odm_card3_title">Packaging Design</h3>
+            <p data-i18n="odm_card3_desc">Full creative direction — from primary containers to secondary packaging and retail displays.</p>
+          </div>
+          <div class="bento-card reveal reveal-delay-3">
+            <div class="odm-step-num">04</div>
+            <div class="bento-icon">
+              <i data-lucide="package-check" style="width:22px;height:22px"></i>
+            </div>
+            <h3 data-i18n="odm_card4_title">QC &amp; Fulfillment</h3>
+            <p data-i18n="odm_card4_desc">Rigorous quality control at every stage with global logistics coordination for seamless delivery.</p>
+          </div>
         </div>
-        <div class="about-grid">
-          <article>
-            <h3>브랜드 맞춤 개발</h3>
-            <p>
-              신생 브랜드부터 유통 확장 단계의 기업까지, 목표 가격대와 고객층, 채널 전략에 맞춘 제품 구성을 제안합니다.
-            </p>
-          </article>
-          <article>
-            <h3>한국 생산 기반</h3>
-            <p>
-              K-Beauty 품질 기준을 바탕으로 안정적인 생산 환경과 커뮤니케이션을 제공해 국내외 판매 준비를 돕습니다.
-            </p>
-          </article>
-          <article>
-            <h3>판매 중심 접근</h3>
-            <p>
-              예쁜 제품을 넘어서 실제 판매에 유리한 제형, 구성, 패키지 포인트를 함께 고민합니다.
-            </p>
-          </article>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="services section" id="services">
-        <div class="section-heading split">
+    <section id="showroom">
+      <div class="container">
+        <p class="section-tag reveal" data-i18n="brand_tag">Our Brand</p>
+        <h2 class="section-title reveal">LUXFOLLICLE</h2>
+        <p class="section-desc reveal" data-i18n="brand_desc">LUXFOLLICLE currently features four signature products spanning anti-hair-loss care, protein repair, and vegan body hydration.</p>
+        <div class="showroom-grid">
+          <div class="product-card reveal" style="--product-bg:linear-gradient(160deg,#edf1f6,#dde4ee)">
+            <div class="product-img">
+              <img class="product-photo" src="assets/products/luxfollicle-anti-hair-loss-shampoo.png" alt="Luxfollicle Anti Hair Loss Shampoo bottle">
+            </div>
+            <div class="product-info">
+              <h3 data-i18n="product1_title">Anti Hair Loss Shampoo</h3>
+              <p data-i18n="product1_desc">A 500ml follicle-care shampoo designed to cleanse the scalp, supply nutrients, and help relieve hair-loss symptoms while promoting stronger, fuller-looking hair.</p>
+              <span class="product-tag" data-i18n="product1_tag">500ml · Follicle Care</span>
+            </div>
+          </div>
+          <div class="product-card reveal reveal-delay-1" style="--product-bg:linear-gradient(160deg,#e6e8f0,#d2d4de)">
+            <div class="product-img">
+              <img class="product-photo" src="assets/products/luxfollicle-anti-hair-loss-ampoule.png" alt="Luxfollicle Anti Hair Loss Ampoule bottle">
+            </div>
+            <div class="product-info">
+              <h3 data-i18n="product2_title">Anti Hair Loss Ampoule</h3>
+              <p data-i18n="product2_desc">A 50ml intensive scalp ampoule for all hair types, including sensitive scalps, formulated to build a healthier scalp environment and strengthen hair from the root.</p>
+              <span class="product-tag" data-i18n="product2_tag">50ml · Scalp Ampoule</span>
+            </div>
+          </div>
+          <div class="product-card reveal reveal-delay-2" style="--product-bg:linear-gradient(160deg,#eae8e4,#dbd8d2)">
+            <div class="product-img">
+              <img class="product-photo" src="assets/products/luxfollicle-silka-shampoo.png" alt="Luxfollicle Silka Shampoo bottle">
+            </div>
+            <div class="product-info">
+              <h3 data-i18n="product3_title">Silka Shampoo</h3>
+              <p data-i18n="product3_desc">A 400ml protein-intensive, volume-care shampoo for dry and damaged hair, using a mild pH 5-6 formula to cleanse gently while restoring softness and shine.</p>
+              <span class="product-tag" data-i18n="product3_tag">400ml · Protein Care</span>
+            </div>
+          </div>
+          <div class="product-card reveal reveal-delay-3" style="--product-bg:linear-gradient(160deg,#e7efe9,#d6e4db)">
+            <div class="product-img">
+              <img class="product-photo" src="assets/products/luxfollicle-chockchock-body-lotion.png" alt="Luxfollicle Chockchock Body Lotion bottle">
+            </div>
+            <div class="product-info">
+              <h3 data-i18n="product4_title">Chockchock Body Lotion</h3>
+              <p data-i18n="product4_desc">A 400ml 100% vegan body lotion created for dry, weakened, or sensitive skin, delivering hydration, calming care, and barrier support through skin-friendly ingredients.</p>
+              <span class="product-tag" data-i18n="product4_tag">400ml · Vegan Body Care</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="background:var(--surface)">
+      <div class="container">
+        <div class="contact-wrap">
           <div>
-            <p class="eyebrow">SERVICES</p>
-            <h2>이런 서비스를 제공합니다</h2>
-          </div>
-          <p class="section-text">
-            브랜드 론칭 단계에서 필요한 핵심 업무를 연결해, 실행 속도와 완성도를 동시에 챙길 수 있도록 구성했습니다.
-          </p>
-        </div>
-        <div class="service-cards">
-          <article class="service-card accent">
-            <span>01</span>
-            <h3>OEM / ODM 생산</h3>
-            <p>기획안 기반 생산부터 제형 제안형 개발까지 브랜드 상황에 맞게 대응합니다.</p>
-          </article>
-          <article class="service-card">
-            <span>02</span>
-            <h3>브랜드 기획 지원</h3>
-            <p>시장 포지셔닝, 주력 상품 구성, 초기 론칭 SKU 방향을 함께 정리합니다.</p>
-          </article>
-          <article class="service-card">
-            <span>03</span>
-            <h3>패키지/부자재 연계</h3>
-            <p>용기, 펌프, 라벨, 단상자 등 제품 인상에 영향을 주는 요소를 함께 검토합니다.</p>
-          </article>
-          <article class="service-card">
-            <span>04</span>
-            <h3>기능성 및 콘셉트 제안</h3>
-            <p>미백, 주름, 진정, 보습 등 원하는 방향에 맞춘 콘셉트 구성을 제시합니다.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="products section" id="products">
-        <div class="section-heading">
-          <p class="eyebrow">PRODUCT CATEGORIES</p>
-          <h2>주문제작 가능한 주요 제품군</h2>
-        </div>
-        <div class="product-grid">
-          <article class="product-card">
-            <h3>스킨케어</h3>
-            <p>토너, 세럼, 크림, 앰플, 미스트, 클렌저</p>
-          </article>
-          <article class="product-card">
-            <h3>기능성 케어</h3>
-            <p>미백, 주름개선, 진정, 수분 장벽 중심 포뮬라</p>
-          </article>
-          <article class="product-card">
-            <h3>바디 & 헤어</h3>
-            <p>바디워시, 바디로션, 샴푸, 트리트먼트, 미스트</p>
-          </article>
-          <article class="product-card">
-            <h3>시즌/트렌드 제품</h3>
-            <p>선케어, 마스크팩, 비건 콘셉트, 저자극 라인</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="process section" id="process">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">PROCESS</p>
-            <h2>진행 절차는 명확하고 간결하게</h2>
-          </div>
-          <p class="section-text">
-            복잡한 제조 과정을 브랜드 입장에서 이해하기 쉽게 정리해, 상담 이후 실행까지 빠르게 이어지도록 설계했습니다.
-          </p>
-        </div>
-        <div class="timeline">
-          <article>
-            <span>STEP 1</span>
-            <h3>상담 및 니즈 파악</h3>
-            <p>원하는 제품군, 판매 채널, 목표 가격대, 일정 등을 확인합니다.</p>
-          </article>
-          <article>
-            <span>STEP 2</span>
-            <h3>제안 및 방향 설정</h3>
-            <p>제형 방향, 패키지, MOQ, 예상 일정 등 현실적인 개발 범위를 안내합니다.</p>
-          </article>
-          <article>
-            <span>STEP 3</span>
-            <h3>샘플 및 확정</h3>
-            <p>샘플 검토 후 수정 사항을 반영하고 최종 사양을 확정합니다.</p>
-          </article>
-          <article>
-            <span>STEP 4</span>
-            <h3>생산 및 납품</h3>
-            <p>일정에 맞춰 생산을 진행하고 출시에 필요한 납품까지 마무리합니다.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="showcase section">
-        <div class="showcase-panel">
-          <p class="eyebrow">WHY US</p>
-          <h2>이런 브랜드에 특히 잘 맞습니다</h2>
-          <div class="showcase-list">
-            <div>
-              <strong>처음 화장품 브랜드를 시작하는 경우</strong>
-              <p>제조 경험이 없어도 상담부터 출시까지 흐름을 이해하기 쉽게 도와드립니다.</p>
+            <p class="section-tag reveal" data-i18n="contact_tag">Get In Touch</p>
+            <h2 class="section-title reveal" id="contactHeading">Let's Build Something Beautiful</h2>
+            <p class="section-desc reveal" data-i18n="contact_desc">Whether you're launching a new beauty brand or scaling an existing line, our team is ready to bring your vision to reality.</p>
+            <div class="reveal" style="margin-top:32px">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                <i data-lucide="map-pin" style="width:18px;height:18px;color:var(--text-secondary)"></i>
+                <span style="font-size:14px;color:var(--text-secondary)" data-i18n="contact_location">Incheon, South Korea</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <i data-lucide="mail" style="width:18px;height:18px;color:var(--text-secondary)"></i>
+                <span style="font-size:14px;color:var(--text-secondary)">inquiry@tb-cos.kr</span>
+              </div>
             </div>
-            <div>
-              <strong>기존 판매 제품을 확장하려는 경우</strong>
-              <p>잘 팔리는 카테고리를 중심으로 라인업 확장 전략을 제안합니다.</p>
-            </div>
-            <div>
-              <strong>차별화된 콘셉트가 필요한 경우</strong>
-              <p>브랜드 스토리와 고객 반응을 고려해 기억에 남는 제품 방향을 함께 정리합니다.</p>
+          </div>
+          <div class="contact-form reveal" id="contactFormWrap">
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+              <div class="form-group">
+                <label for="cf-name" data-i18n="form_name_label">Full Name</label>
+                <input type="text" id="cf-name" placeholder="Your name" data-i18n-placeholder="form_name_placeholder" required>
+              </div>
+              <div class="form-group">
+                <label for="cf-email" data-i18n="form_email_label">Email Address</label>
+                <input type="email" id="cf-email" placeholder="you@company.com" data-i18n-placeholder="form_email_placeholder" required>
+              </div>
+              <div class="form-group">
+                <label for="cf-company" data-i18n="form_company_label">Company</label>
+                <input type="text" id="cf-company" placeholder="Company name" data-i18n-placeholder="form_company_placeholder">
+              </div>
+              <div class="form-group">
+                <label for="cf-type" data-i18n="form_type_label">Inquiry Type</label>
+                <select id="cf-type">
+                  <option value="odm" data-i18n="form_type_odm">ODM / OEM Partnership</option>
+                  <option value="dist" data-i18n="form_type_dist">Distribution</option>
+                  <option value="other" data-i18n="form_type_other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cf-msg" data-i18n="form_message_label">Message</label>
+                <textarea id="cf-msg" placeholder="Tell us about your project..." data-i18n-placeholder="form_message_placeholder"></textarea>
+              </div>
+              <button type="submit" class="form-submit" data-i18n="form_submit">Send Inquiry</button>
+            </form>
+            <div class="form-success" id="formSuccess">
+              <i data-lucide="check-circle" style="width:48px;height:48px"></i>
+              <h3 style="font-size:20px;margin-top:12px;margin-bottom:8px" data-i18n="success_title">Thank you!</h3>
+              <p style="color:var(--text-secondary);font-size:14px" data-i18n="success_desc">We've received your inquiry and will respond within 1–2 business days.</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="contact section" id="contact">
-        <div class="contact-copy">
-          <p class="eyebrow">CONTACT</p>
-          <h2>브랜드에 맞는 제품 제작을 상담해보세요</h2>
-          <p>
-            실제 운영 정보로 바꾸기 쉬운 예시 연락처를 넣어두었습니다. 브랜드명, 전화번호, 이메일, 주소만 교체하면 바로 사용할 수 있습니다.
-          </p>
-          <div class="contact-details">
-            <p><strong>Tel.</strong> 02-1234-5678</p>
-            <p><strong>Email.</strong> hello@laboncosmetics.kr</p>
-            <p><strong>Office.</strong> Seoul, Korea</p>
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <p data-i18n="footer_copy">© 2024 TBcos Co., Ltd. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#hero" data-i18n="footer_home">Home</a>
+            <a href="#about" data-i18n="footer_about">About</a>
+            <a href="#contact" data-i18n="footer_contact">Contact</a>
           </div>
         </div>
-
-        <form class="contact-form">
-          <label>
-            브랜드명
-            <input type="text" placeholder="브랜드 또는 회사명">
-          </label>
-          <label>
-            연락처
-            <input type="text" placeholder="전화번호 또는 이메일">
-          </label>
-          <label>
-            제품 유형
-            <input type="text" placeholder="예: 세럼, 크림, 선케어">
-          </label>
-          <label>
-            문의 내용
-            <textarea rows="5" placeholder="원하는 제품 방향, 예상 수량, 일정 등을 적어주세요"></textarea>
-          </label>
-          <button type="button" class="button button-primary" id="inquiryButton">문의 남기기</button>
-          <p class="form-note" id="formNote">현재는 데모 화면입니다. 실제 접수 기능은 이메일, 폼 서비스, 서버 연동으로 추가할 수 있습니다.</p>
-        </form>
-      </section>
-    </main>
+      </div>
+    </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const defaultConfig = {
+      hero_slogan: "Transparent Technology,\nAwakening Essential Beauty.",
+      hero_subtitle: "Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.",
+      about_heading: "The Science Behind Beauty",
+      contact_heading: "Let's Build Something Beautiful",
+      background_color: "#f8f9fa",
+      surface_color: "#ffffff",
+      text_color: "#111111",
+      primary_action_color: "#111111",
+      secondary_action_color: "#666666",
+      font_family: "DM Sans",
+      font_size: 16
+    };
+
+    const translations = {
+      en: {
+        nav_about: "About",
+        nav_odm: "ODM / OEM",
+        nav_brand: "LUXFOLLICLE",
+        nav_contact: "Contact",
+        hero_eyebrow: "Since 2022 · South Korea",
+        hero_slogan: "Transparent Technology,\nAwakening Essential Beauty.",
+        hero_subtitle: "Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.",
+        hero_cta: "Start a Project",
+        about_tag: "About TBcos",
+        about_heading: "The Science Behind Beauty",
+        about_desc: "Over {years} years of cosmetics manufacturing excellence, driven by relentless R&D innovation and certified global quality standards.",
+        about_big_title: "Gravity-Defying Elegance",
+        about_big_desc: "Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.",
+        about_card1_title: "CGMP & ISO 22716",
+        about_card1_desc: "Certified manufacturing facilities meeting the highest global cosmetics safety and quality benchmarks.",
+        about_card2_title: "R&D",
+        about_card2_desc: "A dedicated R&D function focused on developing refined skincare and haircare formulations aligned with modern beauty standards.",
+        odm_tag: "Manufacturing Solutions",
+        odm_title: "One-Stop ODM / OEM",
+        odm_desc: "End-to-end beauty manufacturing — from concept to shelf. We handle every step so you can focus on building your brand.",
+        odm_card1_title: "Market Research",
+        odm_card1_desc: "Trend analysis and competitive landscape insights tailored to your target demographic.",
+        odm_card2_title: "Formulation R&D",
+        odm_card2_desc: "Custom formula development with rigorous stability testing and efficacy validation.",
+        odm_card3_title: "Packaging Design",
+        odm_card3_desc: "Full creative direction — from primary containers to secondary packaging and retail displays.",
+        odm_card4_title: "QC & Fulfillment",
+        odm_card4_desc: "Rigorous quality control at every stage with global logistics coordination for seamless delivery.",
+        brand_tag: "Our Brand",
+        brand_desc: "LUXFOLLICLE currently features four signature products across scalp care, repair care, and vegan body care.",
+        product1_title: "Anti Hair Loss Shampoo",
+        product1_desc: "Functional scalp shampoo that helps cleanse, nourish, and support fuller, stronger-looking hair.",
+        product1_tag: "Follicle Care",
+        product2_title: "Anti Hair Loss Ampoule",
+        product2_desc: "Intensive scalp ampoule designed to calm the scalp environment and strengthen hair from the root.",
+        product2_tag: "Scalp Ampoule",
+        product3_title: "Silka Shampoo",
+        product3_desc: "Protein-focused shampoo for dry, damaged hair that helps restore softness, shine, and gentle volume.",
+        product3_tag: "Protein Care",
+        product4_title: "Chockchock Body Lotion",
+        product4_desc: "Vegan body lotion that delivers daily hydration, calming comfort, and barrier-friendly moisture care.",
+        product4_tag: "Vegan Body Care",
+        contact_tag: "Get In Touch",
+        contact_heading: "Let's Build Something Beautiful",
+        contact_desc: "Whether you're launching a new beauty brand or scaling an existing line, our team is ready to bring your vision to reality.",
+        contact_location: "Incheon, South Korea",
+        form_name_label: "Full Name",
+        form_name_placeholder: "Your name",
+        form_email_label: "Email Address",
+        form_email_placeholder: "you@company.com",
+        form_company_label: "Company",
+        form_company_placeholder: "Company name",
+        form_type_label: "Inquiry Type",
+        form_type_odm: "ODM / OEM Partnership",
+        form_type_dist: "Distribution",
+        form_type_other: "Other",
+        form_message_label: "Message",
+        form_message_placeholder: "Tell us about your project...",
+        form_submit: "Send Inquiry",
+        success_title: "Thank you!",
+        success_desc: "We've received your inquiry and will respond within 1–2 business days.",
+        footer_copy: "© 2024 TBcos Co., Ltd. All rights reserved.",
+        footer_home: "Home",
+        footer_about: "About",
+        footer_contact: "Contact",
+        alert_missing_url: "Please add your Google Apps Script URL first.",
+        send_loading: "Sending...",
+        send_failed: "Send Failed. Try Again"
+      },
+      ko: {
+        nav_about: "회사 소개",
+        nav_odm: "ODM / OEM",
+        nav_brand: "럭스폴리클",
+        nav_contact: "문의",
+        hero_eyebrow: "2022년 설립 · 대한민국",
+        hero_slogan: "투명한 기술력,\n본질을 깨우는 아름다움.",
+        hero_subtitle: "투명한 기술력과 중력에 저항하는 우아함. 제형 개발부터 완제품 생산까지, 당신의 비전을 현실로 만듭니다.",
+        hero_cta: "프로젝트 시작하기",
+        about_tag: "TBcos 소개",
+        about_heading: "아름다움 뒤에 있는 과학",
+        about_desc: "{years}년 이상의 화장품 제조 경험과 끊임없는 R&D 혁신, 그리고 글로벌 품질 인증을 바탕으로 성장해왔습니다.",
+        about_big_title: "중력에 저항하는 우아함",
+        about_big_desc: "우리의 철학은 기존의 아름다움을 넘어섭니다. 가볍게 느껴지지만 깊은 결과를 전하는 포뮬러를 설계하며, 이는 수십 년의 정교한 연구를 통해 완성한 역설입니다.",
+        about_card1_title: "CGMP 및 ISO 22716",
+        about_card1_desc: "글로벌 화장품 안전 및 품질 기준을 충족하는 인증 제조 시설을 운영합니다.",
+        about_card2_title: "R&D",
+        about_card2_desc: "TBcos는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 정교하게 개발하는 연구개발 기능을 운영합니다.",
+        odm_tag: "제조 솔루션",
+        odm_title: "원스톱 ODM / OEM",
+        odm_desc: "컨셉부터 출시까지 전 과정을 책임지는 뷰티 제조 시스템입니다. 브랜드 구축에 집중하실 수 있도록 전 단계를 지원합니다.",
+        odm_card1_title: "시장 조사",
+        odm_card1_desc: "타깃 고객층에 맞춘 트렌드 분석과 경쟁 환경 인사이트를 제공합니다.",
+        odm_card2_title: "제형 연구개발",
+        odm_card2_desc: "안정성 테스트와 효능 검증을 포함한 맞춤형 포뮬러를 개발합니다.",
+        odm_card3_title: "패키지 디자인",
+        odm_card3_desc: "1차 용기부터 2차 패키지와 리테일 디스플레이까지 전반적인 크리에이티브 방향을 제안합니다.",
+        odm_card4_title: "품질관리 및 출고",
+        odm_card4_desc: "전 단계 품질관리와 글로벌 물류 조율을 통해 안정적인 납품을 지원합니다.",
+        brand_tag: "자사 브랜드",
+        brand_desc: "LUXFOLLICLE은 현재 두피 케어, 리페어 케어, 비건 바디 케어를 아우르는 4종의 대표 제품으로 구성되어 있습니다.",
+        product1_title: "럭스폴리클 안티 헤어 로스 샴푸",
+        product1_desc: "두피를 깨끗하게 세정하고 영양을 공급해 더욱 건강하고 풍성한 모발 인상을 돕는 기능성 샴푸입니다.",
+        product1_tag: "모낭 케어",
+        product2_title: "럭스폴리클 안티 헤어 로스 앰플",
+        product2_desc: "두피 환경을 편안하게 정돈하고 모근부터 탄탄하게 가꿔주는 집중 케어 앰플입니다.",
+        product2_tag: "두피 앰플",
+        product3_title: "럭스폴리클 실카 샴푸",
+        product3_desc: "건조하고 손상된 모발을 부드럽고 윤기 있게 정돈해주는 단백질 중심 샴푸입니다.",
+        product3_tag: "단백질 케어",
+        product4_title: "럭스폴리클 촉촉 바디로션",
+        product4_desc: "건조하고 예민한 피부에 수분과 진정감을 더해주는 비건 바디 보습 로션입니다.",
+        product4_tag: "비건 바디 케어",
+        contact_tag: "문의하기",
+        contact_heading: "함께 아름다운 결과를 만듭니다",
+        contact_desc: "새로운 뷰티 브랜드를 시작하든 기존 라인을 확장하든, TBcos 팀이 당신의 비전을 현실로 만들어드립니다.",
+        contact_location: "인천, 대한민국",
+        form_name_label: "이름",
+        form_name_placeholder: "이름을 입력하세요",
+        form_email_label: "이메일 주소",
+        form_email_placeholder: "you@company.com",
+        form_company_label: "회사명",
+        form_company_placeholder: "회사명을 입력하세요",
+        form_type_label: "문의 유형",
+        form_type_odm: "ODM / OEM 파트너십",
+        form_type_dist: "유통",
+        form_type_other: "기타",
+        form_message_label: "메시지",
+        form_message_placeholder: "프로젝트에 대해 알려주세요...",
+        form_submit: "문의 보내기",
+        success_title: "감사합니다!",
+        success_desc: "문의가 접수되었습니다. 영업일 기준 1~2일 내에 답변드리겠습니다.",
+        footer_copy: "© 2024 TBcos Co., Ltd. All rights reserved.",
+        footer_home: "홈",
+        footer_about: "회사 소개",
+        footer_contact: "문의",
+        alert_missing_url: "먼저 Google Apps Script URL을 입력해 주세요.",
+        send_loading: "전송 중...",
+        send_failed: "전송 실패. 다시 시도해 주세요."
+      }
+    };
+
+    let currentLanguage = "en";
+    const foundingYear = 2022;
+
+    function getYearsInBusiness() {
+      const currentYear = new Date().getFullYear();
+      return Math.max(1, currentYear - foundingYear);
+    }
+
+    function formatTranslation(value) {
+      return String(value).replaceAll("{years}", getYearsInBusiness());
+    }
+
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyT-n-EMpEvjU0Yo8ZMIZ1xAEFb-b7C5MyS7gv-Xscdu2ZDQ0oeFVEmegSPWkHTQH_g/exec";
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+
+      const heroEl = document.getElementById("heroSlogan");
+      if (heroEl) heroEl.innerHTML = (c.hero_slogan || defaultConfig.hero_slogan).replace(/\n/g, "<br>");
+
+      const heroSub = document.getElementById("heroSubtitle");
+      if (heroSub) heroSub.textContent = c.hero_subtitle || defaultConfig.hero_subtitle;
+
+      const aboutH = document.getElementById("aboutHeading");
+      if (aboutH) aboutH.textContent = c.about_heading || defaultConfig.about_heading;
+
+      const contactH = document.getElementById("contactHeading");
+      if (contactH) contactH.textContent = c.contact_heading || defaultConfig.contact_heading;
+
+      const root = document.documentElement;
+      root.style.setProperty("--bg", c.background_color);
+      root.style.setProperty("--surface", c.surface_color);
+      root.style.setProperty("--text", c.text_color);
+      root.style.setProperty("--accent", c.primary_action_color);
+
+      document.querySelectorAll(".hero-cta, .form-submit").forEach((el) => {
+        el.style.backgroundColor = c.primary_action_color;
+        el.style.color = c.background_color;
+      });
+
+      document.querySelectorAll(".section-tag, .nav-links a, .product-info p, .section-desc, .hero-sub").forEach((el) => {
+        el.style.color = c.secondary_action_color;
+      });
+
+      document.querySelectorAll(".section-title, .hero h1, .bento-card h3, .product-info h3, .nav-logo").forEach((el) => {
+        el.style.color = c.text_color;
+      });
+
+      document.querySelectorAll("#odm, #contact").forEach((el) => {
+        el.style.background = c.surface_color;
+      });
+
+      document.querySelector(".site-wrap").style.background = c.background_color;
+
+      const ff = c.font_family || defaultConfig.font_family;
+      const baseStack = `${ff}, 'DM Sans', sans-serif`;
+      document.body.style.fontFamily = baseStack;
+
+      const bs = c.font_size || defaultConfig.font_size;
+      document.querySelectorAll(".hero-sub, .section-desc, .bento-card p, .product-info p").forEach((el) => {
+        el.style.fontSize = `${bs}px`;
+      });
+
+      document.querySelectorAll(".bento-card h3, .product-info h3").forEach((el) => {
+        el.style.fontSize = `${bs * 1.125}px`;
+      });
+    }
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      const copy = translations[language] || translations.en;
+
+      document.documentElement.lang = language === "ko" ? "ko" : "en";
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (copy[key]) {
+          element.textContent = formatTranslation(copy[key]);
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+        const key = element.dataset.i18nPlaceholder;
+        if (copy[key]) {
+          element.placeholder = formatTranslation(copy[key]);
+        }
+      });
+
+      applyConfig({
+        ...defaultConfig,
+        hero_slogan: formatTranslation(copy.hero_slogan),
+        hero_subtitle: formatTranslation(copy.hero_subtitle),
+        about_heading: formatTranslation(copy.about_heading),
+        contact_heading: formatTranslation(copy.contact_heading)
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === language);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    setLanguage("en");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const form = document.getElementById("contactForm");
+      const button = form.querySelector(".form-submit");
+
+      if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+        alert(translations[currentLanguage].alert_missing_url);
+        return;
+      }
+
+      button.disabled = true;
+      button.style.opacity = "0.7";
+      button.innerHTML = `<i data-lucide="loader-2" class="spin-icon" style="width:16px;height:16px;display:inline-block;vertical-align:text-bottom;margin-right:8px;"></i> ${translations[currentLanguage].send_loading}`;
+      lucide.createIcons();
+
+      const payload = {
+        submitted_at: new Date().toISOString(),
+        company_name: document.getElementById("cf-company").value.trim(),
+        contact_person: document.getElementById("cf-name").value.trim(),
+        email: document.getElementById("cf-email").value.trim(),
+        phone: "",
+        inquiry_type: document.getElementById("cf-type").value,
+        message: document.getElementById("cf-msg").value.trim(),
+        privacy_consent: "agreed",
+        source_page: window.location.href,
+        user_agent: window.navigator.userAgent
+      };
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(() => {
+          form.style.display = "none";
+          const success = document.getElementById("formSuccess");
+          success.classList.add("show");
+          lucide.createIcons();
+        })
+        .catch((error) => {
+          console.error("Error!", error.message);
+          button.disabled = false;
+          button.style.opacity = "1";
+          button.innerHTML = translations[currentLanguage].send_failed;
+        });
+    }
+
+    lucide.createIcons();
+  </script>
 </body>
 </html>
