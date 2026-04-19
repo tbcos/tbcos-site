@@ -9,6 +9,30 @@
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet"
   >
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: "#f8f9fa",
+            ink: "#111111",
+            muted: "#666666",
+            line: "rgba(0,0,0,0.06)",
+            surface: "#ffffff"
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            serif: ["Noto Serif", "serif"]
+          },
+          boxShadow: {
+            soft: "0 12px 40px rgba(0,0,0,0.06)",
+            glass: "0 10px 30px rgba(93,97,90,0.12)"
+          }
+        }
+      }
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <style>
     *,
@@ -65,9 +89,10 @@
       left: 0;
       width: 100%;
       z-index: 100;
-      background: rgba(248, 249, 250, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(248, 249, 250, 0.54);
+      backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+      box-shadow: 0 8px 24px rgba(93, 97, 90, 0.08);
       transition: background 0.3s;
     }
 
@@ -86,12 +111,12 @@
       align-items: center;
     }
 
-    .nav-logo img {
+    .nav-logo img,
+    .nav-logo video {
       display: block;
-      height: 42px;
+      height: 60px;
       width: auto;
       object-fit: contain;
-      mix-blend-mode: multiply;
       background: transparent;
     }
 
@@ -102,16 +127,40 @@
     }
 
     .nav-links a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
       color: var(--text-secondary);
       font-size: 14px;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: color 0.28s ease, transform 0.28s ease;
       letter-spacing: -0.2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(107, 111, 103, 0), rgba(107, 111, 103, 0.9), rgba(107, 111, 103, 0));
+      opacity: 0;
+      transform: translateY(4px) scaleX(0.72);
+      transform-origin: center;
+      transition: opacity 0.28s ease, transform 0.28s ease;
     }
 
     .nav-links a:hover {
       color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-links a:hover::after {
+      opacity: 1;
+      transform: translateY(0) scaleX(1);
     }
 
     .nav-mobile-btn {
@@ -206,11 +255,17 @@
       display: flex;
     }
 
-    .nav-mobile-menu a {
+    .nav-mobile-menu .nav-mobile-link {
       font-size: 24px;
       text-decoration: none;
       color: var(--text);
       font-weight: 500;
+      transition: transform 0.24s ease, color 0.24s ease;
+    }
+
+    .nav-mobile-menu .nav-mobile-link:hover {
+      color: var(--control-accent-strong);
+      transform: translateY(-1px);
     }
 
     .nav-mobile-close {
@@ -308,6 +363,10 @@
       color: var(--text-secondary);
       font-weight: 600;
       margin-bottom: 16px;
+    }
+
+    .section-tag.keep-case {
+      text-transform: none;
     }
 
     .section-title {
@@ -453,12 +512,13 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.36s ease, box-shadow 0.36s ease, border-color 0.36s ease, background 0.36s ease;
     }
 
     .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px rgba(92, 98, 96, 0.12);
+      border-color: rgba(107, 111, 103, 0.12);
     }
 
     .product-img {
@@ -479,6 +539,7 @@
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.4);
       filter: blur(40px);
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
     .product-emoji {
@@ -496,6 +557,17 @@
       object-fit: cover;
       object-position: center;
       filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.14));
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .product-card:hover .product-photo {
+      transform: scale(1.035);
+      filter: drop-shadow(0 22px 32px rgba(0, 0, 0, 0.18));
+    }
+
+    .product-card:hover .product-img::before {
+      transform: scale(1.18);
+      opacity: 0.7;
     }
 
     .product-info {
@@ -504,9 +576,9 @@
       flex: 1;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       text-align: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .product-info h3 {
@@ -514,10 +586,13 @@
       font-weight: 600;
       margin-bottom: 0;
       letter-spacing: -0.3px;
-      min-height: 44px;
+      width: 100%;
+      min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
+      line-height: 1.35;
+      text-wrap: balance;
     }
 
     .product-info p {
@@ -525,9 +600,12 @@
       color: var(--text-secondary);
       line-height: 1.6;
       margin-bottom: 0;
-      min-height: 64px;
+      width: 100%;
+      min-height: 84px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      text-wrap: pretty;
     }
 
     .product-tag {
@@ -540,6 +618,16 @@
       padding: 4px 10px;
       border-radius: 100px;
       font-weight: 500;
+      background: rgba(255, 255, 255, 0.22);
+      margin-top: auto;
+      transition: transform 0.32s ease, border-color 0.32s ease, background 0.32s ease, color 0.32s ease;
+    }
+
+    .product-card:hover .product-tag {
+      transform: translateY(-1px);
+      border-color: rgba(107, 111, 103, 0.18);
+      background: rgba(255, 255, 255, 0.42);
+      color: var(--text);
     }
 
     .contact-wrap {
@@ -751,6 +839,22 @@
       .lang-switcher { display: none; }
       .nav-actions { display: none; }
       .auth-chip { min-width: 96px; }
+      #authNavMobile {
+        left: 24px;
+        right: 24px;
+        width: auto;
+        display: grid !important;
+        justify-content: center;
+        justify-items: center;
+        grid-template-columns: repeat(2, minmax(120px, 168px));
+        gap: 10px;
+      }
+      #authNavMobile .auth-chip {
+        width: auto;
+        min-width: 120px;
+        max-width: 168px;
+        font-size: 13px;
+      }
       .nav-mobile-btn {
         display: flex !important;
         align-items: center;
@@ -769,36 +873,50 @@
     @media (max-width: 600px) {
       .odm-grid { grid-template-columns: 1fr; }
       .hero { padding: 120px 0 64px; }
+      #authNavMobile {
+        grid-template-columns: minmax(0, 220px);
+        justify-content: center;
+      }
+      #authNavMobile .auth-chip {
+        max-width: 220px;
+      }
       .product-img {
         height: 320px;
       }
       .product-photo {
         object-fit: contain;
-        padding: 18px;
+        padding: 0;
       }
     }
   </style>
 </head>
 <body style="height:100%">
   <div class="site-wrap" id="app">
-    <nav>
-      <div class="nav-inner">
-        <a href="#hero" class="nav-logo" aria-label="THREE BODY home">
-          <img src="assets/tbcos-logo.jpg" alt="THREE BODY logo">
+    <nav class="fixed inset-x-0 top-0 z-[100] border-b border-white/40 bg-[rgba(248,249,250,0.54)] shadow-[0_8px_24px_rgba(93,97,90,0.08)] backdrop-blur-[22px]">
+      <div class="mx-auto flex h-16 max-w-[1120px] items-center justify-between gap-4 px-6">
+        <a href="#hero" class="inline-flex items-center" aria-label="THREE BODY home">
+          <video id="navLogoVideo" class="block h-[60px] w-auto object-contain" autoplay muted playsinline preload="auto" aria-label="THREE BODY logo video">
+            <source src="assets/tbcos-logo-video-transparent.webm" type="video/webm">
+            <source src="assets/tbcos-logo-video.mp4" type="video/mp4">
+          </video>
         </a>
-        <ul class="nav-links">
-          <li><a href="#about" data-i18n="nav_about">About</a></li>
-          <li><a href="#odm" data-i18n="nav_odm">ODM / OEM</a></li>
-          <li><a href="#showroom" data-i18n="nav_brand">LUXFOLLICLE</a></li>
-          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-        </ul>
-        <div class="lang-switcher">
-          <button type="button" class="lang-btn active" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+
+        <div class="hidden items-center gap-8 lg:flex">
+          <ul class="nav-links flex list-none items-center gap-8">
+            <li><a href="#about" class="text-sm font-medium tracking-[-0.2px] text-muted transition hover:text-ink" data-i18n="nav_about">About</a></li>
+            <li><a href="#odm" class="text-sm font-medium tracking-[-0.2px] text-muted transition hover:text-ink" data-i18n="nav_odm">ODM / OEM</a></li>
+            <li><a href="#showroom" class="text-sm font-medium tracking-[-0.2px] text-muted transition hover:text-ink" data-i18n="nav_brand">LUXFOLLICLE</a></li>
+            <li><a href="#contact" class="text-sm font-medium tracking-[-0.2px] text-muted transition hover:text-ink" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+          <div class="flex items-center gap-2">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="ko">KR</button>
+          </div>
+          <div class="nav-actions flex items-center gap-2" id="authNavDesktop"></div>
         </div>
-        <div class="nav-actions" id="authNavDesktop"></div>
-        <button class="nav-mobile-btn" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
-          <i data-lucide="menu" style="width:24px;height:24px"></i>
+
+        <button class="inline-flex items-center justify-center text-ink lg:hidden" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
         </button>
       </div>
     </nav>
@@ -807,67 +925,71 @@
       <button class="nav-mobile-close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">
         <i data-lucide="x" style="width:28px;height:28px"></i>
       </button>
-      <button type="button" class="lang-btn active" data-lang="en" style="position:absolute;top:22px;left:24px;">EN</button>
-      <button type="button" class="lang-btn" data-lang="ko" style="position:absolute;top:22px;left:80px;">KR</button>
-      <div id="authNavMobile" style="position:absolute;top:20px;left:140px;display:flex;gap:8px;"></div>
-      <a href="#about" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_about">About</a>
-      <a href="#odm" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_odm">ODM / OEM</a>
-      <a href="#showroom" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_brand">LUXFOLLICLE</a>
-      <a href="#contact" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_contact">Contact</a>
+      <div class="absolute left-6 top-5 flex items-center gap-2">
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="ko">KR</button>
+      </div>
+      <div id="authNavMobile" class="absolute left-6 right-6 top-20 grid gap-2"></div>
+      <a href="#about" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_about">About</a>
+      <a href="#odm" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_odm">ODM / OEM</a>
+      <a href="#showroom" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_brand">LUXFOLLICLE</a>
+      <a href="#contact" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_contact">Contact</a>
     </div>
 
-    <header class="hero" id="hero">
-      <div class="container">
-        <p class="hero-eyebrow reveal" id="heroEyebrow" data-i18n="hero_eyebrow">Since 2022 · South Korea</p>
-        <h1 class="reveal" id="heroSlogan">Transparent Technology,<br>Awakening Essential Beauty.</h1>
-        <p class="hero-sub reveal" id="heroSubtitle">Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.</p>
-        <a href="#contact" class="hero-cta reveal">
+    <header id="hero" class="relative overflow-hidden px-6 pb-24 pt-40 text-center">
+      <div class="pointer-events-none absolute left-1/2 top-[-200px] h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(200,200,220,0.15)_0%,transparent_70%)]"></div>
+      <div class="relative mx-auto max-w-4xl">
+        <p class="hero-eyebrow reveal mb-6 text-xs font-medium uppercase tracking-[0.25em] text-muted" id="heroEyebrow" data-i18n="hero_eyebrow">Since 2022 · South Korea</p>
+        <h1 class="reveal mx-auto mb-6 max-w-4xl font-serif text-[clamp(36px,5.5vw,72px)] font-normal leading-[1.1] tracking-[-1.5px] text-ink" id="heroSlogan">Transparent Technology,<br>Awakening Essential Beauty.</h1>
+        <p class="hero-sub reveal mx-auto mb-10 max-w-[520px] text-[clamp(15px,1.6vw,18px)] font-normal leading-8 text-muted" id="heroSubtitle">From precise formulation development to finished product manufacturing, TBcos completes your vision with beauty you can trust.</p>
+        <a href="#contact" class="hero-cta reveal inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/30 px-8 py-3.5 text-sm font-semibold tracking-[-0.2px] text-ink shadow-glass backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:bg-white/40 hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]">
           <span data-i18n="hero_cta">Start a Project</span>
           <i data-lucide="arrow-right" style="width:16px;height:16px"></i>
         </a>
       </div>
     </header>
 
-    <section id="about">
-      <div class="container">
-        <p class="section-tag reveal" data-i18n="about_tag">About THREE BODY</p>
-        <h2 class="section-title reveal" id="aboutHeading">The Science Behind Beauty</h2>
-        <p class="section-desc reveal" id="aboutDesc" data-i18n="about_desc">Over 4 years of cosmetics manufacturing excellence, driven by relentless R&amp;D innovation and certified global quality standards.</p>
-        <div class="bento about-grid">
-          <div class="bento-card about-card-big reveal">
-            <div class="about-text">
-              <h3 style="font-size:22px;margin-bottom:12px" data-i18n="about_big_title">Gravity-Defying Elegance</h3>
-              <p style="color:var(--text-secondary);line-height:1.7;font-size:15px" data-i18n="about_big_desc">Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.</p>
+    <section id="about" class="px-6 py-20">
+      <div class="mx-auto max-w-[1120px]">
+        <p class="section-tag keep-case reveal mb-4 text-[11px] font-semibold tracking-[0.28em] text-muted" data-i18n="about_tag">About TBcos</p>
+        <h2 class="section-title reveal mb-4 font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink" id="aboutHeading">The Science Behind Beauty</h2>
+        <p class="section-desc reveal mb-12 max-w-[560px] text-base leading-8 text-muted" id="aboutDesc" data-i18n="about_desc">Although our journey is still young, we have continued to grow through the expertise built in cosmetics manufacturing, ongoing R&amp;D innovation, and global quality certifications, always striving to deliver better value and continuous progress.</p>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="reveal md:col-span-2 flex flex-col gap-6 rounded-[20px] border border-black/5 bg-white p-7 shadow-soft lg:flex-row lg:items-center">
+            <div class="flex-1">
+              <h3 class="mb-3 text-[22px] font-semibold tracking-[-0.3px] text-ink" data-i18n="about_big_title">Grace Beyond Gravity</h3>
+              <p class="text-[15px] leading-8 text-muted" data-i18n="about_big_desc">TBcos develops skincare and haircare formulations aligned with modern beauty standards. Based on the balance of sensory experience, stability, and quality, we create products trusted by both brands and consumers.</p>
             </div>
-            <div class="about-visual">
-              <img class="about-visual-image" src="assets/three-body-rnd.png" alt="THREE BODY R&D lab scene">
+            <div class="relative min-h-[250px] min-w-0 flex-1 overflow-hidden rounded-[22px] border border-white/50 bg-white/25 shadow-[0_18px_40px_rgba(92,98,96,0.12)] backdrop-blur-[16px] lg:min-w-[42%]">
+              <div class="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(135deg,rgba(255,255,255,0.24),rgba(255,255,255,0.02)_45%,rgba(255,255,255,0.14))]"></div>
+              <img class="about-visual-image h-full w-full object-cover object-[center_42%]" src="assets/three-body-rnd.png" alt="THREE BODY R&D lab scene">
             </div>
           </div>
-          <div class="bento-card reveal reveal-delay-1">
+          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="bento-icon">
               <i data-lucide="shield-check" style="width:22px;height:22px"></i>
             </div>
             <h3 data-i18n="about_card1_title">CGMP &amp; ISO 22716</h3>
             <p data-i18n="about_card1_desc">Certified manufacturing facilities meeting the highest global cosmetics safety and quality benchmarks.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-2">
+          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="bento-icon">
               <i data-lucide="microscope" style="width:22px;height:22px"></i>
             </div>
-            <h3 data-i18n="about_card2_title">Advanced R&amp;D Centre</h3>
-            <p data-i18n="about_card2_desc">Dedicated research lab with 30+ formulation scientists developing cutting-edge skincare and haircare technologies.</p>
+            <h3 data-i18n="about_card2_title">R&amp;D</h3>
+            <p data-i18n="about_card2_desc">A dedicated R&amp;D function focused on developing refined skincare and haircare formulations aligned with modern beauty standards.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="odm" style="background:var(--surface)">
-      <div class="container">
-        <p class="section-tag reveal" data-i18n="odm_tag">Manufacturing Solutions</p>
-        <h2 class="section-title reveal" data-i18n="odm_title">One-Stop ODM / OEM</h2>
-        <p class="section-desc reveal" data-i18n="odm_desc">End-to-end beauty manufacturing — from concept to shelf. We handle every step so you can focus on building your brand.</p>
-        <div class="bento odm-grid">
-          <div class="bento-card reveal">
+    <section id="odm" class="bg-surface px-6 py-20">
+      <div class="mx-auto max-w-[1120px]">
+        <p class="section-tag reveal mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-i18n="odm_tag">Manufacturing Solutions</p>
+        <h2 class="section-title reveal mb-4 font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink" data-i18n="odm_title">One-Stop ODM / OEM</h2>
+        <p class="section-desc reveal mb-12 max-w-[560px] text-base leading-8 text-muted" data-i18n="odm_desc">End-to-end beauty manufacturing — from concept to shelf. We handle every step so you can focus on building your brand.</p>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div class="bento-card reveal rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="odm-step-num">01</div>
             <div class="bento-icon">
               <i data-lucide="search" style="width:22px;height:22px"></i>
@@ -875,7 +997,7 @@
             <h3 data-i18n="odm_card1_title">Market Research</h3>
             <p data-i18n="odm_card1_desc">Trend analysis and competitive landscape insights tailored to your target demographic.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-1">
+          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="odm-step-num">02</div>
             <div class="bento-icon">
               <i data-lucide="flask-conical" style="width:22px;height:22px"></i>
@@ -883,7 +1005,7 @@
             <h3 data-i18n="odm_card2_title">Formulation R&amp;D</h3>
             <p data-i18n="odm_card2_desc">Custom formula development with rigorous stability testing and efficacy validation.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-2">
+          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="odm-step-num">03</div>
             <div class="bento-icon">
               <i data-lucide="palette" style="width:22px;height:22px"></i>
@@ -891,7 +1013,7 @@
             <h3 data-i18n="odm_card3_title">Packaging Design</h3>
             <p data-i18n="odm_card3_desc">Full creative direction — from primary containers to secondary packaging and retail displays.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-3">
+          <div class="bento-card reveal reveal-delay-3 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
             <div class="odm-step-num">04</div>
             <div class="bento-icon">
               <i data-lucide="package-check" style="width:22px;height:22px"></i>
@@ -903,138 +1025,155 @@
       </div>
     </section>
 
-    <section id="showroom">
-      <div class="container">
-        <p class="section-tag reveal" data-i18n="brand_tag">Our Brand</p>
-        <h2 class="section-title reveal">LUXFOLLICLE</h2>
-        <p class="section-desc reveal" data-i18n="brand_desc">LUXFOLLICLE currently features four signature products spanning anti-hair-loss care, protein repair, and vegan body hydration.</p>
-        <div class="showroom-grid">
-          <div class="product-card reveal" style="--product-bg:linear-gradient(160deg,#edf1f6,#dde4ee)">
-            <div class="product-img">
-              <img class="product-photo" src="assets/products/luxfollicle-anti-hair-loss-shampoo.png" alt="Luxfollicle Anti Hair Loss Shampoo bottle">
+    <section id="showroom" class="px-6 py-20">
+      <div class="mx-auto max-w-[1120px]">
+        <p class="section-tag reveal mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-i18n="brand_tag">Our Brand</p>
+        <h2 class="section-title reveal mb-4 font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink">LUXFOLLICLE</h2>
+        <p class="section-desc reveal mb-12 max-w-[560px] text-base leading-8 text-muted" data-i18n="brand_desc">LUXFOLLICLE currently features four signature products spanning anti-hair-loss care, protein repair, and vegan body hydration.</p>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div class="product-card reveal flex flex-col overflow-hidden rounded-[20px] border border-black/5 shadow-soft" style="--product-bg:linear-gradient(160deg,#edf1f6,#dde4ee)">
+            <div class="product-img relative flex h-[280px] items-center justify-center overflow-hidden">
+              <img class="product-photo absolute inset-0 z-[1] h-full w-full object-cover object-center" src="assets/products/luxfollicle-anti-hair-loss-shampoo.png" alt="Luxfollicle Anti Hair Loss Shampoo bottle">
             </div>
-            <div class="product-info">
+            <div class="product-info flex flex-1 flex-col items-center justify-between gap-4 p-7 text-center">
               <h3 data-i18n="product1_title">Anti Hair Loss Shampoo</h3>
-              <p data-i18n="product1_desc">A 500ml follicle-care shampoo designed to cleanse the scalp, supply nutrients, and help relieve hair-loss symptoms while promoting stronger, fuller-looking hair.</p>
-              <span class="product-tag" data-i18n="product1_tag">500ml · Follicle Care</span>
+              <p data-i18n="product1_desc">Functional scalp shampoo that helps cleanse, nourish, and support fuller, stronger-looking hair.</p>
+              <span class="product-tag" data-i18n="product1_tag">Follicle Care</span>
             </div>
           </div>
-          <div class="product-card reveal reveal-delay-1" style="--product-bg:linear-gradient(160deg,#e6e8f0,#d2d4de)">
-            <div class="product-img">
-              <img class="product-photo" src="assets/products/luxfollicle-anti-hair-loss-ampoule.png" alt="Luxfollicle Anti Hair Loss Ampoule bottle">
+          <div class="product-card reveal reveal-delay-1 flex flex-col overflow-hidden rounded-[20px] border border-black/5 shadow-soft" style="--product-bg:linear-gradient(160deg,#e6e8f0,#d2d4de)">
+            <div class="product-img relative flex h-[280px] items-center justify-center overflow-hidden">
+              <img class="product-photo absolute inset-0 z-[1] h-full w-full object-cover object-center" src="assets/products/luxfollicle-anti-hair-loss-ampoule.png" alt="Luxfollicle Anti Hair Loss Ampoule bottle">
             </div>
-            <div class="product-info">
+            <div class="product-info flex flex-1 flex-col items-center justify-between gap-4 p-7 text-center">
               <h3 data-i18n="product2_title">Anti Hair Loss Ampoule</h3>
-              <p data-i18n="product2_desc">A 50ml intensive scalp ampoule for all hair types, including sensitive scalps, formulated to build a healthier scalp environment and strengthen hair from the root.</p>
-              <span class="product-tag" data-i18n="product2_tag">50ml · Scalp Ampoule</span>
+              <p data-i18n="product2_desc">Intensive scalp ampoule designed to calm the scalp environment and strengthen hair from the root.</p>
+              <span class="product-tag" data-i18n="product2_tag">Scalp Ampoule</span>
             </div>
           </div>
-          <div class="product-card reveal reveal-delay-2" style="--product-bg:linear-gradient(160deg,#eae8e4,#dbd8d2)">
-            <div class="product-img">
-              <img class="product-photo" src="assets/products/luxfollicle-silka-shampoo.png" alt="Luxfollicle Silka Shampoo bottle">
+          <div class="product-card reveal reveal-delay-2 flex flex-col overflow-hidden rounded-[20px] border border-black/5 shadow-soft" style="--product-bg:linear-gradient(160deg,#eae8e4,#dbd8d2)">
+            <div class="product-img relative flex h-[280px] items-center justify-center overflow-hidden">
+              <img class="product-photo absolute inset-0 z-[1] h-full w-full object-cover object-center" src="assets/products/luxfollicle-silka-shampoo.png" alt="Luxfollicle Silka Shampoo bottle">
             </div>
-            <div class="product-info">
+            <div class="product-info flex flex-1 flex-col items-center justify-between gap-4 p-7 text-center">
               <h3 data-i18n="product3_title">Silka Shampoo</h3>
-              <p data-i18n="product3_desc">A 400ml protein-intensive, volume-care shampoo for dry and damaged hair, using a mild pH 5-6 formula to cleanse gently while restoring softness and shine.</p>
-              <span class="product-tag" data-i18n="product3_tag">400ml · Protein Care</span>
+              <p data-i18n="product3_desc">Protein-focused shampoo for dry, damaged hair that helps restore softness, shine, and gentle volume.</p>
+              <span class="product-tag" data-i18n="product3_tag">Protein Care</span>
             </div>
           </div>
-          <div class="product-card reveal reveal-delay-3" style="--product-bg:linear-gradient(160deg,#e7efe9,#d6e4db)">
-            <div class="product-img">
-              <img class="product-photo" src="assets/products/luxfollicle-chockchock-body-lotion.png" alt="Luxfollicle Chockchock Body Lotion bottle">
+          <div class="product-card reveal reveal-delay-3 flex flex-col overflow-hidden rounded-[20px] border border-black/5 shadow-soft" style="--product-bg:linear-gradient(160deg,#e7efe9,#d6e4db)">
+            <div class="product-img relative flex h-[280px] items-center justify-center overflow-hidden">
+              <img class="product-photo absolute inset-0 z-[1] h-full w-full object-cover object-center" src="assets/products/luxfollicle-chockchock-body-lotion.png" alt="Luxfollicle Chockchock Body Lotion bottle">
             </div>
-            <div class="product-info">
+            <div class="product-info flex flex-1 flex-col items-center justify-between gap-4 p-7 text-center">
               <h3 data-i18n="product4_title">Chockchock Body Lotion</h3>
-              <p data-i18n="product4_desc">A 400ml 100% vegan body lotion created for dry, weakened, or sensitive skin, delivering hydration, calming care, and barrier support through skin-friendly ingredients.</p>
-              <span class="product-tag" data-i18n="product4_tag">400ml · Vegan Body Care</span>
+              <p data-i18n="product4_desc">Vegan body lotion that delivers daily hydration, calming comfort, and barrier-friendly moisture care.</p>
+              <span class="product-tag" data-i18n="product4_tag">Vegan Body Care</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" style="background:var(--surface)">
-      <div class="container">
-        <div class="contact-wrap">
+    <section id="contact" class="bg-surface px-6 py-20">
+      <div class="mx-auto max-w-[1120px]">
+        <div class="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
           <div>
-            <p class="section-tag reveal" data-i18n="contact_tag">Get In Touch</p>
-            <h2 class="section-title reveal" id="contactHeading">Let's Build Something Beautiful</h2>
-            <p class="section-desc reveal" data-i18n="contact_desc">Whether you're launching a new beauty brand or scaling an existing line, our team is ready to bring your vision to reality.</p>
-            <div class="reveal" style="margin-top:32px">
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <p class="section-tag reveal mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-i18n="contact_tag">Get In Touch</p>
+            <h2 class="section-title reveal mb-4 max-w-[520px] font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink" id="contactHeading">Creating Better Beauty Solutions Together</h2>
+            <p class="section-desc reveal max-w-[520px] text-base leading-8 text-muted" data-i18n="contact_desc">From brand planning to formulation development and finished product manufacturing, TBcos brings your vision to life through products you can trust.</p>
+            <div class="reveal mt-8 grid gap-4">
+              <div class="flex items-center gap-3">
                 <i data-lucide="map-pin" style="width:18px;height:18px;color:var(--text-secondary)"></i>
-                <span style="font-size:14px;color:var(--text-secondary)" data-i18n="contact_location">Incheon, South Korea</span>
+                <span class="text-sm text-muted" data-i18n="contact_location">Incheon, South Korea</span>
               </div>
-              <div style="display:flex;align-items:center;gap:12px">
+              <div class="flex items-center gap-3">
                 <i data-lucide="mail" style="width:18px;height:18px;color:var(--text-secondary)"></i>
-                <span style="font-size:14px;color:var(--text-secondary)">inquiry@tb-cos.kr</span>
+                <span class="text-sm text-muted">inquiry@tb-cos.kr</span>
               </div>
             </div>
           </div>
-          <div class="contact-form reveal" id="contactFormWrap">
-            <form id="contactForm" onsubmit="handleSubmit(event)">
-              <div class="form-group">
-                <label for="cf-name" data-i18n="form_name_label">Full Name</label>
-                <input type="text" id="cf-name" placeholder="Your name" data-i18n-placeholder="form_name_placeholder" required>
+
+          <div class="contact-form reveal rounded-[20px] border border-black/5 bg-white p-10 shadow-soft" id="contactFormWrap">
+            <form id="contactForm" onsubmit="handleSubmit(event)" class="grid gap-5">
+              <div class="grid gap-2">
+                <label for="cf-name" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_name_label">Full Name</label>
+                <input type="text" id="cf-name" placeholder="Your name" data-i18n-placeholder="form_name_placeholder" required class="w-full rounded-xl border border-black/10 bg-page px-4 py-3 text-sm text-ink outline-none transition focus:border-black/20">
               </div>
-              <div class="form-group">
-                <label for="cf-email" data-i18n="form_email_label">Email Address</label>
-                <input type="email" id="cf-email" placeholder="you@company.com" data-i18n-placeholder="form_email_placeholder" required>
+              <div class="grid gap-2">
+                <label for="cf-email" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_email_label">Email Address</label>
+                <input type="email" id="cf-email" placeholder="you@company.com" data-i18n-placeholder="form_email_placeholder" required class="w-full rounded-xl border border-black/10 bg-page px-4 py-3 text-sm text-ink outline-none transition focus:border-black/20">
               </div>
-              <div class="form-group">
-                <label for="cf-company" data-i18n="form_company_label">Company</label>
-                <input type="text" id="cf-company" placeholder="Company name" data-i18n-placeholder="form_company_placeholder">
+              <div class="grid gap-2">
+                <label for="cf-company" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_company_label">Company</label>
+                <input type="text" id="cf-company" placeholder="Company name" data-i18n-placeholder="form_company_placeholder" class="w-full rounded-xl border border-black/10 bg-page px-4 py-3 text-sm text-ink outline-none transition focus:border-black/20">
               </div>
-              <div class="form-group">
-                <label for="cf-type" data-i18n="form_type_label">Inquiry Type</label>
-                <select id="cf-type">
+              <div class="grid gap-2">
+                <label for="cf-type" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_type_label">Inquiry Type</label>
+                <select id="cf-type" class="w-full rounded-xl border border-black/10 bg-page px-4 py-3 text-sm text-ink outline-none transition focus:border-black/20">
                   <option value="odm" data-i18n="form_type_odm">ODM / OEM Partnership</option>
                   <option value="dist" data-i18n="form_type_dist">Distribution</option>
                   <option value="other" data-i18n="form_type_other">Other</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="cf-msg" data-i18n="form_message_label">Message</label>
-                <textarea id="cf-msg" placeholder="Tell us about your project..." data-i18n-placeholder="form_message_placeholder"></textarea>
+              <div class="grid gap-2">
+                <label for="cf-msg" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_message_label">Message</label>
+                <textarea id="cf-msg" placeholder="Tell us about your project..." data-i18n-placeholder="form_message_placeholder" class="min-h-[100px] w-full resize-y rounded-xl border border-black/10 bg-page px-4 py-3 text-sm text-ink outline-none transition focus:border-black/20"></textarea>
               </div>
-              <label class="consent-row">
-                <input type="checkbox" id="cf-privacy" required>
+              <label class="consent-row flex items-start gap-3 text-[13px] leading-6 text-muted">
+                <input type="checkbox" id="cf-privacy" required class="mt-1 shrink-0">
                 <span>
                   <span data-i18n="form_privacy_label">I agree to the collection and use of personal information for inquiry handling.</span>
                   <a href="privacy.html" target="_blank" rel="noopener" data-i18n="form_privacy_link">View Privacy Policy</a>
                 </span>
               </label>
-              <button type="submit" class="form-submit" data-i18n="form_submit">Send Inquiry</button>
+              <button type="submit" class="form-submit w-full rounded-full border border-white/60 bg-white/30 px-5 py-3.5 text-sm font-semibold text-ink shadow-glass backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:bg-white/40 hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]" data-i18n="form_submit">Send Inquiry</button>
             </form>
-            <div class="form-success" id="formSuccess">
+            <div class="form-success py-10 text-center" id="formSuccess">
               <i data-lucide="check-circle" style="width:48px;height:48px"></i>
-              <h3 style="font-size:20px;margin-top:12px;margin-bottom:8px" data-i18n="success_title">Thank you!</h3>
-              <p style="color:var(--text-secondary);font-size:14px" data-i18n="success_desc">We've received your inquiry and will respond within 1–2 business days.</p>
+              <h3 class="mt-3 mb-2 text-[20px] font-semibold text-ink" data-i18n="success_title">Thank you!</h3>
+              <p class="text-sm text-muted" data-i18n="success_desc">We've received your inquiry and will respond within 1–2 business days.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="container">
-        <div class="footer-inner">
-          <p data-i18n="footer_copy">© 2024 THREE BODY. All rights reserved.</p>
-          <div class="footer-links">
-            <a href="#hero" data-i18n="footer_home">Home</a>
-            <a href="#about" data-i18n="footer_about">About</a>
-            <a href="#contact" data-i18n="footer_contact">Contact</a>
+    <footer class="border-t border-black/5 px-6 py-12">
+      <div class="mx-auto max-w-[1120px]">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <p class="text-[13px] text-muted" data-i18n="footer_copy">© 2024 THREE BODY. All rights reserved.</p>
+          <div class="flex flex-wrap items-center gap-4 md:justify-end">
+            <div class="flex flex-wrap gap-6">
+              <a href="#hero" class="text-[13px] text-muted no-underline transition hover:text-ink" data-i18n="footer_home">Home</a>
+              <a href="#about" class="text-[13px] text-muted no-underline transition hover:text-ink" data-i18n="footer_about">About</a>
+              <a href="#contact" class="text-[13px] text-muted no-underline transition hover:text-ink" data-i18n="footer_contact">Contact</a>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/45 text-muted backdrop-blur-[10px] transition hover:border-black/20 hover:bg-white/60 hover:text-ink" aria-label="Instagram">
+                <i data-lucide="instagram" style="width:15px;height:15px;"></i>
+              </button>
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/45 text-muted backdrop-blur-[10px] transition hover:border-black/20 hover:bg-white/60 hover:text-ink" aria-label="YouTube">
+                <i data-lucide="youtube" style="width:15px;height:15px;"></i>
+              </button>
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/45 text-muted backdrop-blur-[10px] transition hover:border-black/20 hover:bg-white/60 hover:text-ink" aria-label="LinkedIn">
+                <i data-lucide="linkedin" style="width:15px;height:15px;"></i>
+              </button>
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/45 text-muted backdrop-blur-[10px] transition hover:border-black/20 hover:bg-white/60 hover:text-ink" aria-label="Facebook">
+                <i data-lucide="facebook" style="width:15px;height:15px;"></i>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="company-meta">
-          <p data-i18n="footer_company">THREE BODY | Representative: JEONG CHUL | Business Registration No. 651-73-00480 | Incheon, South Korea | inquiry@tb-cos.kr</p>
-          <p data-i18n="footer_note">This website is provided for company introduction, partner inquiries, and member access. Online ordering and payment are not provided on this site.</p>
+        <div class="mt-6 grid gap-2">
+          <p class="text-[13px] leading-6 text-muted" data-i18n="footer_company">THREE BODY | Representative: JEONG CHUL | Business Registration No. 651-73-00480 | Incheon, South Korea | inquiry@tb-cos.kr</p>
+          <p class="text-[13px] leading-6 text-muted" data-i18n="footer_note">This website is provided for company introduction, partner inquiries, and member access. Online ordering and payment are not provided on this site.</p>
         </div>
-        <div class="legal-links">
-          <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
-          <a href="terms.html" data-i18n="footer_terms">Terms of Use</a>
-          <a href="privacy-en.html" data-i18n="footer_privacy_en">Privacy Policy (EN)</a>
-          <a href="terms-en.html" data-i18n="footer_terms_en">Terms of Use (EN)</a>
+        <div class="mt-5 flex flex-wrap gap-5">
+          <a href="privacy.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="terms.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-i18n="footer_terms">Terms of Use</a>
+          <a href="privacy-en.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-i18n="footer_privacy_en">Privacy Policy (EN)</a>
+          <a href="terms-en.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-i18n="footer_terms_en">Terms of Use (EN)</a>
         </div>
       </div>
     </footer>
@@ -1043,9 +1182,9 @@
   <script>
     const defaultConfig = {
       hero_slogan: "Transparent Technology,\nAwakening Essential Beauty.",
-      hero_subtitle: "Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.",
+      hero_subtitle: "From precise formulation development to finished product manufacturing, TBcos completes your vision with beauty you can trust.",
       about_heading: "The Science Behind Beauty",
-      contact_heading: "Let's Build Something Beautiful",
+      contact_heading: "Creating Better Beauty Solutions Together",
       background_color: "#f8f9fa",
       surface_color: "#ffffff",
       text_color: "#111111",
@@ -1063,13 +1202,13 @@
         nav_contact: "Contact",
         hero_eyebrow: "Since 2022 · South Korea",
         hero_slogan: "Transparent Technology,\nAwakening Essential Beauty.",
-        hero_subtitle: "Transparent Technology. Gravity-Defying Elegance. From formulation to finished product — we bring your vision to life.",
+        hero_subtitle: "From precise formulation development to finished product manufacturing, TBcos completes your vision with beauty you can trust.",
         hero_cta: "Start a Project",
-        about_tag: "About THREE BODY",
+        about_tag: "About TBcos",
         about_heading: "The Science Behind Beauty",
         about_desc: "Although our journey is still young, we have continued to grow through the expertise built in cosmetics manufacturing, ongoing R&D innovation, and global quality certifications, always striving to deliver better value and continuous progress.",
-        about_big_title: "Gravity-Defying Elegance",
-        about_big_desc: "Our philosophy transcends conventional beauty. We engineer formulations that feel weightless yet deliver profound results — a paradox we've perfected through two decades of meticulous research.",
+        about_big_title: "Grace Beyond Gravity",
+        about_big_desc: "TBcos develops skincare and haircare formulations aligned with modern beauty standards. Based on the balance of sensory experience, stability, and quality, we create products trusted by both brands and consumers.",
         about_card1_title: "CGMP & ISO 22716",
         about_card1_desc: "Certified manufacturing facilities meeting the highest global cosmetics safety and quality benchmarks.",
         about_card2_title: "R&D",
@@ -1100,8 +1239,8 @@
         product4_desc: "Vegan body lotion that delivers daily hydration, calming comfort, and barrier-friendly moisture care.",
         product4_tag: "Vegan Body Care",
         contact_tag: "Get In Touch",
-        contact_heading: "Let's Build Something Beautiful",
-        contact_desc: "Whether you're launching a new beauty brand or scaling an existing line, our team is ready to bring your vision to reality.",
+        contact_heading: "Creating Better Beauty Solutions Together",
+        contact_desc: "From brand planning to formulation development and finished product manufacturing, TBcos brings your vision to life through products you can trust.",
         contact_location: "Incheon, South Korea",
         form_name_label: "Full Name",
         form_name_placeholder: "Your name",
@@ -1141,17 +1280,17 @@
         nav_contact: "문의",
         hero_eyebrow: "2022년 설립 · 대한민국",
         hero_slogan: "투명한 기술력,\n본질을 깨우는 아름다움.",
-        hero_subtitle: "투명한 기술력과 중력에 저항하는 우아함. 제형 개발부터 완제품 생산까지, 당신의 비전을 현실로 만듭니다.",
+        hero_subtitle: "정교한 제형 개발부터 완제품 생산까지, TBcos는 당신의 비전을 신뢰할 수 있는 아름다움으로 완성합니다.",
         hero_cta: "프로젝트 시작하기",
-        about_tag: "THREE BODY 소개",
+        about_tag: "TBcos 소개",
         about_heading: "아름다움 뒤에 있는 과학",
         about_desc: "비록 짧은 시간이었지만, 화장품 제조를 통해 축적한 전문성과 끊임없는 R&D 혁신, 글로벌 품질 인증을 기반으로 성장해왔으며, 더 나은 가치와 지속적인 발전을 위해 오늘도 최선을 다하고 있습니다.",
-        about_big_title: "중력에 저항하는 우아함",
-        about_big_desc: "우리의 철학은 기존의 아름다움을 넘어섭니다. 가볍게 느껴지지만 깊은 결과를 전하는 포뮬러를 설계하며, 이는 수십 년의 정교한 연구를 통해 완성한 역설입니다.",
+        about_big_title: "중력을 거스르는 우아함",
+        about_big_desc: "TBcos는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 개발합니다. 사용감, 안정성, 품질의 균형을 바탕으로 브랜드와 소비자 모두가 신뢰할 수 있는 제품을 만들어갑니다.",
         about_card1_title: "CGMP 및 ISO 22716",
         about_card1_desc: "글로벌 화장품 안전 및 품질 기준을 충족하는 인증 제조 시설을 운영합니다.",
         about_card2_title: "R&D",
-        about_card2_desc: "THREE BODY는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 정교하게 개발하는 연구개발 기능을 운영합니다.",
+        about_card2_desc: "TBcos는 현대적인 뷰티 기준에 맞춘 스킨케어와 헤어케어 포뮬러를 정교하게 개발하는 연구개발 기능을 운영합니다.",
         odm_tag: "제조 솔루션",
         odm_title: "원스톱 ODM / OEM",
         odm_desc: "컨셉부터 출시까지 전 과정을 책임지는 뷰티 제조 시스템입니다. 브랜드 구축에 집중하실 수 있도록 전 단계를 지원합니다.",
@@ -1178,8 +1317,8 @@
         product4_desc: "건조하고 예민한 피부에 수분과 진정감을 더해주는 비건 바디 보습 로션입니다.",
         product4_tag: "비건 바디 케어",
         contact_tag: "문의하기",
-        contact_heading: "함께 아름다운 결과를 만듭니다",
-        contact_desc: "새로운 뷰티 브랜드를 시작하든 기존 라인을 확장하든, THREE BODY 팀이 당신의 비전을 현실로 만들어드립니다.",
+        contact_heading: "함께 더 나은 뷰티 솔루션을 만듭니다",
+        contact_desc: "브랜드 기획부터 제형 개발, 완제품 생산까지 TBcos는 당신의 비전을 신뢰할 수 있는 제품으로 구현합니다.",
         contact_location: "인천, 대한민국",
         form_name_label: "이름",
         form_name_placeholder: "이름을 입력하세요",
@@ -1249,11 +1388,8 @@
       root.style.setProperty("--surface", c.surface_color);
       root.style.setProperty("--text", c.text_color);
       root.style.setProperty("--accent", c.primary_action_color);
-
-      document.querySelectorAll(".hero-cta, .form-submit").forEach((el) => {
-        el.style.backgroundColor = c.primary_action_color;
-        el.style.color = c.background_color;
-      });
+      root.style.setProperty("--control-accent", c.primary_action_color);
+      root.style.setProperty("--control-accent-strong", c.primary_action_color);
 
       document.querySelectorAll(".section-tag, .nav-links a, .product-info p, .section-desc, .hero-sub").forEach((el) => {
         el.style.color = c.secondary_action_color;
@@ -1330,6 +1466,20 @@
     const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
     const preferredLanguage = savedLanguage || (navigator.language && navigator.language.startsWith("ko") ? "ko" : "en");
     setLanguage(preferredLanguage);
+
+    const navLogoVideo = document.getElementById("navLogoVideo");
+    if (navLogoVideo) {
+      navLogoVideo.addEventListener("ended", () => {
+        navLogoVideo.currentTime = 0.3;
+      });
+    }
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 1024 && mobileMenu) {
+        mobileMenu.classList.remove("open");
+      }
+    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

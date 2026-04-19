@@ -7,400 +7,145 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #f5f4f0;
-      --surface: rgba(255, 255, 255, 0.84);
-      --line: rgba(17, 17, 17, 0.08);
-      --text: #111111;
-      --muted: #6c6a67;
-      --accent: #5f685e;
-      --accent-soft: #edf1f6;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "DM Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(173, 189, 210, 0.24), transparent 24%),
-        linear-gradient(180deg, #fbfaf8 0%, var(--bg) 100%);
-    }
-
-    .shell {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 28px 24px 64px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 44px;
-    }
-
-    .topbar a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .topbar-meta {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .lang-switcher {
-      display: inline-flex;
-      gap: 6px;
-      padding: 4px;
-      background: rgba(17, 17, 17, 0.05);
-      border-radius: 999px;
-    }
-
-    .lang-btn {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .lang-btn.active {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .hero,
-    .panel {
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 32px;
-      background: var(--surface);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 24px 60px rgba(17, 17, 17, 0.06);
-    }
-
-    .hero {
-      padding: 42px 38px;
-      min-height: 620px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(17, 17, 17, 0.44);
-    }
-
-    .hero h1,
-    .panel h2 {
-      font-family: "Noto Serif", serif;
-      font-weight: 400;
-      line-height: 1.04;
-      letter-spacing: -0.04em;
-      margin: 0;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 6vw, 5rem);
-      margin-top: 18px;
-    }
-
-    .hero p,
-    .panel p,
-    .field-note {
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .hero-list {
-      display: grid;
-      gap: 18px;
-      margin-top: 34px;
-    }
-
-    .hero-item {
-      padding: 18px 20px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.65);
-      border: 1px solid var(--line);
-    }
-
-    .hero-item strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .panel {
-      padding: 38px;
-    }
-
-    .tabs {
-      display: inline-flex;
-      gap: 8px;
-      padding: 6px;
-      background: rgba(17, 17, 17, 0.04);
-      border-radius: 999px;
-      margin: 24px 0 26px;
-    }
-
-    .tab-button {
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      padding: 12px 18px;
-      font: inherit;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .tab-button.is-active {
-      background: var(--accent);
-      color: white;
-    }
-
-    .provider-button,
-    .submit-button {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      border-radius: 16px;
-      font: inherit;
-      cursor: pointer;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 10px 28px rgba(93, 97, 90, 0.12);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
-    }
-
-    .provider-button {
-      margin-bottom: 14px;
-      padding: 16px 18px;
-      background: rgba(247, 225, 17, 0.45);
-      color: #3d3608;
-      font-weight: 700;
-    }
-
-    .submit-button {
-      padding: 16px 18px;
-      background: rgba(255, 255, 255, 0.3);
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .provider-button:hover,
-    .submit-button:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.74);
-      box-shadow: 0 14px 34px rgba(93, 97, 90, 0.18);
-    }
-
-    .provider-button:hover {
-      background: rgba(247, 225, 17, 0.58);
-    }
-
-    .submit-button:hover {
-      background: rgba(255, 255, 255, 0.38);
-    }
-
-    .fields {
-      display: grid;
-      gap: 16px;
-    }
-
-    .field-group {
-      display: grid;
-      gap: 8px;
-    }
-
-    .field-group label {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .field-group input {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 14px 16px;
-      color: var(--text);
-      font: inherit;
-    }
-
-    .field-group input:focus {
-      outline: 2px solid rgba(17, 17, 17, 0.08);
-      border-color: rgba(17, 17, 17, 0.22);
-    }
-
-    .status {
-      min-height: 24px;
-      margin: 12px 0 0;
-      font-size: 14px;
-    }
-
-    .status[data-tone="error"] { color: #bc2d2d; }
-    .status[data-tone="success"] { color: #1f6b38; }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 18px 0 22px;
-      color: rgba(17, 17, 17, 0.35);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: rgba(17, 17, 17, 0.08);
-    }
-
-    .field-note {
-      margin-top: 18px;
-      font-size: 13px;
-    }
-
-    code {
-      background: rgba(17, 17, 17, 0.06);
-      padding: 1px 6px;
-      border-radius: 6px;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" rel="stylesheet">
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: "#f5f4f0",
+            ink: "#111111",
+            muted: "#6c6a67",
+            line: "rgba(17,17,17,0.08)",
+            panel: "rgba(255,255,255,0.84)"
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            serif: ["Noto Serif", "serif"]
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(17,17,17,0.06)"
+          }
+        }
       }
-
-      .hero {
-        min-height: auto;
-      }
-    }
-  </style>
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
-<body>
-  <div class="shell">
-    <div class="topbar">
-      <a href="index.html" data-i18n="common_back_to_tbcos">Back to TBcos</a>
-      <div class="topbar-meta">
-        <div class="lang-switcher">
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+<body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.24),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
+  <div class="mx-auto max-w-7xl px-6 pb-16 pt-7">
+    <div class="mb-11 flex items-center justify-between">
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink no-underline">
+        <span class="material-symbols-outlined text-[18px] leading-none">home</span>
+        <span data-i18n="common_back_to_tbcos">Back to Home</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <div class="inline-flex rounded-full bg-black/5 p-1">
+          <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="en">EN</button>
+          <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="ko">KR</button>
         </div>
-        <a href="account.html" data-i18n="common_my_account">My Account</a>
+        <a href="account.html" class="text-sm font-semibold text-ink no-underline" data-i18n="common_my_account">My Account</a>
       </div>
     </div>
 
-    <div class="layout">
-      <section class="hero">
+    <div class="grid items-start gap-7 lg:grid-cols-[0.9fr_1.1fr]">
+      <section class="flex min-h-[620px] flex-col justify-between rounded-[32px] border border-white/70 bg-white/80 p-10 shadow-soft backdrop-blur-[14px]">
         <div>
-          <p class="eyebrow" data-i18n="auth_eyebrow">Buyer Access</p>
-          <h1 data-i18n="auth_heading">Log in for partner access and materials.</h1>
-          <p style="margin-top: 22px;" data-i18n="auth_intro">
-            This entry point is designed for brand partners, distributors, and buyers who want continued access to TBcos materials, account-based inquiries, and future partner-only content.
+          <p class="mb-4 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="auth_eyebrow">Buyer Access</p>
+          <h1 class="font-serif text-[clamp(2rem,4.1vw,2.5rem)] font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="auth_heading">Log in for partner access and materials.</h1>
+          <p class="mt-6 max-w-xl text-base leading-8 text-muted" data-i18n="auth_intro">
+            This entry point is designed for brand partners, distributors, and buyers who want continued access to THREE BODY materials, account-based inquiries, and future partner-only content.
           </p>
-          <div class="hero-list">
-            <article class="hero-item">
-              <strong data-i18n="auth_feature_1_title">Email and Kakao sign-in</strong>
-              <span data-i18n="auth_feature_1_desc">Support Korean buyer behavior with email and Kakao as the primary access routes.</span>
+
+          <div class="mt-9 grid gap-4">
+            <article class="rounded-[22px] border border-line bg-white/65 px-5 py-4">
+              <strong class="mb-2 block text-[15px] font-semibold text-ink" data-i18n="auth_feature_1_title">Email and Kakao sign-in</strong>
+              <span class="text-sm leading-7 text-muted" data-i18n="auth_feature_1_desc">Support Korean buyer behavior with email and Kakao as the primary access routes.</span>
             </article>
-            <article class="hero-item">
-              <strong data-i18n="auth_feature_2_title">Partner-ready account structure</strong>
-              <span data-i18n="auth_feature_2_desc">Every new account can later map to approval status, buyer role, and company information.</span>
+            <article class="rounded-[22px] border border-line bg-white/65 px-5 py-4">
+              <strong class="mb-2 block text-[15px] font-semibold text-ink" data-i18n="auth_feature_2_title">Partner-ready account structure</strong>
+              <span class="text-sm leading-7 text-muted" data-i18n="auth_feature_2_desc">Every new account can later map to approval status, buyer role, and company information.</span>
             </article>
-            <article class="hero-item">
-              <strong data-i18n="auth_feature_3_title">Flexible for gated pages</strong>
-              <span data-i18n="auth_feature_3_desc">Ideal for future sample requests, brand decks, inquiry history, and distributor-only documents.</span>
+            <article class="rounded-[22px] border border-line bg-white/65 px-5 py-4">
+              <strong class="mb-2 block text-[15px] font-semibold text-ink" data-i18n="auth_feature_3_title">Flexible for gated pages</strong>
+              <span class="text-sm leading-7 text-muted" data-i18n="auth_feature_3_desc">Ideal for future sample requests, brand decks, inquiry history, and distributor-only documents.</span>
             </article>
           </div>
         </div>
-        <p class="field-note" data-i18n="auth_note">
-          Note: Supabase OAuth callbacks do not work well from <code>file://</code> URLs. For Kakao or email callback testing, use a local server such as <code>http://localhost:8000</code> or your deployed domain.
+
+        <p class="mt-6 text-sm leading-7 text-muted" data-i18n="auth_note">
+          Note: Supabase OAuth callbacks do not work well from file URLs. For Kakao or email callback testing, use a local server such as http://localhost:8000 or your deployed domain.
         </p>
       </section>
 
-      <section class="panel">
-        <p class="eyebrow" data-i18n="auth_panel_eyebrow">Supabase Auth</p>
-        <h2 data-i18n="auth_panel_heading">Sign in or create your account.</h2>
-        <p style="margin-top: 16px;" data-i18n="auth_panel_desc">
+      <section class="rounded-[32px] border border-white/70 bg-white/80 p-10 shadow-soft backdrop-blur-[14px]">
+        <p class="mb-4 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="auth_panel_eyebrow">Supabase Auth</p>
+        <h2 class="font-serif text-4xl font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="auth_panel_heading">Sign in or create your account.</h2>
+        <p class="mt-4 text-base leading-8 text-muted" data-i18n="auth_panel_desc">
           Start with a partner account so we can later connect buyers to gated materials and account-based workflows.
         </p>
 
-        <div class="tabs">
-          <button class="tab-button is-active" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
-          <button class="tab-button" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
+        <div class="mt-6 inline-flex rounded-full bg-black/5 p-1">
+          <button class="tab-button is-active rounded-full px-5 py-3 text-[13px] font-bold text-muted transition" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
+          <button class="tab-button rounded-full px-5 py-3 text-[13px] font-bold text-muted transition" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
         </div>
 
-        <div id="authStatus" class="status" data-tone="neutral"></div>
+        <div id="authStatus" class="min-h-6 pt-3 text-sm" data-tone="neutral"></div>
 
-        <section data-auth-panel="signin">
-          <button type="button" class="provider-button" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
-          <div class="divider" data-i18n="auth_or">or</div>
-          <form id="signInForm" class="fields">
-            <div class="field-group">
-              <label for="signInEmail" data-i18n="auth_work_email">Work Email</label>
-              <input id="signInEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required>
+        <section data-auth-panel="signin" class="pt-2">
+          <button type="button" class="provider-button mb-4 w-full rounded-2xl border border-white/60 bg-[rgba(247,225,17,0.45)] px-5 py-4 text-center text-sm font-bold text-[#3d3608] shadow-[0_10px_28px_rgba(93,97,90,0.12)] backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:border-white/80 hover:bg-[rgba(247,225,17,0.58)] hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
+          <div class="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-black/35">
+            <span class="h-px flex-1 bg-black/10"></span>
+            <span data-i18n="auth_or">or</span>
+            <span class="h-px flex-1 bg-black/10"></span>
+          </div>
+
+          <form id="signInForm" class="grid gap-4">
+            <div class="grid gap-2">
+              <label for="signInEmail" class="text-[13px] font-bold text-ink" data-i18n="auth_work_email">Work Email</label>
+              <input id="signInEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <div class="field-group">
-              <label for="signInPassword" data-i18n="auth_password">Password</label>
-              <input id="signInPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required>
+            <div class="grid gap-2">
+              <label for="signInPassword" class="text-[13px] font-bold text-ink" data-i18n="auth_password">Password</label>
+              <input id="signInPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <button class="submit-button" type="submit" data-i18n="auth_signin_button">Sign In</button>
+            <button class="submit-button mt-1 w-full rounded-2xl border border-white/60 bg-white/30 px-5 py-4 text-sm font-bold text-ink shadow-[0_10px_28px_rgba(93,97,90,0.12)] backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:border-white/80 hover:bg-white/40 hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]" type="submit" data-i18n="auth_signin_button">Sign In</button>
           </form>
         </section>
 
-        <section data-auth-panel="signup" hidden>
-          <button type="button" class="provider-button" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
-          <div class="divider" data-i18n="auth_or">or</div>
-          <form id="signUpForm" class="fields">
-            <div class="field-group">
-              <label for="signUpName" data-i18n="auth_full_name">Full Name</label>
-              <input id="signUpName" type="text" placeholder="Your name" data-i18n-placeholder="auth_full_name_placeholder" required>
+        <section data-auth-panel="signup" class="pt-2" hidden>
+          <button type="button" class="provider-button mb-4 w-full rounded-2xl border border-white/60 bg-[rgba(247,225,17,0.45)] px-5 py-4 text-center text-sm font-bold text-[#3d3608] shadow-[0_10px_28px_rgba(93,97,90,0.12)] backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:border-white/80 hover:bg-[rgba(247,225,17,0.58)] hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]" data-auth-provider="kakao" data-i18n="auth_kakao">Continue with Kakao</button>
+          <div class="mb-6 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-black/35">
+            <span class="h-px flex-1 bg-black/10"></span>
+            <span data-i18n="auth_or">or</span>
+            <span class="h-px flex-1 bg-black/10"></span>
+          </div>
+
+          <form id="signUpForm" class="grid gap-4">
+            <div class="grid gap-2">
+              <label for="signUpName" class="text-[13px] font-bold text-ink" data-i18n="auth_full_name">Full Name</label>
+              <input id="signUpName" type="text" placeholder="Your name" data-i18n-placeholder="auth_full_name_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <div class="field-group">
-              <label for="signUpCompany" data-i18n="auth_company">Company</label>
-              <input id="signUpCompany" type="text" placeholder="Company name" data-i18n-placeholder="auth_company_placeholder" required>
+            <div class="grid gap-2">
+              <label for="signUpCompany" class="text-[13px] font-bold text-ink" data-i18n="auth_company">Company</label>
+              <input id="signUpCompany" type="text" placeholder="Company name" data-i18n-placeholder="auth_company_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <div class="field-group">
-              <label for="signUpEmail" data-i18n="auth_work_email">Work Email</label>
-              <input id="signUpEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required>
+            <div class="grid gap-2">
+              <label for="signUpEmail" class="text-[13px] font-bold text-ink" data-i18n="auth_work_email">Work Email</label>
+              <input id="signUpEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <div class="field-group">
-              <label for="signUpPassword" data-i18n="auth_password">Password</label>
-              <input id="signUpPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required>
+            <div class="grid gap-2">
+              <label for="signUpPassword" class="text-[13px] font-bold text-ink" data-i18n="auth_password">Password</label>
+              <input id="signUpPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
-            <button class="submit-button" type="submit" data-i18n="auth_signup_button">Create Account</button>
+            <button class="submit-button mt-1 w-full rounded-2xl border border-white/60 bg-white/30 px-5 py-4 text-sm font-bold text-ink shadow-[0_10px_28px_rgba(93,97,90,0.12)] backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:border-white/80 hover:bg-white/40 hover:shadow-[0_14px_34px_rgba(93,97,90,0.18)]" type="submit" data-i18n="auth_signup_button">Create Account</button>
           </form>
         </section>
       </section>
     </div>
   </div>
+
   <script type="module" src="assets/js/auth-ui.js"></script>
 </body>
 </html>

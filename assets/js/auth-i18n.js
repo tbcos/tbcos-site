@@ -2,7 +2,7 @@ export const LANGUAGE_STORAGE_KEY = "tbcos-language";
 
 const translations = {
   en: {
-    common_back_to_tbcos: "Back to THREE BODY",
+    common_back_to_tbcos: "Back to Home",
     common_my_account: "My Account",
     common_log_out: "Log Out",
     auth_title: "THREE BODY Auth",
@@ -72,7 +72,7 @@ const translations = {
     callback_missing_session: "No session found yet. If you just confirmed your email, try opening the link again or return to the login page."
   },
   ko: {
-    common_back_to_tbcos: "THREE BODY로 돌아가기",
+    common_back_to_tbcos: "홈으로 돌아가기",
     common_my_account: "내 계정",
     common_log_out: "로그아웃",
     auth_title: "THREE BODY 인증",
@@ -171,7 +171,12 @@ export function applyLanguage(language = getCurrentLanguage()) {
   document.title = translate(document.body.dataset.titleKey || "auth_title", language);
 
   document.querySelectorAll(".lang-btn").forEach((button) => {
-    button.classList.toggle("active", button.dataset.lang === language);
+    const isActive = button.dataset.lang === language;
+    button.classList.toggle("active", isActive);
+    button.classList.toggle("bg-[#6b6f67]", isActive);
+    button.classList.toggle("text-[#f7f5ef]", isActive);
+    button.classList.toggle("text-muted", !isActive);
+    button.classList.toggle("text-[#6c6a67]", !isActive);
   });
 
   document.dispatchEvent(new CustomEvent("tbcos:languagechange", {

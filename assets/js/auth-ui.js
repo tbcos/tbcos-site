@@ -18,7 +18,12 @@ function showStatus(message, tone = "neutral") {
 
 function setActiveTab(tab) {
   tabButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.authTab === tab);
+    const isActive = button.dataset.authTab === tab;
+    button.classList.toggle("is-active", isActive);
+    button.classList.toggle("bg-[#6b6f67]", isActive);
+    button.classList.toggle("text-[#f7f5ef]", isActive);
+    button.classList.toggle("text-muted", !isActive);
+    button.classList.toggle("text-[#6c6a67]", !isActive);
   });
 
   panels.forEach((panel) => {
