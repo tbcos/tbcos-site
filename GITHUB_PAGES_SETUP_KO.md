@@ -5,7 +5,7 @@
 현재 이 폴더에는 이미 커스텀 도메인용 파일이 들어 있습니다.
 
 - `CNAME`
-  - 내용: `www.tb-co.kr`
+  - 내용: `www.tb-cos.kr`
 
 이 파일은 GitHub Pages에서 커스텀 도메인을 사용할 때 필요합니다.
 
@@ -64,14 +64,14 @@ GitHub 저장소 페이지에서:
 
 같은 `Pages` 화면에서:
 
-1. `Custom domain`에 `www.tb-co.kr` 입력
+1. `Custom domain`에 `www.tb-cos.kr` 입력
 2. `Save`
 
 정상적으로 저장되면 GitHub가 `CNAME` 파일을 기준으로 도메인을 기억합니다.
 
 ## 5. GoDaddy DNS 변경
 
-GoDaddy에서 `www.tb-co.kr`를 현재 Canva 대신 GitHub Pages로 보내야 합니다.
+GoDaddy에서 `www.tb-cos.kr`를 현재 Canva 대신 GitHub Pages로 보내야 합니다.
 
 GoDaddy DNS에서:
 
@@ -116,9 +116,9 @@ git push
 
 ## 주의할 점
 
-- 현재 `www.tb-co.kr`가 Canva에 연결되어 있으면, GoDaddy DNS에서 `www` 값을 바꾸는 순간 새 사이트로 전환됩니다.
+- 현재 `www.tb-cos.kr`가 Canva에 연결되어 있으면, GoDaddy DNS에서 `www` 값을 바꾸는 순간 새 사이트로 전환됩니다.
 - 그래서 먼저 GitHub Pages 기본 주소에서 사이트를 확인한 뒤 DNS를 바꾸는 것이 안전합니다.
-- 루트 도메인 `tb-co.kr`는 나중에 연결해도 됩니다.
+- 루트 도메인 `tb-cos.kr`는 나중에 연결해도 됩니다.
 
 ## 추천 순서
 
@@ -126,6 +126,5 @@ git push
 2. 코드 push
 3. GitHub Pages 활성화
 4. GitHub Pages 기본 주소로 테스트
-5. GoDaddy에서 `www.tb-co.kr` DNS를 GitHub Pages로 변경
+5. GoDaddy에서 `www.tb-cos.kr` DNS를 GitHub Pages로 변경
 6. HTTPS 확인
-
