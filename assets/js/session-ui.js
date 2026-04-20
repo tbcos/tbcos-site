@@ -30,11 +30,13 @@ function getCopy() {
 }
 
 function buildLink(label, href, className = "") {
-  return `<a class="auth-chip ${className}".trim() href="${href}">${label}</a>`;
+  const classes = `auth-chip ${className}`.trim();
+  return `<a class="${classes}" href="${href}">${label}</a>`;
 }
 
 function buildButton(label, id, className = "") {
-  return `<button type="button" class="auth-chip ${className}".trim() id="${id}">${label}</button>`;
+  const classes = `auth-chip ${className}`.trim();
+  return `<button type="button" class="${classes}" id="${id}">${label}</button>`;
 }
 
 function renderGuest() {

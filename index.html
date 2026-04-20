@@ -996,7 +996,10 @@
             <button type="button" class="lang-btn active" data-lang="en">EN</button>
             <button type="button" class="lang-btn" data-lang="ko">KR</button>
           </div>
-          <div class="nav-actions flex items-center gap-2" id="authNavDesktop"></div>
+          <div class="nav-actions flex items-center gap-2" id="authNavDesktop">
+            <a class="auth-chip ghost" href="auth.html" data-auth-fallback="signin">Sign In</a>
+            <a class="auth-chip primary" href="auth.html#signup" data-auth-fallback="signup">Create Account</a>
+          </div>
         </div>
 
         <button id="mobileMenuTrigger" class="inline-flex items-center justify-center text-ink lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">
@@ -1012,7 +1015,10 @@
           <button type="button" class="lang-btn" data-lang="ko">KR</button>
         </div>
       </div>
-      <div id="authNavMobile" class="grid gap-2"></div>
+      <div id="authNavMobile" class="grid gap-2">
+        <a class="auth-chip ghost" href="auth.html" data-auth-fallback="signin">Sign In</a>
+        <a class="auth-chip primary" href="auth.html#signup" data-auth-fallback="signup">Create Account</a>
+      </div>
       <div class="nav-mobile-links">
         <a href="#about" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_about">About</a>
         <a href="#odm" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_odm">ODM / OEM</a>
@@ -1535,6 +1541,14 @@
 
       document.querySelectorAll(".lang-btn").forEach((button) => {
         button.classList.toggle("active", button.dataset.lang === language);
+      });
+
+      document.querySelectorAll("[data-auth-fallback='signin']").forEach((element) => {
+        element.textContent = copy.common_signin || "Sign In";
+      });
+
+      document.querySelectorAll("[data-auth-fallback='signup']").forEach((element) => {
+        element.textContent = copy.common_signup || "Create Account";
       });
 
       document.dispatchEvent(new CustomEvent("tbcos:languagechange", {
