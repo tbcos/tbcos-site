@@ -139,6 +139,10 @@
       background: transparent;
     }
 
+    .nav-logo-fallback {
+      display: none;
+    }
+
     .nav-links {
       display: flex;
       gap: 32px;
@@ -397,6 +401,11 @@
 
     section {
       padding: 80px 0;
+    }
+
+    section[id],
+    header[id] {
+      scroll-margin-top: 92px;
     }
 
     .section-tag {
@@ -973,6 +982,7 @@
             <source src="assets/tbcos-logo-video-transparent.webm" type="video/webm">
             <source src="assets/tbcos-logo-video.mp4" type="video/mp4">
           </video>
+          <img id="navLogoFallback" class="nav-logo-fallback h-[60px] w-auto object-contain" src="assets/tbcos-logo-transparent.png" alt="TBcos logo">
         </a>
 
         <div class="hidden items-center gap-8 lg:flex">
@@ -1543,10 +1553,31 @@
     setLanguage(preferredLanguage);
 
     const navLogoVideo = document.getElementById("navLogoVideo");
+    const navLogoFallback = document.getElementById("navLogoFallback");
     if (navLogoVideo) {
       navLogoVideo.addEventListener("ended", () => {
         navLogoVideo.currentTime = 0.3;
       });
+    }
+
+    function useStaticLogo() {
+      if (navLogoVideo) {
+        navLogoVideo.style.display = "none";
+        navLogoVideo.pause();
+      }
+      if (navLogoFallback) {
+        navLogoFallback.style.display = "block";
+      }
+    }
+
+    const shouldPreferStaticLogo =
+      /iPhone|iPad|iPod/i.test(window.navigator.userAgent) ||
+      window.matchMedia("(pointer: coarse)").matches;
+
+    if (shouldPreferStaticLogo) {
+      useStaticLogo();
+    } else if (navLogoVideo) {
+      navLogoVideo.addEventListener("error", useStaticLogo, { once: true });
     }
 
     const mobileMenu = document.getElementById("mobileMenu");
@@ -1617,6 +1648,39 @@
       if (event.key === "Escape") {
         syncMobileMenuState(false);
       }
+    });
+
+    function animateScrollTo(targetY, duration = 720) {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = progress;
+        window.scrollTo(0, startY + distance * eased);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const hash = anchor.getAttribute("href");
+        if (!hash || hash === "#") return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        event.preventDefault();
+        const navOffset = 84;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY - navOffset;
+        animateScrollTo(Math.max(targetTop, 0));
+        history.replaceState(null, "", hash);
+      });
     });
 
     const observer = new IntersectionObserver((entries) => {
