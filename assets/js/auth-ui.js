@@ -8,6 +8,7 @@ const kakaoButtons = document.querySelectorAll("[data-auth-provider='kakao']");
 const tabButtons = document.querySelectorAll("[data-auth-tab]");
 const panels = document.querySelectorAll("[data-auth-panel]");
 const tabSwitch = document.querySelector(".tab-switch");
+const forgotPasswordButton = document.getElementById("forgotPasswordButton");
 
 initLanguageControls("auth_title");
 
@@ -119,6 +120,30 @@ async function signInWithKakao() {
   }
 }
 
+async function sendPasswordReset() {
+  try {
+    const supabase = requireConfiguredSupabase();
+    const email = document.getElementById("signInEmail")?.value.trim();
+
+    if (!email) {
+      showStatus(translate("auth_status_reset_needed"), "error");
+      return;
+    }
+
+    showStatus(translate("auth_status_reset_sending"));
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: getAbsoluteUrl("reset-password.html")
+    });
+
+    if (error) throw error;
+
+    showStatus(translate("auth_status_reset_sent"), "success");
+  } catch (error) {
+    showStatus(error.message || translate("reset_status_error"), "error");
+  }
+}
+
 if (signInForm) {
   signInForm.addEventListener("submit", signInWithEmail);
 }
@@ -130,3 +155,7 @@ if (signUpForm) {
 kakaoButtons.forEach((button) => {
   button.addEventListener("click", signInWithKakao);
 });
+
+if (forgotPasswordButton) {
+  forgotPasswordButton.addEventListener("click", sendPasswordReset);
+}
