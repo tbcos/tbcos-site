@@ -9,6 +9,11 @@ const tabButtons = document.querySelectorAll("[data-auth-tab]");
 const panels = document.querySelectorAll("[data-auth-panel]");
 const tabSwitch = document.querySelector(".tab-switch");
 const forgotPasswordButton = document.getElementById("forgotPasswordButton");
+const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+const forgotPasswordEmail = document.getElementById("forgotPasswordEmail");
+const forgotPasswordCloseButton = document.getElementById("forgotPasswordCloseButton");
+const forgotPasswordCancelButton = document.getElementById("forgotPasswordCancelButton");
 
 initLanguageControls("auth_title");
 
@@ -120,10 +125,28 @@ async function signInWithKakao() {
   }
 }
 
-async function sendPasswordReset() {
+function openForgotPasswordModal() {
+  if (!forgotPasswordModal) return;
+  forgotPasswordModal.classList.add("open");
+  forgotPasswordModal.setAttribute("aria-hidden", "false");
+  if (forgotPasswordEmail) {
+    forgotPasswordEmail.value = document.getElementById("signInEmail")?.value.trim() || "";
+    window.setTimeout(() => forgotPasswordEmail.focus(), 40);
+  }
+}
+
+function closeForgotPasswordModal() {
+  if (!forgotPasswordModal) return;
+  forgotPasswordModal.classList.remove("open");
+  forgotPasswordModal.setAttribute("aria-hidden", "true");
+}
+
+async function sendPasswordReset(event) {
+  event?.preventDefault();
+
   try {
     const supabase = requireConfiguredSupabase();
-    const email = document.getElementById("signInEmail")?.value.trim();
+    const email = forgotPasswordEmail?.value.trim();
 
     if (!email) {
       showStatus(translate("auth_status_reset_needed"), "error");
@@ -139,6 +162,7 @@ async function sendPasswordReset() {
     if (error) throw error;
 
     showStatus(translate("auth_status_reset_sent"), "success");
+    closeForgotPasswordModal();
   } catch (error) {
     showStatus(error.message || translate("reset_status_error"), "error");
   }
@@ -157,5 +181,35 @@ kakaoButtons.forEach((button) => {
 });
 
 if (forgotPasswordButton) {
-  forgotPasswordButton.addEventListener("click", sendPasswordReset);
+  forgotPasswordButton.addEventListener("click", openForgotPasswordModal);
+}
+
+if (forgotPasswordForm) {
+  forgotPasswordForm.addEventListener("submit", sendPasswordReset);
+}
+
+if (forgotPasswordCloseButton) {
+  forgotPasswordCloseButton.addEventListener("click", closeForgotPasswordModal);
+}
+
+if (forgotPasswordCancelButton) {
+  forgotPasswordCancelButton.addEventListener("click", closeForgotPasswordModal);
+}
+
+if (forgotPasswordModal) {
+  forgotPasswordModal.addEventListener("click", (event) => {
+    if (event.target === forgotPasswordModal) {
+      closeForgotPasswordModal();
+    }
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && forgotPasswordModal?.classList.contains("open")) {
+    closeForgotPasswordModal();
+  }
+});
+
+if (window.location.hash === "#forgot-password") {
+  openForgotPasswordModal();
 }
