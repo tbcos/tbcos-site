@@ -7,6 +7,7 @@ const signUpForm = document.getElementById("signUpForm");
 const kakaoButtons = document.querySelectorAll("[data-auth-provider='kakao']");
 const tabButtons = document.querySelectorAll("[data-auth-tab]");
 const panels = document.querySelectorAll("[data-auth-panel]");
+const tabSwitch = document.querySelector(".tab-switch");
 
 initLanguageControls("auth_title");
 
@@ -17,13 +18,14 @@ function showStatus(message, tone = "neutral") {
 }
 
 function setActiveTab(tab) {
+  if (tabSwitch) {
+    tabSwitch.dataset.active = tab;
+  }
+
   tabButtons.forEach((button) => {
     const isActive = button.dataset.authTab === tab;
     button.classList.toggle("is-active", isActive);
-    button.classList.toggle("bg-[#6b6f67]", isActive);
-    button.classList.toggle("text-[#f7f5ef]", isActive);
-    button.classList.toggle("text-muted", !isActive);
-    button.classList.toggle("text-[#6c6a67]", !isActive);
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
   });
 
   panels.forEach((panel) => {

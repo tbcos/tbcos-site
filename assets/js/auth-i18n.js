@@ -170,13 +170,14 @@ export function applyLanguage(language = getCurrentLanguage()) {
 
   document.title = translate(document.body.dataset.titleKey || "auth_title", language);
 
+  document.querySelectorAll(".lang-switch").forEach((switcher) => {
+    switcher.dataset.active = language;
+  });
+
   document.querySelectorAll(".lang-btn").forEach((button) => {
     const isActive = button.dataset.lang === language;
     button.classList.toggle("active", isActive);
-    button.classList.toggle("bg-[#6b6f67]", isActive);
-    button.classList.toggle("text-[#f7f5ef]", isActive);
-    button.classList.toggle("text-muted", !isActive);
-    button.classList.toggle("text-[#6c6a67]", !isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
 
   document.dispatchEvent(new CustomEvent("tbcos:languagechange", {

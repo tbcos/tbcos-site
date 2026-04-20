@@ -32,20 +32,145 @@
     };
   </script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    .lang-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 96px;
+      height: 40px;
+      padding: 4px;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      overflow: hidden;
+    }
+
+    .lang-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 44px;
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: #6b6f67;
+      box-shadow: 0 8px 20px rgba(93, 97, 90, 0.16);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .lang-switch[data-active="ko"] .lang-thumb {
+      transform: translateX(44px);
+    }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      width: 44px;
+      height: 32px;
+      min-width: 44px;
+      flex: 0 0 44px;
+      border: none;
+      background: transparent;
+      color: #6c6a67;
+      border-radius: 999px;
+      padding: 0;
+      margin: 0;
+      line-height: 1;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-align: center;
+      vertical-align: middle;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .lang-btn.active {
+      color: #f7f5ef;
+    }
+
+    .tab-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 100%;
+      max-width: 248px;
+      height: 52px;
+      padding: 4px;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      overflow: hidden;
+    }
+
+    .tab-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: #6b6f67;
+      box-shadow: 0 8px 20px rgba(93, 97, 90, 0.16);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .tab-switch[data-active="signup"] .tab-thumb {
+      transform: translateX(100%);
+    }
+
+    .tab-button {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 50%;
+      height: 100%;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      color: #6c6a67;
+      border-radius: 999px;
+      padding: 0 16px;
+      margin: 0;
+      line-height: 1;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .tab-button.is-active {
+      color: #f7f5ef;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.24),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
   <div class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-7">
-    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-11">
-      <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink no-underline">
+    <div class="mb-8 flex items-center justify-between gap-3 sm:mb-11">
+      <a href="index.html" class="inline-flex min-w-0 items-center gap-1.5 text-sm font-semibold text-ink no-underline">
         <span class="material-symbols-outlined text-[18px] leading-none">home</span>
-        <span data-i18n="common_back_to_tbcos">Back to Home</span>
+        <span class="truncate" data-i18n="common_back_to_tbcos">Back to Home</span>
       </a>
-      <div class="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
-        <div class="inline-flex rounded-full bg-black/5 p-1">
-          <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="en">EN</button>
-          <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="ko">KR</button>
+      <div class="flex shrink-0 items-center justify-end gap-3 sm:min-w-[196px] sm:gap-4">
+        <div class="lang-switch" data-active="en">
+          <span class="lang-thumb" aria-hidden="true"></span>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
         </div>
-        <a href="account.html" class="text-sm font-semibold text-ink no-underline" data-i18n="common_my_account">My Account</a>
+        <a href="account.html" class="w-[88px] text-right text-sm font-semibold text-ink no-underline" data-i18n="common_my_account">My Account</a>
       </div>
     </div>
 
@@ -86,9 +211,10 @@
           Start with a partner account so we can later connect buyers to gated materials and account-based workflows.
         </p>
 
-        <div class="mt-6 inline-flex w-full rounded-full bg-black/5 p-1 sm:w-auto">
-          <button class="tab-button is-active flex-1 rounded-full px-4 py-3 text-[13px] font-bold text-muted transition sm:flex-none sm:px-5" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
-          <button class="tab-button flex-1 rounded-full px-4 py-3 text-[13px] font-bold text-muted transition sm:flex-none sm:px-5" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
+        <div class="tab-switch mt-6" data-active="signin">
+          <span class="tab-thumb" aria-hidden="true"></span>
+          <button class="tab-button is-active" type="button" data-auth-tab="signin" aria-pressed="true" data-i18n="auth_tab_signin">Sign In</button>
+          <button class="tab-button" type="button" data-auth-tab="signup" aria-pressed="false" data-i18n="auth_tab_signup">Create Account</button>
         </div>
 
         <div id="authStatus" class="min-h-6 pt-3 text-sm" data-tone="neutral"></div>
