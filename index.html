@@ -259,26 +259,55 @@
     }
 
     .nav-mobile-menu {
-      display: none;
       position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 200;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
+      top: 76px;
+      right: 16px;
+      left: auto;
+      width: min(36vw, 240px);
+      z-index: 160;
+      display: grid;
+      justify-items: stretch;
+      gap: 18px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      border-radius: 24px;
+      background: rgba(248, 249, 250, 0.5);
+      box-shadow: 0 20px 48px rgba(93, 97, 90, 0.16);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-18px) scale(0.98);
+      transform-origin: top right;
+      pointer-events: none;
+      transition:
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0.32s ease;
     }
 
     .nav-mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .nav-mobile-top {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
     .nav-mobile-menu .nav-mobile-link {
-      font-size: 24px;
+      display: block;
+      padding: 10px 2px;
+      font-size: 17px;
       text-decoration: none;
       color: var(--text);
-      font-weight: 500;
+      font-weight: 600;
+      text-align: center;
       transition: transform 0.24s ease, color 0.24s ease;
     }
 
@@ -287,14 +316,9 @@
       transform: translateY(-1px);
     }
 
-    .nav-mobile-close {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text);
+    .nav-mobile-links {
+      display: grid;
+      gap: 4px;
     }
 
     .hero {
@@ -859,9 +883,7 @@
       .nav-actions { display: none; }
       .auth-chip { min-width: 96px; }
       #authNavMobile {
-        left: 24px;
-        right: 24px;
-        width: auto;
+        width: 100%;
         display: grid !important;
         justify-content: center;
         justify-items: center;
@@ -883,7 +905,7 @@
       .about-grid { grid-template-columns: 1fr; }
       .about-card-big {
         flex-direction: column;
-        padding: 32px;
+        padding: 24px;
       }
       .showroom-grid { grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; }
@@ -892,12 +914,45 @@
     @media (max-width: 600px) {
       .odm-grid { grid-template-columns: 1fr; }
       .hero { padding: 120px 0 64px; }
+      section {
+        padding: 64px 0;
+      }
+      .section-desc {
+        margin-bottom: 36px;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+      .bento-card {
+        padding: 26px;
+      }
+      .product-info {
+        padding: 24px 22px;
+        gap: 10px;
+      }
+      .product-info h3 {
+        min-height: auto;
+      }
+      .product-info p {
+        min-height: auto;
+      }
+      .contact-form {
+        padding: 24px;
+      }
+      .nav-mobile-menu {
+        top: 72px;
+        right: 12px;
+        left: auto;
+        width: min(42vw, 220px);
+        padding: 16px;
+      }
       #authNavMobile {
-        grid-template-columns: minmax(0, 220px);
+        grid-template-columns: 1fr;
         justify-content: center;
       }
       #authNavMobile .auth-chip {
-        max-width: 220px;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
       }
       .product-img {
         height: 320px;
@@ -934,25 +989,26 @@
           <div class="nav-actions flex items-center gap-2" id="authNavDesktop"></div>
         </div>
 
-        <button class="inline-flex items-center justify-center text-ink lg:hidden" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
+        <button id="mobileMenuTrigger" class="inline-flex items-center justify-center text-ink lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">
           <i data-lucide="menu" style="width:24px;height:24px;"></i>
         </button>
       </div>
     </nav>
 
     <div class="nav-mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-      <button class="nav-mobile-close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open')">
-        <i data-lucide="x" style="width:28px;height:28px"></i>
-      </button>
-      <div class="absolute left-6 top-5 flex items-center gap-2">
-        <button type="button" class="lang-btn active" data-lang="en">EN</button>
-        <button type="button" class="lang-btn" data-lang="ko">KR</button>
+      <div class="nav-mobile-top">
+        <div class="flex items-center gap-2">
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
       </div>
-      <div id="authNavMobile" class="absolute left-6 right-6 top-20 grid gap-2"></div>
-      <a href="#about" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_about">About</a>
-      <a href="#odm" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_odm">ODM / OEM</a>
-      <a href="#showroom" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_brand">LUXFOLLICLE</a>
-      <a href="#contact" class="nav-mobile-link" onclick="this.parentElement.classList.remove('open')" data-i18n="nav_contact">Contact</a>
+      <div id="authNavMobile" class="grid gap-2"></div>
+      <div class="nav-mobile-links">
+        <a href="#about" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_about">About</a>
+        <a href="#odm" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_odm">ODM / OEM</a>
+        <a href="#showroom" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_brand">LUXFOLLICLE</a>
+        <a href="#contact" class="nav-mobile-link" onclick="closeMobileMenu()" data-i18n="nav_contact">Contact</a>
+      </div>
     </div>
 
     <header id="hero" class="relative overflow-hidden px-6 pb-24 pt-40 text-center">
@@ -973,8 +1029,8 @@
         <p class="section-tag keep-case reveal mb-4 text-[11px] font-semibold tracking-[0.28em] text-muted" data-i18n="about_tag">About TBcos</p>
         <h2 class="section-title reveal mb-4 font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink" id="aboutHeading">The Science Behind Beauty</h2>
         <p class="section-desc reveal mb-12 max-w-[560px] text-base leading-8 text-muted" id="aboutDesc" data-i18n="about_desc">Although our journey is still young, we have continued to grow through the expertise built in cosmetics manufacturing, ongoing R&amp;D innovation, and global quality certifications, always striving to deliver better value and continuous progress.</p>
-        <div class="grid gap-4 md:grid-cols-2">
-          <div class="reveal md:col-span-2 flex flex-col gap-6 rounded-[20px] border border-black/5 bg-white p-7 shadow-soft lg:flex-row lg:items-center">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="reveal md:col-span-2 flex flex-col gap-6 rounded-[20px] border border-black/5 bg-white p-7 shadow-soft lg:flex-row lg:items-center">
             <div class="flex-1">
               <h3 class="mb-3 text-[22px] font-semibold tracking-[-0.3px] text-ink" data-i18n="about_big_title">Grace Beyond Gravity</h3>
               <p class="text-[15px] leading-8 text-muted" data-i18n="about_big_desc">TBcos develops skincare and haircare formulations aligned with modern beauty standards. Based on the balance of sensory experience, stability, and quality, we create products trusted by both brands and consumers.</p>
@@ -984,14 +1040,14 @@
               <img class="about-visual-image h-full w-full object-cover object-[center_42%]" src="assets/three-body-rnd.png" alt="THREE BODY R&D lab scene">
             </div>
           </div>
-          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="bento-icon">
               <i data-lucide="shield-check" style="width:22px;height:22px"></i>
             </div>
             <h3 data-i18n="about_card1_title">CGMP &amp; ISO 22716</h3>
             <p data-i18n="about_card1_desc">Certified manufacturing facilities meeting the highest global cosmetics safety and quality benchmarks.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="bento-icon">
               <i data-lucide="microscope" style="width:22px;height:22px"></i>
             </div>
@@ -1008,7 +1064,7 @@
         <h2 class="section-title reveal mb-4 font-serif text-[clamp(28px,3.5vw,44px)] font-normal leading-[1.15] tracking-[-1px] text-ink" data-i18n="odm_title">One-Stop ODM / OEM</h2>
         <p class="section-desc reveal mb-12 max-w-[560px] text-base leading-8 text-muted" data-i18n="odm_desc">End-to-end beauty manufacturing — from concept to shelf. We handle every step so you can focus on building your brand.</p>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div class="bento-card reveal rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="odm-step-num">01</div>
             <div class="bento-icon">
               <i data-lucide="search" style="width:22px;height:22px"></i>
@@ -1016,7 +1072,7 @@
             <h3 data-i18n="odm_card1_title">Market Research</h3>
             <p data-i18n="odm_card1_desc">Trend analysis and competitive landscape insights tailored to your target demographic.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal reveal-delay-1 rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="odm-step-num">02</div>
             <div class="bento-icon">
               <i data-lucide="flask-conical" style="width:22px;height:22px"></i>
@@ -1024,7 +1080,7 @@
             <h3 data-i18n="odm_card2_title">Formulation R&amp;D</h3>
             <p data-i18n="odm_card2_desc">Custom formula development with rigorous stability testing and efficacy validation.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal reveal-delay-2 rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="odm-step-num">03</div>
             <div class="bento-icon">
               <i data-lucide="palette" style="width:22px;height:22px"></i>
@@ -1032,7 +1088,7 @@
             <h3 data-i18n="odm_card3_title">Packaging Design</h3>
             <p data-i18n="odm_card3_desc">Full creative direction — from primary containers to secondary packaging and retail displays.</p>
           </div>
-          <div class="bento-card reveal reveal-delay-3 rounded-[20px] border border-black/5 bg-white p-9 shadow-soft">
+          <div class="bento-card reveal reveal-delay-3 rounded-[20px] border border-black/5 bg-white p-7 sm:p-9 shadow-soft">
             <div class="odm-step-num">04</div>
             <div class="bento-icon">
               <i data-lucide="package-check" style="width:22px;height:22px"></i>
@@ -1113,7 +1169,7 @@
             </div>
           </div>
 
-          <div class="contact-form reveal rounded-[20px] border border-black/5 bg-white p-10 shadow-soft" id="contactFormWrap">
+          <div class="contact-form reveal rounded-[20px] border border-black/5 bg-white p-6 sm:p-10 shadow-soft" id="contactFormWrap">
             <form id="contactForm" onsubmit="handleSubmit(event)" class="grid gap-5">
               <div class="grid gap-2">
                 <label for="cf-name" class="text-[13px] font-semibold tracking-[-0.1px] text-ink" data-i18n="form_name_label">Full Name</label>
@@ -1494,9 +1550,72 @@
     }
 
     const mobileMenu = document.getElementById("mobileMenu");
+    const mobileMenuTrigger = document.getElementById("mobileMenuTrigger");
+
+    function syncMobileMenuState(isOpen) {
+      if (mobileMenu) {
+        mobileMenu.classList.toggle("open", isOpen);
+      }
+      if (mobileMenuTrigger) {
+        mobileMenuTrigger.setAttribute("aria-expanded", String(isOpen));
+      }
+    }
+
+    window.toggleMobileMenu = function toggleMobileMenu() {
+      if (!mobileMenu) return;
+      const nextIsOpen = !mobileMenu.classList.contains("open");
+      syncMobileMenuState(nextIsOpen);
+    };
+
+    window.closeMobileMenu = function closeMobileMenu() {
+      syncMobileMenuState(false);
+    };
+
+    let mobileMenuCloseTimer = null;
+
+    function cancelMobileMenuClose() {
+      if (mobileMenuCloseTimer) {
+        window.clearTimeout(mobileMenuCloseTimer);
+        mobileMenuCloseTimer = null;
+      }
+    }
+
+    function queueMobileMenuClose() {
+      if (!window.matchMedia("(pointer: fine)").matches) return;
+      cancelMobileMenuClose();
+      mobileMenuCloseTimer = window.setTimeout(() => {
+        syncMobileMenuState(false);
+      }, 140);
+    }
+
+    if (mobileMenu) {
+      mobileMenu.addEventListener("mouseenter", cancelMobileMenuClose);
+      mobileMenu.addEventListener("mouseleave", queueMobileMenuClose);
+    }
+
+    if (mobileMenuTrigger) {
+      mobileMenuTrigger.addEventListener("mouseenter", cancelMobileMenuClose);
+    }
+
     window.addEventListener("resize", () => {
       if (window.innerWidth >= 1024 && mobileMenu) {
-        mobileMenu.classList.remove("open");
+        syncMobileMenuState(false);
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!mobileMenu || !mobileMenuTrigger) return;
+      if (window.innerWidth >= 1024) return;
+      const clickedInsideMenu = mobileMenu.contains(event.target);
+      const clickedTrigger = mobileMenuTrigger.contains(event.target);
+      if (!clickedInsideMenu && !clickedTrigger) {
+        syncMobileMenuState(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        syncMobileMenuState(false);
       }
     });
 

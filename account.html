@@ -34,13 +34,13 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
 <body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.2),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
-  <div class="mx-auto max-w-7xl px-6 pb-16 pt-7">
-    <div class="mb-9 flex items-center justify-between">
+  <div class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-7">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-9">
       <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink no-underline">
         <span class="material-symbols-outlined text-[18px] leading-none">home</span>
         <span data-i18n="common_back_to_tbcos">Back to Home</span>
       </a>
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
         <div class="inline-flex rounded-full bg-black/5 p-1">
           <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="en">EN</button>
           <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="ko">KR</button>
@@ -49,17 +49,17 @@
       </div>
     </div>
 
-    <section id="accountEmpty" class="mx-auto mt-16 max-w-3xl rounded-[32px] border border-white/70 bg-white/80 px-8 py-10 text-center shadow-soft backdrop-blur-[14px]" hidden>
-      <h2 class="font-serif text-4xl font-normal tracking-[-0.04em]" data-i18n="account_loading_title">Loading account</h2>
-      <p class="mt-4 text-base leading-8 text-muted" data-i18n="account_loading_desc">Checking your session and account details.</p>
+    <section id="accountEmpty" class="mx-auto mt-10 max-w-3xl rounded-[28px] border border-white/70 bg-white/80 px-6 py-8 text-center shadow-soft backdrop-blur-[14px] sm:mt-16 sm:rounded-[32px] sm:px-8 sm:py-10" hidden>
+      <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal tracking-[-0.04em]" data-i18n="account_loading_title">Loading account</h2>
+      <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="account_loading_desc">Checking your session and account details.</p>
     </section>
 
     <section id="accountContent" hidden>
       <div class="grid gap-7 lg:grid-cols-[1.1fr_0.9fr]">
-        <article class="rounded-[32px] border border-white/70 bg-white/80 p-9 shadow-soft backdrop-blur-[14px]">
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:rounded-[32px] sm:p-9">
           <p class="mb-3 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="account_eyebrow">Partner Account</p>
-          <h1 id="accountName" class="font-serif text-5xl font-normal leading-none tracking-[-0.04em] text-ink md:text-6xl">THREE BODY Partner</h1>
-          <p class="mt-5 text-base leading-8 text-muted" data-i18n="account_intro">
+          <h1 id="accountName" class="font-serif text-[clamp(2.1rem,7vw,3.75rem)] font-normal leading-none tracking-[-0.04em] text-ink">THREE BODY Partner</h1>
+          <p class="mt-5 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="account_intro">
             This account area is the starting point for gated documents, inquiry history, sample requests, and partner-specific resources.
           </p>
 
@@ -83,9 +83,9 @@
           </div>
         </article>
 
-        <article class="rounded-[32px] border border-white/70 bg-white/80 p-9 shadow-soft backdrop-blur-[14px]">
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:rounded-[32px] sm:p-9">
           <p class="mb-3 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="account_next_eyebrow">Next Steps</p>
-          <h2 class="font-serif text-4xl font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="account_next_heading">Recommended partner flow</h2>
+          <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="account_next_heading">Recommended partner flow</h2>
 
           <div class="mt-6 grid gap-4">
             <div class="rounded-[18px] border border-line bg-white/70 px-5 py-4">

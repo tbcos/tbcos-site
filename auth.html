@@ -34,13 +34,13 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
 <body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.24),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
-  <div class="mx-auto max-w-7xl px-6 pb-16 pt-7">
-    <div class="mb-11 flex items-center justify-between">
+  <div class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-7">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-11">
       <a href="index.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink no-underline">
         <span class="material-symbols-outlined text-[18px] leading-none">home</span>
         <span data-i18n="common_back_to_tbcos">Back to Home</span>
       </a>
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
         <div class="inline-flex rounded-full bg-black/5 p-1">
           <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="en">EN</button>
           <button type="button" class="lang-btn rounded-full px-3 py-2 text-xs font-bold text-muted transition" data-lang="ko">KR</button>
@@ -50,15 +50,15 @@
     </div>
 
     <div class="grid items-start gap-7 lg:grid-cols-[0.9fr_1.1fr]">
-      <section class="flex min-h-[620px] flex-col justify-between rounded-[32px] border border-white/70 bg-white/80 p-10 shadow-soft backdrop-blur-[14px]">
+      <section class="flex min-h-[560px] flex-col justify-between rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:min-h-[620px] sm:rounded-[32px] sm:p-10">
         <div>
           <p class="mb-4 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="auth_eyebrow">Buyer Access</p>
           <h1 class="font-serif text-[clamp(2rem,4.1vw,2.5rem)] font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="auth_heading">Log in for partner access and materials.</h1>
-          <p class="mt-6 max-w-xl text-base leading-8 text-muted" data-i18n="auth_intro">
+          <p class="mt-5 max-w-xl text-[15px] leading-7 text-muted sm:mt-6 sm:text-base sm:leading-8" data-i18n="auth_intro">
             This entry point is designed for brand partners, distributors, and buyers who want continued access to THREE BODY materials, account-based inquiries, and future partner-only content.
           </p>
 
-          <div class="mt-9 grid gap-4">
+          <div class="mt-7 grid gap-3 sm:mt-9 sm:gap-4">
             <article class="rounded-[22px] border border-line bg-white/65 px-5 py-4">
               <strong class="mb-2 block text-[15px] font-semibold text-ink" data-i18n="auth_feature_1_title">Email and Kakao sign-in</strong>
               <span class="text-sm leading-7 text-muted" data-i18n="auth_feature_1_desc">Support Korean buyer behavior with email and Kakao as the primary access routes.</span>
@@ -79,16 +79,16 @@
         </p>
       </section>
 
-      <section class="rounded-[32px] border border-white/70 bg-white/80 p-10 shadow-soft backdrop-blur-[14px]">
+      <section class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:rounded-[32px] sm:p-10">
         <p class="mb-4 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="auth_panel_eyebrow">Supabase Auth</p>
-        <h2 class="font-serif text-4xl font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="auth_panel_heading">Sign in or create your account.</h2>
-        <p class="mt-4 text-base leading-8 text-muted" data-i18n="auth_panel_desc">
+        <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal leading-tight tracking-[-0.04em] text-ink" data-i18n="auth_panel_heading">Sign in or create your account.</h2>
+        <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="auth_panel_desc">
           Start with a partner account so we can later connect buyers to gated materials and account-based workflows.
         </p>
 
-        <div class="mt-6 inline-flex rounded-full bg-black/5 p-1">
-          <button class="tab-button is-active rounded-full px-5 py-3 text-[13px] font-bold text-muted transition" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
-          <button class="tab-button rounded-full px-5 py-3 text-[13px] font-bold text-muted transition" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
+        <div class="mt-6 inline-flex w-full rounded-full bg-black/5 p-1 sm:w-auto">
+          <button class="tab-button is-active flex-1 rounded-full px-4 py-3 text-[13px] font-bold text-muted transition sm:flex-none sm:px-5" type="button" data-auth-tab="signin" data-i18n="auth_tab_signin">Sign In</button>
+          <button class="tab-button flex-1 rounded-full px-4 py-3 text-[13px] font-bold text-muted transition sm:flex-none sm:px-5" type="button" data-auth-tab="signup" data-i18n="auth_tab_signup">Create Account</button>
         </div>
 
         <div id="authStatus" class="min-h-6 pt-3 text-sm" data-tone="neutral"></div>
