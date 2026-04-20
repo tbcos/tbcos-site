@@ -12,8 +12,11 @@ const forgotPasswordButton = document.getElementById("forgotPasswordButton");
 const forgotPasswordModal = document.getElementById("forgotPasswordModal");
 const forgotPasswordForm = document.getElementById("forgotPasswordForm");
 const forgotPasswordEmail = document.getElementById("forgotPasswordEmail");
-const forgotPasswordCloseButton = document.getElementById("forgotPasswordCloseButton");
 const forgotPasswordCancelButton = document.getElementById("forgotPasswordCancelButton");
+const signUpPasswordInput = document.getElementById("signUpPassword");
+const signUpPasswordStrength = document.getElementById("signUpPasswordStrength");
+const signUpPasswordGenerate = document.getElementById("signUpPasswordGenerate");
+const passwordToggleButtons = document.querySelectorAll("[data-password-toggle]");
 
 initLanguageControls("auth_title");
 
@@ -21,6 +24,65 @@ function showStatus(message, tone = "neutral") {
   if (!statusBox) return;
   statusBox.textContent = message;
   statusBox.dataset.tone = tone;
+}
+
+function updatePasswordToggleLabel(button, isVisible) {
+  const icon = button.querySelector(".material-symbols-outlined");
+  const label = translate(isVisible ? "auth_password_hide" : "auth_password_show");
+  if (icon) {
+    icon.textContent = isVisible ? "visibility_off" : "visibility";
+  }
+  button.setAttribute("aria-label", label);
+  button.setAttribute("title", label);
+}
+
+function evaluatePassword(password) {
+  if (!password) return "empty";
+
+  let score = 0;
+  if (password.length >= 10) score += 1;
+  if (/[a-z]/.test(password)) score += 1;
+  if (/[A-Z]/.test(password)) score += 1;
+  if (/\d/.test(password)) score += 1;
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+  if (score >= 5) return "strong";
+  if (score >= 3) return "medium";
+  return "weak";
+}
+
+function updatePasswordStrength(input, output) {
+  if (!output) return;
+  const level = evaluatePassword(input?.value || "");
+  output.textContent = translate(`auth_password_strength_${level}`);
+  output.className = `text-[13px] font-medium ${
+    level === "strong" ? "text-[#4f6b4d]" : level === "weak" ? "text-[#b34b4b]" : "text-muted"
+  }`;
+}
+
+function generateStrongPassword(length = 14) {
+  const lowers = "abcdefghjkmnpqrstuvwxyz";
+  const uppers = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const numbers = "23456789";
+  const symbols = "!@#$%^&*_-+=?";
+  const all = lowers + uppers + numbers + symbols;
+  const picks = [
+    lowers[Math.floor(Math.random() * lowers.length)],
+    uppers[Math.floor(Math.random() * uppers.length)],
+    numbers[Math.floor(Math.random() * numbers.length)],
+    symbols[Math.floor(Math.random() * symbols.length)]
+  ];
+
+  while (picks.length < length) {
+    picks.push(all[Math.floor(Math.random() * all.length)]);
+  }
+
+  for (let i = picks.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [picks[i], picks[j]] = [picks[j], picks[i]];
+  }
+
+  return picks.join("");
 }
 
 function setActiveTab(tab) {
@@ -188,10 +250,6 @@ if (forgotPasswordForm) {
   forgotPasswordForm.addEventListener("submit", sendPasswordReset);
 }
 
-if (forgotPasswordCloseButton) {
-  forgotPasswordCloseButton.addEventListener("click", closeForgotPasswordModal);
-}
-
 if (forgotPasswordCancelButton) {
   forgotPasswordCancelButton.addEventListener("click", closeForgotPasswordModal);
 }
@@ -213,3 +271,43 @@ document.addEventListener("keydown", (event) => {
 if (window.location.hash === "#forgot-password") {
   openForgotPasswordModal();
 }
+
+if (signUpPasswordInput) {
+  signUpPasswordInput.addEventListener("input", () => {
+    updatePasswordStrength(signUpPasswordInput, signUpPasswordStrength);
+  });
+  updatePasswordStrength(signUpPasswordInput, signUpPasswordStrength);
+}
+
+if (signUpPasswordGenerate) {
+  signUpPasswordGenerate.addEventListener("click", () => {
+    if (!signUpPasswordInput) return;
+    signUpPasswordInput.value = generateStrongPassword();
+    updatePasswordStrength(signUpPasswordInput, signUpPasswordStrength);
+    signUpPasswordInput.focus();
+    signUpPasswordInput.select();
+  });
+}
+
+passwordToggleButtons.forEach((button) => {
+  const targetId = button.dataset.passwordToggle;
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  updatePasswordToggleLabel(button, target.type === "text");
+
+  button.addEventListener("click", () => {
+    const isVisible = target.type === "text";
+    target.type = isVisible ? "password" : "text";
+    updatePasswordToggleLabel(button, !isVisible);
+    target.focus();
+  });
+});
+
+document.addEventListener("tbcos:languagechange", () => {
+  passwordToggleButtons.forEach((button) => {
+    const target = document.getElementById(button.dataset.passwordToggle);
+    if (!target) return;
+    updatePasswordToggleLabel(button, target.type === "text");
+  });
+});
