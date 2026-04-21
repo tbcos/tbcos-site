@@ -4,6 +4,7 @@ import { translate, initLanguageControls } from "./auth-i18n.js";
 const emptyState = document.getElementById("accountEmpty");
 const accountContent = document.getElementById("accountContent");
 const signOutButtons = document.querySelectorAll("[data-signout]");
+const adminLink = document.getElementById("accountAdminLink");
 
 initLanguageControls("account_title");
 
@@ -33,9 +34,11 @@ async function renderAccount() {
   const companyName = meta.company_name || translate("account_default_company");
   const status = meta.status || "pending";
   const provider = user.app_metadata?.provider || "email";
+  const isAdmin = meta.role === "admin";
 
   if (emptyState) emptyState.hidden = true;
   if (accountContent) accountContent.hidden = false;
+  if (adminLink) adminLink.classList.toggle("hidden", !isAdmin);
 
   setText("accountName", displayName);
   setText("accountEmail", user.email || "");
