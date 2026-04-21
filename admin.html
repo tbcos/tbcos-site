@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBcos Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: "#f5f4f0",
+            ink: "#111111",
+            muted: "#6c6a67",
+            line: "rgba(17,17,17,0.08)"
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            serif: ["Noto Serif", "serif"]
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(17,17,17,0.06)"
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    .lang-switch {
+      position: relative;
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      padding: 4px;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      overflow: hidden;
+    }
+    .lang-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc(50% - 4px);
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: #6b6f67;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .lang-switch[data-active="ko"] .lang-thumb { transform: translateX(100%); }
+    .lang-btn {
+      position: relative;
+      z-index: 1;
+      min-width: 42px;
+      border: none;
+      background: transparent;
+      color: #6c6a67;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+    }
+    .lang-btn.active { color: #f7f5ef; }
+  </style>
+</head>
+<body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.2),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
+  <div class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-7">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-9">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-ink no-underline">
+        <span data-i18n="common_back_home">Back to Home</span>
+      </a>
+      <div class="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
+        <div class="lang-switch" data-active="en">
+          <span class="lang-thumb" aria-hidden="true"></span>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <button type="button" data-admin-signout class="text-sm font-semibold text-ink" data-i18n="common_sign_out">Log Out</button>
+      </div>
+    </div>
+
+    <section id="adminLoading" class="mx-auto mt-10 max-w-3xl rounded-[28px] border border-white/70 bg-white/80 px-6 py-8 text-center shadow-soft backdrop-blur-[14px] sm:mt-16 sm:rounded-[32px] sm:px-8 sm:py-10">
+      <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal tracking-[-0.04em]" data-i18n="admin_loading_title">Loading admin access</h2>
+      <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="admin_loading_desc">Checking your session and administrator permissions.</p>
+    </section>
+
+    <section id="adminDenied" class="mx-auto mt-10 hidden max-w-3xl rounded-[28px] border border-[rgba(179,75,75,0.12)] bg-[rgba(255,255,255,0.82)] px-6 py-8 text-center shadow-soft backdrop-blur-[14px] sm:mt-16 sm:rounded-[32px] sm:px-8 sm:py-10">
+      <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal tracking-[-0.04em]" data-i18n="admin_access_denied_title">Administrator access required</h2>
+      <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="admin_access_denied_desc">This page is only available to accounts with the admin role.</p>
+      <p class="mt-3 text-sm leading-7 text-muted" data-i18n="admin_access_denied_hint">Set user_metadata.role to admin in Supabase before using this page.</p>
+      <button type="button" id="adminReload" class="mt-6 rounded-full border border-line bg-white/80 px-5 py-3 text-sm font-semibold text-ink" data-i18n="admin_retry">Reload</button>
+    </section>
+
+    <section id="adminContent" class="hidden">
+      <div class="mb-8 flex flex-wrap items-center gap-3">
+        <span class="rounded-full border border-line bg-white/75 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-black/55" data-i18n="admin_badge">Admin Panel</span>
+        <a href="admin.html" class="rounded-full border border-line bg-white/75 px-4 py-2 text-sm font-semibold text-ink" data-i18n="admin_nav_overview">Overview</a>
+        <a href="admin-inquiries.html" class="rounded-full border border-line bg-white/60 px-4 py-2 text-sm font-semibold text-ink/70" data-i18n="admin_nav_inquiries">Inquiries</a>
+        <a href="admin-members.html" class="rounded-full border border-line bg-white/60 px-4 py-2 text-sm font-semibold text-ink/70" data-i18n="admin_nav_members">Members</a>
+      </div>
+
+      <section class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:rounded-[32px] sm:p-9">
+        <p class="mb-3 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="admin_dashboard_eyebrow">Operations</p>
+        <h1 class="font-serif text-[clamp(2.1rem,7vw,3.75rem)] font-normal leading-none tracking-[-0.04em]" data-i18n="admin_dashboard_heading">Manage inquiries and members from one place.</h1>
+        <p class="mt-5 max-w-3xl text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="admin_dashboard_intro">
+          Use this panel to review incoming inquiries, update handling status, and maintain buyer account states without opening the Supabase dashboard each time.
+        </p>
+      </section>
+
+      <section class="mt-7 grid gap-6 lg:grid-cols-3">
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:p-8">
+          <h2 class="font-serif text-[1.75rem] tracking-[-0.04em]" data-i18n="admin_dashboard_card_inquiries_title">Inquiry management</h2>
+          <p class="mt-3 text-sm leading-7 text-muted" data-i18n="admin_dashboard_card_inquiries_desc">Review recent submissions, update status, and save internal notes.</p>
+          <a href="admin-inquiries.html" class="mt-6 inline-flex rounded-full border border-line bg-white/85 px-5 py-3 text-sm font-semibold text-ink" data-i18n="admin_open_inquiries">Open Inquiry Manager</a>
+        </article>
+
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:p-8">
+          <h2 class="font-serif text-[1.75rem] tracking-[-0.04em]" data-i18n="admin_dashboard_card_members_title">Member management</h2>
+          <p class="mt-3 text-sm leading-7 text-muted" data-i18n="admin_dashboard_card_members_desc">Review signups, approve buyer access, and update partner metadata.</p>
+          <a href="admin-members.html" class="mt-6 inline-flex rounded-full border border-line bg-white/85 px-5 py-3 text-sm font-semibold text-ink" data-i18n="admin_open_members">Open Member Manager</a>
+        </article>
+
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:p-8">
+          <h2 class="font-serif text-[1.75rem] tracking-[-0.04em]" data-i18n="admin_dashboard_card_setup_title">Recommended setup</h2>
+          <p class="mt-3 text-sm leading-7 text-muted" data-i18n="admin_dashboard_card_setup_desc">Make sure your own account has user_metadata.role = admin before using these pages in production.</p>
+        </article>
+      </section>
+    </section>
+  </div>
+
+  <script type="module" src="assets/js/admin-dashboard.js"></script>
+</body>
+</html>

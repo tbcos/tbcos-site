@@ -9,12 +9,14 @@ const authCopy = {
     signIn: "Sign In",
     createAccount: "Create Account",
     myAccount: "My Account",
+    admin: "Admin",
     logOut: "Log Out"
   },
   ko: {
     signIn: "로그인",
     createAccount: "회원가입",
     myAccount: "내 계정",
+    admin: "관리자",
     logOut: "로그아웃"
   }
 };
@@ -53,8 +55,10 @@ function renderGuest() {
 function renderMember(user) {
   const copy = getCopy();
   const displayName = user?.user_metadata?.full_name || user?.email || copy.myAccount;
+  const isAdmin = user?.user_metadata?.role === "admin";
   const memberMarkup = [
     buildLink(displayName, "account.html", "ghost"),
+    isAdmin ? buildLink(copy.admin, "admin.html", "ghost") : "",
     buildButton(copy.logOut, "logoutButton", "primary")
   ].join("");
 

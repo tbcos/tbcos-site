@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Members</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: "#f5f4f0",
+            ink: "#111111",
+            muted: "#6c6a67",
+            line: "rgba(17,17,17,0.08)"
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            serif: ["Noto Serif", "serif"]
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(17,17,17,0.06)"
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    .lang-switch { position: relative; display: inline-grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; padding: 4px; border: 1px solid rgba(17, 17, 17, 0.08); border-radius: 999px; background: rgba(255,255,255,0.68); overflow: hidden; }
+    .lang-thumb { position:absolute; top:4px; left:4px; width:calc(50% - 4px); height:calc(100% - 8px); border-radius:999px; background:#6b6f67; transition:transform .28s cubic-bezier(.22,1,.36,1); pointer-events:none; }
+    .lang-switch[data-active="ko"] .lang-thumb { transform: translateX(100%); }
+    .lang-btn { position:relative; z-index:1; min-width:42px; border:none; background:transparent; color:#6c6a67; border-radius:999px; padding:8px 12px; font-size:11px; font-weight:700; letter-spacing:.08em; cursor:pointer; }
+    .lang-btn.active { color:#f7f5ef; }
+  </style>
+</head>
+<body class="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(173,189,210,0.2),transparent_24%),linear-gradient(180deg,#fbfaf8_0%,#f5f4f0_100%)] font-sans text-ink">
+  <div class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-7">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-9">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-ink no-underline">
+        <span data-i18n="common_back_home">Back to Home</span>
+      </a>
+      <div class="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
+        <div class="lang-switch" data-active="en">
+          <span class="lang-thumb" aria-hidden="true"></span>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <button type="button" data-admin-signout class="text-sm font-semibold text-ink" data-i18n="common_sign_out">Log Out</button>
+      </div>
+    </div>
+
+    <section id="adminLoading" class="mx-auto mt-10 max-w-3xl rounded-[28px] border border-white/70 bg-white/80 px-6 py-8 text-center shadow-soft backdrop-blur-[14px] sm:mt-16 sm:rounded-[32px] sm:px-8 sm:py-10">
+      <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal tracking-[-0.04em]" data-i18n="admin_loading_title">Loading admin access</h2>
+      <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="admin_loading_desc">Checking your session and administrator permissions.</p>
+    </section>
+
+    <section id="adminDenied" class="mx-auto mt-10 hidden max-w-3xl rounded-[28px] border border-[rgba(179,75,75,0.12)] bg-[rgba(255,255,255,0.82)] px-6 py-8 text-center shadow-soft backdrop-blur-[14px] sm:mt-16 sm:rounded-[32px] sm:px-8 sm:py-10">
+      <h2 class="font-serif text-[clamp(1.9rem,5vw,2.25rem)] font-normal tracking-[-0.04em]" data-i18n="admin_access_denied_title">Administrator access required</h2>
+      <p class="mt-4 text-[15px] leading-7 text-muted sm:text-base sm:leading-8" data-i18n="admin_access_denied_desc">This page is only available to accounts with the admin role.</p>
+      <p class="mt-3 text-sm leading-7 text-muted" data-i18n="admin_access_denied_hint">Set user_metadata.role to admin in Supabase before using this page.</p>
+    </section>
+
+    <section id="adminContent" class="hidden">
+      <div class="mb-8 flex flex-wrap items-center gap-3">
+        <span class="rounded-full border border-line bg-white/75 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-black/55" data-i18n="admin_badge">Admin Panel</span>
+        <a href="admin.html" class="rounded-full border border-line bg-white/60 px-4 py-2 text-sm font-semibold text-ink/70" data-i18n="admin_nav_overview">Overview</a>
+        <a href="admin-inquiries.html" class="rounded-full border border-line bg-white/60 px-4 py-2 text-sm font-semibold text-ink/70" data-i18n="admin_nav_inquiries">Inquiries</a>
+        <a href="admin-members.html" class="rounded-full border border-line bg-white/85 px-4 py-2 text-sm font-semibold text-ink" data-i18n="admin_nav_members">Members</a>
+      </div>
+
+      <section class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:rounded-[32px] sm:p-9">
+        <p class="mb-3 text-[11px] uppercase tracking-[0.28em] text-black/45" data-i18n="admin_members_eyebrow">Member Management</p>
+        <h1 class="font-serif text-[clamp(2.1rem,7vw,3.75rem)] font-normal leading-none tracking-[-0.04em]" data-i18n="admin_members_heading">Review partner accounts and update approval status.</h1>
+      </section>
+
+      <section class="mt-7 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="font-serif text-[1.6rem] tracking-[-0.04em]" data-i18n="admin_members_list_title">Member list</h2>
+            <select id="memberStatusFilter" class="rounded-full border border-line bg-white/80 px-4 py-2 text-sm text-ink">
+              <option value="" data-i18n="admin_members_filter_all">All member statuses</option>
+              <option value="pending">pending</option>
+              <option value="approved">approved</option>
+              <option value="rejected">rejected</option>
+            </select>
+          </div>
+          <input id="memberSearch" type="search" class="mt-4 w-full rounded-2xl border border-line bg-white/80 px-4 py-3 text-sm text-ink outline-none" data-i18n-placeholder="admin_members_search" placeholder="Search by name, company, or email">
+          <p id="memberListEmpty" class="mt-5 hidden rounded-2xl border border-dashed border-line bg-white/50 px-4 py-6 text-sm leading-7 text-muted" data-i18n="admin_members_empty">No members matched the current filter.</p>
+          <div id="memberList" class="mt-5 grid gap-3"></div>
+        </article>
+
+        <article class="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur-[14px] sm:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="font-serif text-[1.6rem] tracking-[-0.04em]" data-i18n="admin_member_detail_title">Member detail</h2>
+              <p id="memberSaveStatus" class="mt-2 text-sm text-muted"></p>
+            </div>
+            <button id="memberSaveButton" type="button" class="rounded-full border border-line bg-white/85 px-5 py-3 text-sm font-semibold text-ink" data-i18n="admin_member_save">Save Member</button>
+          </div>
+
+          <div id="memberDetail" class="mt-6 grid gap-4">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-semibold text-ink" for="memberName" data-i18n="admin_member_name">Full Name</label>
+                <input id="memberName" type="text" class="w-full rounded-2xl border border-line bg-white/80 px-4 py-3 text-sm text-ink outline-none">
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold text-ink" for="memberCompany" data-i18n="admin_member_company">Company</label>
+                <input id="memberCompany" type="text" class="w-full rounded-2xl border border-line bg-white/80 px-4 py-3 text-sm text-ink outline-none">
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[20px] border border-line bg-white/60 px-5 py-4">
+                <strong class="block text-sm font-semibold text-ink" data-i18n="admin_member_email">Email</strong>
+                <span id="memberEmail" class="mt-2 block break-all text-sm leading-7 text-muted">-</span>
+              </div>
+              <div class="rounded-[20px] border border-line bg-white/60 px-5 py-4">
+                <strong class="block text-sm font-semibold text-ink" data-i18n="admin_member_provider">Provider</strong>
+                <span id="memberProvider" class="mt-2 block text-sm leading-7 text-muted">-</span>
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-semibold text-ink" for="memberStatus" data-i18n="admin_member_status">Status</label>
+                <select id="memberStatus" class="w-full rounded-2xl border border-line bg-white/80 px-4 py-3 text-sm text-ink">
+                  <option value="pending">pending</option>
+                  <option value="approved">approved</option>
+                  <option value="rejected">rejected</option>
+                </select>
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold text-ink" for="memberRole" data-i18n="admin_member_role">Role</label>
+                <select id="memberRole" class="w-full rounded-2xl border border-line bg-white/80 px-4 py-3 text-sm text-ink">
+                  <option value="buyer">buyer</option>
+                  <option value="admin">admin</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[20px] border border-line bg-white/60 px-5 py-4">
+                <strong class="block text-sm font-semibold text-ink" data-i18n="admin_member_created">Created</strong>
+                <span id="memberCreated" class="mt-2 block text-sm leading-7 text-muted">-</span>
+              </div>
+              <div class="rounded-[20px] border border-line bg-white/60 px-5 py-4">
+                <strong class="block text-sm font-semibold text-ink" data-i18n="admin_member_last_sign_in">Last sign-in</strong>
+                <span id="memberLastSignIn" class="mt-2 block text-sm leading-7 text-muted">-</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </div>
+
+  <script type="module" src="assets/js/admin-members.js"></script>
+</body>
+</html>
