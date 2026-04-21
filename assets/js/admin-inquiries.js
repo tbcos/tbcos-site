@@ -163,7 +163,12 @@ async function boot() {
 
   loadingSection.classList.add("hidden");
   contentSection.classList.remove("hidden");
-  await loadInquiries();
+  try {
+    await loadInquiries();
+  } catch (error) {
+    inquiryListEmpty.classList.remove("hidden");
+    inquiryListEmpty.textContent = error.message || t("admin_dashboard_load_error");
+  }
 }
 
 saveButton.addEventListener("click", saveInquiry);

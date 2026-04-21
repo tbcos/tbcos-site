@@ -161,7 +161,12 @@ async function boot() {
 
   loadingSection.classList.add("hidden");
   contentSection.classList.remove("hidden");
-  await loadMembers();
+  try {
+    await loadMembers();
+  } catch (error) {
+    memberListEmpty.classList.remove("hidden");
+    memberListEmpty.textContent = error.message || t("admin_dashboard_load_error");
+  }
 }
 
 memberSaveButton.addEventListener("click", saveMember);

@@ -5,6 +5,7 @@ const emptyState = document.getElementById("accountEmpty");
 const accountContent = document.getElementById("accountContent");
 const signOutButtons = document.querySelectorAll("[data-signout]");
 const adminLink = document.getElementById("accountAdminLink");
+const AUTH_CLEAR_KEY = "tbcos-clear-auth";
 
 initLanguageControls("account_title");
 
@@ -50,6 +51,7 @@ async function renderAccount() {
 signOutButtons.forEach((button) => {
   button.addEventListener("click", async () => {
     if (!supabase) return;
+    window.sessionStorage.setItem(AUTH_CLEAR_KEY, "1");
     await supabase.auth.signOut();
     window.location.href = "index.html";
   });

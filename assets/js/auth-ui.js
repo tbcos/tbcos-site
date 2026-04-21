@@ -13,10 +13,12 @@ const forgotPasswordModal = document.getElementById("forgotPasswordModal");
 const forgotPasswordForm = document.getElementById("forgotPasswordForm");
 const forgotPasswordEmail = document.getElementById("forgotPasswordEmail");
 const forgotPasswordCancelButton = document.getElementById("forgotPasswordCancelButton");
+const signInPasswordInput = document.getElementById("signInPassword");
 const signUpPasswordInput = document.getElementById("signUpPassword");
 const signUpPasswordStrength = document.getElementById("signUpPasswordStrength");
 const signUpPasswordGenerate = document.getElementById("signUpPasswordGenerate");
 const passwordToggleButtons = document.querySelectorAll("[data-password-toggle]");
+const AUTH_CLEAR_KEY = "tbcos-clear-auth";
 
 initLanguageControls("auth_title");
 
@@ -24,6 +26,53 @@ function showStatus(message, tone = "neutral") {
   if (!statusBox) return;
   statusBox.textContent = message;
   statusBox.dataset.tone = tone;
+}
+
+function getLocalizedAuthError(error) {
+  const message = (error?.message || "").toLowerCase();
+  const code = (error?.code || "").toLowerCase();
+
+  if (
+    message.includes("invalid login credentials") ||
+    message.includes("invalid_credentials") ||
+    code.includes("invalid_credentials")
+  ) {
+    return translate("auth_error_invalid_credentials");
+  }
+
+  if (message.includes("email not confirmed")) {
+    return translate("auth_error_email_not_confirmed");
+  }
+
+  if (
+    message.includes("user already registered") ||
+    message.includes("already registered") ||
+    message.includes("already exists")
+  ) {
+    return translate("auth_error_user_exists");
+  }
+
+  if (message.includes("signups not allowed") || message.includes("signup is disabled")) {
+    return translate("auth_error_signup_disabled");
+  }
+
+  if (
+    message.includes("rate limit") ||
+    message.includes("too many requests") ||
+    message.includes("over_email_send_rate_limit")
+  ) {
+    return translate("auth_error_rate_limit");
+  }
+
+  if (message.includes("invalid email")) {
+    return translate("auth_error_invalid_email");
+  }
+
+  if (message.includes("password should be at least") || message.includes("password is too weak")) {
+    return translate("auth_error_weak_password");
+  }
+
+  return translate("auth_error_generic");
 }
 
 function updatePasswordToggleLabel(button, isVisible) {
@@ -101,6 +150,23 @@ function setActiveTab(tab) {
   });
 }
 
+function clearSensitiveAuthState() {
+  signInForm?.reset();
+  signUpForm?.reset();
+  forgotPasswordForm?.reset();
+  if (signInPasswordInput) signInPasswordInput.type = "password";
+  if (signUpPasswordInput) signUpPasswordInput.type = "password";
+  passwordToggleButtons.forEach((button) => {
+    const target = document.getElementById(button.dataset.passwordToggle);
+    if (!target) return;
+    target.type = "password";
+    updatePasswordToggleLabel(button, false);
+  });
+  closeForgotPasswordModal();
+  updatePasswordStrength(signUpPasswordInput, signUpPasswordStrength);
+  showStatus("");
+}
+
 tabButtons.forEach((button) => {
   button.addEventListener("click", () => {
     setActiveTab(button.dataset.authTab);
@@ -110,6 +176,18 @@ tabButtons.forEach((button) => {
 if (window.location.hash === "#signup") {
   setActiveTab("signup");
 }
+
+if (window.sessionStorage.getItem(AUTH_CLEAR_KEY) === "1") {
+  window.sessionStorage.removeItem(AUTH_CLEAR_KEY);
+  window.setTimeout(() => clearSensitiveAuthState(), 0);
+}
+
+window.addEventListener("pageshow", () => {
+  if (window.sessionStorage.getItem(AUTH_CLEAR_KEY) === "1") {
+    window.sessionStorage.removeItem(AUTH_CLEAR_KEY);
+    clearSensitiveAuthState();
+  }
+});
 
 async function signInWithEmail(event) {
   event.preventDefault();
@@ -130,7 +208,7 @@ async function signInWithEmail(event) {
 
     window.location.href = "account.html";
   } catch (error) {
-    showStatus(error.message || "Unable to sign in.", "error");
+    showStatus(getLocalizedAuthError(error), "error");
   }
 }
 
@@ -165,7 +243,7 @@ async function signUpWithEmail(event) {
     showStatus(translate("auth_status_created"), "success");
     setActiveTab("signin");
   } catch (error) {
-    showStatus(error.message || "Unable to create account.", "error");
+    showStatus(getLocalizedAuthError(error), "error");
   }
 }
 
@@ -183,7 +261,7 @@ async function signInWithKakao() {
 
     if (error) throw error;
   } catch (error) {
-    showStatus(error.message || "Unable to start Kakao login.", "error");
+    showStatus(getLocalizedAuthError(error), "error");
   }
 }
 
@@ -226,7 +304,7 @@ async function sendPasswordReset(event) {
     showStatus(translate("auth_status_reset_sent"), "success");
     closeForgotPasswordModal();
   } catch (error) {
-    showStatus(error.message || translate("reset_status_error"), "error");
+    showStatus(getLocalizedAuthError(error), "error");
   }
 }
 

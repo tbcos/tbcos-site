@@ -1,6 +1,7 @@
 import { supabase, isSupabaseConfigured, SUPABASE_URL, SUPABASE_ANON_KEY } from "./supabase-client.js";
 
 const LANGUAGE_STORAGE_KEY = "tbcos-language";
+const AUTH_CLEAR_KEY = "tbcos-clear-auth";
 
 const translations = {
   en: {
@@ -28,6 +29,14 @@ const translations = {
     admin_dashboard_card_members_desc: "Review signups, approve buyer access, and update partner metadata.",
     admin_dashboard_card_setup_title: "Recommended setup",
     admin_dashboard_card_setup_desc: "Make sure your own account has user_metadata.role = admin before using these pages in production.",
+    admin_dashboard_metric_inquiries: "Total inquiries",
+    admin_dashboard_metric_pending_members: "Pending members",
+    admin_dashboard_metric_approved_members: "Approved members",
+    admin_dashboard_metric_admins: "Admin accounts",
+    admin_dashboard_recent_inquiries: "Recent inquiries",
+    admin_dashboard_recent_members: "Recent members",
+    admin_dashboard_empty_recent: "No recent data yet.",
+    admin_dashboard_load_error: "Failed to load admin summary data.",
     admin_open_inquiries: "Open Inquiry Manager",
     admin_open_members: "Open Member Manager",
     admin_inquiries_title: "Admin Inquiries",
@@ -103,6 +112,14 @@ const translations = {
     admin_dashboard_card_members_desc: "가입 회원을 검토하고 바이어 접근 상태를 변경합니다.",
     admin_dashboard_card_setup_title: "권장 설정",
     admin_dashboard_card_setup_desc: "실사용 전에는 본인 계정의 user_metadata.role 값을 admin으로 지정해 두는 것이 좋습니다.",
+    admin_dashboard_metric_inquiries: "전체 문의",
+    admin_dashboard_metric_pending_members: "승인 대기 회원",
+    admin_dashboard_metric_approved_members: "승인 완료 회원",
+    admin_dashboard_metric_admins: "관리자 계정",
+    admin_dashboard_recent_inquiries: "최근 문의",
+    admin_dashboard_recent_members: "최근 회원",
+    admin_dashboard_empty_recent: "아직 표시할 최근 데이터가 없습니다.",
+    admin_dashboard_load_error: "관리자 요약 데이터를 불러오지 못했습니다.",
     admin_open_inquiries: "문의 관리 열기",
     admin_open_members: "회원 관리 열기",
     admin_inquiries_title: "관리자 문의",
@@ -271,6 +288,7 @@ export function wireCommonAdminUi() {
   document.querySelectorAll("[data-admin-signout]").forEach((button) => {
     button.addEventListener("click", async () => {
       if (!supabase) return;
+      window.sessionStorage.setItem(AUTH_CLEAR_KEY, "1");
       await supabase.auth.signOut();
       window.location.href = "index.html";
     });

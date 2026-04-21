@@ -316,12 +316,12 @@
           <form id="signInForm" class="grid gap-4">
             <div class="grid gap-2">
               <label for="signInEmail" class="text-[13px] font-bold text-ink" data-i18n="auth_work_email">Work Email</label>
-              <input id="signInEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+              <input id="signInEmail" type="email" autocomplete="username email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
             <div class="grid gap-2">
               <label for="signInPassword" class="text-[13px] font-bold text-ink" data-i18n="auth_password">Password</label>
               <div class="password-field">
-                <input id="signInPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 pr-20 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+                <input id="signInPassword" type="password" autocomplete="current-password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 pr-20 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
                 <button type="button" class="password-toggle" data-password-toggle="signInPassword" aria-label="Show password" title="Show password">
                   <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
                 </button>
@@ -345,20 +345,20 @@
           <form id="signUpForm" class="grid gap-4">
             <div class="grid gap-2">
               <label for="signUpName" class="text-[13px] font-bold text-ink" data-i18n="auth_full_name">Full Name</label>
-              <input id="signUpName" type="text" placeholder="Your name" data-i18n-placeholder="auth_full_name_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+              <input id="signUpName" type="text" autocomplete="name" placeholder="Your name" data-i18n-placeholder="auth_full_name_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
             <div class="grid gap-2">
               <label for="signUpCompany" class="text-[13px] font-bold text-ink" data-i18n="auth_company">Company</label>
-              <input id="signUpCompany" type="text" placeholder="Company name" data-i18n-placeholder="auth_company_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+              <input id="signUpCompany" type="text" autocomplete="organization" placeholder="Company name" data-i18n-placeholder="auth_company_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
             <div class="grid gap-2">
               <label for="signUpEmail" class="text-[13px] font-bold text-ink" data-i18n="auth_work_email">Work Email</label>
-              <input id="signUpEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+              <input id="signUpEmail" type="email" autocomplete="username email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
             </div>
             <div class="grid gap-2">
               <label for="signUpPassword" class="text-[13px] font-bold text-ink" data-i18n="auth_password">Password</label>
               <div class="password-field">
-                <input id="signUpPassword" type="password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 pr-20 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+                <input id="signUpPassword" type="password" autocomplete="new-password" placeholder="Enter password" data-i18n-placeholder="auth_password_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 pr-20 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
                 <button type="button" class="password-toggle" data-password-toggle="signUpPassword" aria-label="Show password" title="Show password">
                   <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
                 </button>
@@ -388,7 +388,7 @@
       <form id="forgotPasswordForm" class="mt-6 grid gap-4">
         <div class="grid gap-2">
           <label for="forgotPasswordEmail" class="text-[13px] font-bold text-ink" data-i18n="auth_work_email">Work Email</label>
-          <input id="forgotPasswordEmail" type="email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
+          <input id="forgotPasswordEmail" type="email" autocomplete="username email" placeholder="you@company.com" data-i18n-placeholder="auth_work_email_placeholder" required class="w-full rounded-2xl border border-line bg-white/90 px-4 py-3.5 text-sm text-ink outline-none transition focus:border-black/20 focus:outline focus:outline-2 focus:outline-black/10">
         </div>
         <div class="flex justify-center gap-3">
           <button id="forgotPasswordCancelButton" type="button" class="inline-flex min-w-[108px] items-center justify-center rounded-full border border-line bg-white/70 px-5 py-3 text-sm font-semibold text-muted transition hover:text-ink" data-i18n="auth_reset_close">Cancel</button>

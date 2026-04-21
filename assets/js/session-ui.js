@@ -3,6 +3,7 @@ import { supabase, isSupabaseConfigured } from "./supabase-client.js";
 const desktopTarget = document.getElementById("authNavDesktop");
 const mobileTarget = document.getElementById("authNavMobile");
 const LANGUAGE_STORAGE_KEY = "tbcos-language";
+const AUTH_CLEAR_KEY = "tbcos-clear-auth";
 
 const authCopy = {
   en: {
@@ -68,6 +69,7 @@ function renderMember(user) {
   document.querySelectorAll("#logoutButton").forEach((button) => {
     button.addEventListener("click", async () => {
       if (!supabase) return;
+      window.sessionStorage.setItem(AUTH_CLEAR_KEY, "1");
       await supabase.auth.signOut();
       window.location.href = "index.html";
     });
