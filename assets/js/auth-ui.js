@@ -18,9 +18,24 @@ const signUpPasswordInput = document.getElementById("signUpPassword");
 const signUpPasswordStrength = document.getElementById("signUpPasswordStrength");
 const signUpPasswordGenerate = document.getElementById("signUpPasswordGenerate");
 const passwordToggleButtons = document.querySelectorAll("[data-password-toggle]");
+const authEnvironmentNote = document.getElementById("authEnvironmentNote");
 const AUTH_CLEAR_KEY = "tbcos-clear-auth";
 
 initLanguageControls("auth_title");
+
+function syncEnvironmentNoteVisibility() {
+  if (!authEnvironmentNote) return;
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  const isLocal =
+    protocol === "file:" ||
+    hostname === "localhost" ||
+    hostname === "127.0.0.1";
+
+  authEnvironmentNote.hidden = !isLocal;
+}
+
+syncEnvironmentNoteVisibility();
 
 function showStatus(message, tone = "neutral") {
   if (!statusBox) return;
