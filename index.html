@@ -651,6 +651,14 @@
       filter: drop-shadow(0 22px 32px rgba(0, 0, 0, 0.18));
     }
 
+    .product-photo.product-photo-body-lotion {
+      transform: scale(1.1);
+    }
+
+    .product-card:hover .product-photo.product-photo-body-lotion {
+      transform: scale(1.12);
+    }
+
     @media (max-width: 1279px) {
       .product-img {
         min-height: 320px;
@@ -660,6 +668,23 @@
     @media (max-width: 767px) {
       .product-img {
         min-height: 340px;
+      }
+
+      .product-photo {
+        object-fit: contain;
+        object-position: center bottom;
+      }
+
+      .product-card:hover .product-photo {
+        transform: scale(1.01);
+      }
+
+      .product-photo.product-photo-body-lotion {
+        transform: scale(1.02);
+      }
+
+      .product-card:hover .product-photo.product-photo-body-lotion {
+        transform: scale(1.03);
       }
     }
 
@@ -1202,7 +1227,7 @@
           </div>
           <div class="product-card reveal reveal-delay-3 flex flex-col overflow-hidden rounded-[20px] border border-black/5 shadow-soft" style="--product-bg:linear-gradient(160deg,#e7efe9,#d6e4db)">
             <div class="product-img relative flex h-[280px] items-center justify-center overflow-hidden">
-              <img class="product-photo absolute inset-0 z-[2] h-full w-full object-cover object-center" src="assets/products/luxfollicle-chockchock-body-lotion-card.png" alt="Luxfollicle Chockchock Body Lotion bottle">
+              <img class="product-photo product-photo-body-lotion absolute inset-0 z-[2] h-full w-full object-cover object-center" src="assets/products/luxfollicle-chockchock-body-lotion-card.png" alt="Luxfollicle Chockchock Body Lotion bottle">
             </div>
             <div class="product-info flex flex-1 flex-col items-center justify-between gap-4 p-7 text-center">
               <h3 data-i18n="product4_title">Chockchock Body Lotion</h3>
