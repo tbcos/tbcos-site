@@ -295,7 +295,7 @@
       <section class="px-6 pb-16 pt-16 lg:pb-24 lg:pt-24">
         <div class="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <div class="product-visual relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-[20px] border border-black/5 shadow-soft">
-            <img id="productImage" class="relative z-[1] h-full max-h-[560px] w-full object-contain p-4" src="" alt="">
+            <img id="productImage" class="absolute inset-0 z-[1] block h-full w-full object-cover" src="" alt="">
           </div>
           <div>
             <a href="index.html#showroom" class="mb-7 inline-flex items-center gap-2 text-sm font-semibold text-muted no-underline transition hover:text-ink">
@@ -456,7 +456,7 @@
       document.title = `${productName} | TBcos`;
       document.querySelector("meta[name='description']").setAttribute("content", localizeProduct(product, "summary"));
 
-      document.getElementById("productImage").src = product.mainImage;
+      document.getElementById("productImage").src = product.cardImage;
       document.getElementById("productImage").alt = productName;
       document.getElementById("productBrand").textContent = product.brand;
       document.getElementById("productName").textContent = productName;
