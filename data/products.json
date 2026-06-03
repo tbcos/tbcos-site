@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "luxfollicle-anti-hair-loss-shampoo",
+    "brand": "LUXFOLLICLE",
+    "nameKo": "럭스폴리클 안티 헤어 로스 샴푸",
+    "nameEn": "Luxfollicle Anti Hair Loss Shampoo",
+    "category": "Hair Care",
+    "tagKo": "탈모완화",
+    "tagEn": "Hair Loss Relief",
+    "summaryKo": "탈모 완화에 도움을 주는 기능성 샴푸로, 두피의 건강한 환경 조성과 모발의 밸런스 유지에 집중했습니다.",
+    "summaryEn": "A functional shampoo that helps relieve hair loss concerns while supporting a healthy scalp environment and balanced hair condition.",
+    "descriptionKo": "자극 없는 세정력과 풍부한 영양 공급을 통해 두피 상태를 편안하고 건강하게 가꾸어 주는 홈케어 샴푸입니다.",
+    "descriptionEn": "A home-care shampoo designed with gentle cleansing and rich nourishment to help keep the scalp comfortable and healthy.",
+    "featuresKo": [
+      "두피 환경 케어",
+      "탈모 증상 완화 도움",
+      "모발 밸런스 유지",
+      "부드러운 세정감"
+    ],
+    "featuresEn": [
+      "Scalp environment care",
+      "Helps relieve hair loss symptoms",
+      "Supports balanced hair condition",
+      "Gentle cleansing feel"
+    ],
+    "howToUseKo": "젖은 모발과 두피에 적당량을 도포한 후 충분히 마사지하고 깨끗이 헹구어냅니다.",
+    "howToUseEn": "Apply an appropriate amount to wet hair and scalp, massage thoroughly, then rinse clean.",
+    "volume": "500 ml",
+    "mainImage": "assets/products/luxfollicle-anti-hair-loss-shampoo.png",
+    "cardImage": "assets/products/luxfollicle-anti-hair-loss-shampoo-card.png",
+    "catalog": {
+      "available": true,
+      "requiresLogin": true,
+      "bucket": "product-catalogs",
+      "storagePath": "luxfollicle anti-hair loss shampoo.pdf"
+    }
+  },
+  {
+    "slug": "luxfollicle-anti-hair-loss-ampoule",
+    "brand": "LUXFOLLICLE",
+    "nameKo": "럭스폴리클 안티 헤어 로스 앰플",
+    "nameEn": "Luxfollicle Anti Hair Loss Ampoule",
+    "category": "Scalp Care",
+    "tagKo": "두피 앰플",
+    "tagEn": "Scalp Ampoule",
+    "summaryKo": "두피 환경을 편안하게 정돈하고 모근부터 탄탄하게 가꿔주는 집중 케어 앰플입니다.",
+    "summaryEn": "An intensive scalp ampoule designed to calm the scalp environment and strengthen hair from the root.",
+    "descriptionKo": "두피에 산뜻하게 흡수되는 집중 케어 포뮬러로, 데일리 두피 관리 루틴에 적합합니다.",
+    "descriptionEn": "A focused-care formula that absorbs cleanly into the scalp and fits naturally into a daily scalp-care routine.",
+    "featuresKo": [
+      "두피 진정 케어",
+      "모근 집중 관리",
+      "산뜻한 사용감",
+      "데일리 두피 루틴"
+    ],
+    "featuresEn": [
+      "Soothing scalp care",
+      "Root-focused care",
+      "Fresh finish",
+      "Daily scalp routine"
+    ],
+    "howToUseKo": "두피에 적당량을 직접 도포한 뒤 손끝으로 가볍게 마사지하여 흡수시킵니다.",
+    "howToUseEn": "Apply an appropriate amount directly to the scalp and massage lightly with fingertips until absorbed.",
+    "volume": "100 ml",
+    "mainImage": "assets/products/luxfollicle-anti-hair-loss-ampoule.png",
+    "cardImage": "assets/products/luxfollicle-anti-hair-loss-ampoule-card.png",
+    "catalog": {
+      "available": true,
+      "requiresLogin": true,
+      "bucket": "product-catalogs",
+      "storagePath": "Hair ampoule.pdf"
+    }
+  },
+  {
+    "slug": "luxfollicle-silka-shampoo",
+    "brand": "LUXFOLLICLE",
+    "nameKo": "럭스폴리클 실카 샴푸",
+    "nameEn": "Luxfollicle Silka Shampoo",
+    "category": "Hair Repair",
+    "tagKo": "영양 케어",
+    "tagEn": "Nourishing Care",
+    "summaryKo": "손상되어 푸석해진 모발에 풍부한 영양을 채워 부드럽고 매끄러운 결로 가꾸어 주는 리페어 케어 샴푸입니다.",
+    "summaryEn": "A repair-care shampoo that fills dry, damaged hair with rich nourishment for a soft, smooth finish.",
+    "descriptionKo": "건조하고 손상된 모발의 사용감을 개선하고 윤기 있는 마무리를 돕는 헤어 리페어 홈케어 제품입니다.",
+    "descriptionEn": "A hair-repair home-care product that helps improve the feel of dry, damaged hair and supports a glossy finish.",
+    "featuresKo": [
+      "손상 모발 케어",
+      "풍부한 영양감",
+      "부드러운 결 관리",
+      "윤기 있는 마무리"
+    ],
+    "featuresEn": [
+      "Damaged-hair care",
+      "Rich nourishment",
+      "Soft texture management",
+      "Glossy finish"
+    ],
+    "howToUseKo": "젖은 모발에 적당량을 덜어 거품을 낸 뒤 모발과 두피를 마사지하고 깨끗이 헹구어냅니다.",
+    "howToUseEn": "Apply to wet hair, lather, massage hair and scalp, then rinse thoroughly.",
+    "volume": "500 ml",
+    "mainImage": "assets/products/luxfollicle-silka-shampoo.png",
+    "cardImage": "assets/products/luxfollicle-silka-shampoo-card.png",
+    "catalog": {
+      "available": true,
+      "requiresLogin": true,
+      "bucket": "product-catalogs",
+      "storagePath": "luxfollicle silka shampoo.pdf"
+    }
+  },
+  {
+    "slug": "luxfollicle-chockchock-body-lotion",
+    "brand": "LUXFOLLICLE",
+    "nameKo": "럭스폴리클 촉촉 바디로션",
+    "nameEn": "Luxfollicle Chockchock Body Lotion",
+    "category": "Body Care",
+    "tagKo": "저자극 모이스쳐 케어",
+    "tagEn": "Gentle Moisture Care",
+    "summaryKo": "건조한 피부에 풍부한 보습과 안락한 사용감을 제공하는 비건 포뮬러 기반의 바디 케어 로션입니다.",
+    "summaryEn": "A vegan-formula body lotion that provides dry skin with rich moisture and a comfortable skin feel.",
+    "descriptionKo": "데일리 바디 케어에 적합한 편안한 발림성과 보습감을 제공하며, 피부를 매끄럽고 촉촉하게 가꾸어 줍니다.",
+    "descriptionEn": "Designed for daily body care, this lotion provides a comfortable glide and moisturizing feel for smooth, hydrated skin.",
+    "featuresKo": [
+      "비건 포뮬러",
+      "풍부한 보습감",
+      "편안한 사용감",
+      "데일리 바디 케어"
+    ],
+    "featuresEn": [
+      "Vegan formula",
+      "Rich moisture",
+      "Comfortable skin feel",
+      "Daily body care"
+    ],
+    "howToUseKo": "샤워 후 또는 건조함이 느껴질 때 피부에 적당량을 펴 발라 흡수시킵니다.",
+    "howToUseEn": "After showering or whenever skin feels dry, apply an appropriate amount and smooth over the body until absorbed.",
+    "volume": "500 ml",
+    "mainImage": "assets/products/luxfollicle-chockchock-body-lotion.png",
+    "cardImage": "assets/products/luxfollicle-chockchock-body-lotion-card.png",
+    "catalog": {
+      "available": true,
+      "requiresLogin": true,
+      "bucket": "product-catalogs",
+      "storagePath": "luxfollicle Chockchock Body lotion.pdf"
+    }
+  }
+]

@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail | TBcos</title>
+  <meta name="description" content="TBcos product detail page for LUXFOLLICLE beauty solutions.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.tb-cos.kr/product.html">
+  <link rel="icon" type="image/png" href="https://www.tb-cos.kr/assets/tbcos-logo-transparent.png">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: "#f8f9fa",
+            ink: "#111111",
+            muted: "#666666",
+            line: "rgba(0,0,0,0.08)",
+            surface: "#ffffff"
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            serif: ["Noto Serif", "serif"]
+          },
+          boxShadow: {
+            soft: "0 12px 40px rgba(0,0,0,0.06)",
+            glass: "0 10px 30px rgba(93,97,90,0.12)"
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #111111;
+      --text-secondary: #666666;
+      --control-accent: #6b6f67;
+      --control-contrast: #f7f5ef;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .auth-chip {
+      display: inline-flex;
+      min-height: 38px;
+      min-width: 120px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .auth-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .auth-chip.primary {
+      border-color: var(--control-accent);
+      background: var(--control-accent);
+      color: var(--control-contrast);
+    }
+
+    .auth-chip.ghost {
+      background: transparent;
+    }
+
+    .lang-switch {
+      position: relative;
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      width: 96px;
+      height: 40px;
+      padding: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.65);
+      overflow: hidden;
+    }
+
+    .lang-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 42px;
+      height: calc(100% - 8px);
+      border-radius: 999px;
+      background: var(--control-accent);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .lang-switch[data-active="ko"] .lang-thumb {
+      transform: translateX(46px);
+    }
+
+    .lang-btn {
+      position: relative;
+      z-index: 1;
+      width: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      color: var(--control-contrast);
+    }
+
+    .nav-mobile-menu {
+      position: fixed;
+      top: 76px;
+      right: 16px;
+      z-index: 160;
+      display: grid;
+      width: min(48vw, 240px);
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      border-radius: 24px;
+      background: rgba(248, 249, 250, 0.74);
+      box-shadow: 0 20px 48px rgba(93, 97, 90, 0.16);
+      backdrop-filter: blur(22px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-18px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+    }
+
+    .nav-mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .detail-shell {
+      min-height: calc(100vh - 64px);
+      padding-top: 64px;
+    }
+
+    .product-visual {
+      background: linear-gradient(160deg, #edf1f6, #dde4ee);
+    }
+
+    .detail-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .detail-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: var(--control-accent);
+    }
+
+    .download-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.62;
+      transform: none;
+      box-shadow: none;
+    }
+
+    @media (max-width: 900px) {
+      #authNavDesktop {
+        display: none;
+      }
+
+      #authNavMobile {
+        display: grid;
+        gap: 10px;
+      }
+
+      .auth-chip {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="fixed inset-x-0 top-0 z-[100] border-b border-white/40 bg-[rgba(248,249,250,0.68)] shadow-[0_8px_24px_rgba(93,97,90,0.08)] backdrop-blur-[22px]">
+    <div class="mx-auto flex h-16 max-w-[1120px] items-center justify-between gap-4 px-6">
+      <a href="index.html" class="inline-flex items-center" aria-label="THREE BODY home">
+        <video id="navLogoVideo" class="block h-[60px] w-auto object-contain" autoplay muted playsinline preload="auto">
+          <source src="assets/tbcos-logo-video-transparent.webm" type="video/webm">
+          <source src="assets/tbcos-logo-video.mp4" type="video/mp4">
+        </video>
+        <img id="navLogoFallback" class="hidden h-[60px] w-auto object-contain" src="assets/tbcos-logo-transparent.png" alt="TBcos logo">
+      </a>
+
+      <div class="hidden items-center gap-8 lg:flex">
+        <a href="index.html#about" class="text-sm font-medium text-muted no-underline transition hover:text-ink" data-copy="navAbout">About</a>
+        <a href="index.html#odm" class="text-sm font-medium text-muted no-underline transition hover:text-ink" data-copy="navOdm">ODM / OEM</a>
+        <a href="index.html#showroom" class="text-sm font-medium text-muted no-underline transition hover:text-ink" data-copy="navBrand">LUXFOLLICLE</a>
+        <a href="index.html#contact" class="text-sm font-medium text-muted no-underline transition hover:text-ink" data-copy="navContact">Contact</a>
+        <div class="lang-switch" data-active="en">
+          <span class="lang-thumb" aria-hidden="true"></span>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ko">KR</button>
+        </div>
+        <div class="flex items-center gap-2" id="authNavDesktop">
+          <a class="auth-chip ghost" href="auth.html" data-auth-fallback="signin">Sign In</a>
+          <a class="auth-chip primary" href="auth.html#signup" data-auth-fallback="signup">Create Account</a>
+        </div>
+      </div>
+
+      <button id="mobileMenuTrigger" class="inline-flex items-center justify-center border-0 bg-transparent text-ink lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <i data-lucide="menu" style="width:24px;height:24px;"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+    <div class="flex justify-center">
+      <div class="lang-switch" data-active="en">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="ko">KR</button>
+      </div>
+    </div>
+    <div id="authNavMobile">
+      <a class="auth-chip ghost" href="auth.html" data-auth-fallback="signin">Sign In</a>
+      <a class="auth-chip primary" href="auth.html#signup" data-auth-fallback="signup">Create Account</a>
+    </div>
+    <div class="grid gap-2 text-center">
+      <a href="index.html#showroom" class="py-2 text-sm font-semibold text-ink no-underline" data-copy="allProducts">All Products</a>
+      <a href="index.html#contact" class="py-2 text-sm font-semibold text-ink no-underline" data-copy="navContact">Contact</a>
+    </div>
+  </div>
+
+  <main class="detail-shell">
+    <section id="loadingState" class="px-6 py-24">
+      <div class="mx-auto max-w-[1120px] text-center">
+        <i data-lucide="loader-2" class="mx-auto animate-spin" style="width:28px;height:28px;color:var(--text-secondary)"></i>
+        <p class="mt-4 text-sm text-muted" data-copy="loading">Loading product information...</p>
+      </div>
+    </section>
+
+    <section id="notFoundState" class="hidden px-6 py-24">
+      <div class="mx-auto max-w-[720px] text-center">
+        <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted">TBcos</p>
+        <h1 class="font-serif text-[clamp(32px,5vw,52px)] font-normal leading-tight text-ink" data-copy="notFoundTitle">Product Not Found</h1>
+        <p class="mx-auto mt-5 max-w-[520px] text-base leading-8 text-muted" data-copy="notFoundDesc">The product page you requested could not be found.</p>
+        <a href="index.html#showroom" class="mt-8 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/40 px-6 py-3 text-sm font-semibold text-ink no-underline shadow-glass backdrop-blur-[14px] transition hover:-translate-y-0.5">
+          <i data-lucide="arrow-left" style="width:16px;height:16px"></i>
+          <span data-copy="backToProducts">Back to Products</span>
+        </a>
+      </div>
+    </section>
+
+    <article id="productState" class="hidden">
+      <section class="px-6 pb-16 pt-16 lg:pb-24 lg:pt-24">
+        <div class="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div class="product-visual relative flex min-h-[460px] items-center justify-center overflow-hidden rounded-[20px] border border-black/5 shadow-soft">
+            <img id="productImage" class="relative z-[1] h-full max-h-[560px] w-full object-contain p-4" src="" alt="">
+          </div>
+          <div>
+            <a href="index.html#showroom" class="mb-7 inline-flex items-center gap-2 text-sm font-semibold text-muted no-underline transition hover:text-ink">
+              <i data-lucide="arrow-left" style="width:16px;height:16px"></i>
+              <span data-copy="allProducts">All Products</span>
+            </a>
+            <p id="productBrand" class="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted"></p>
+            <h1 id="productName" class="font-serif text-[clamp(34px,5vw,62px)] font-normal leading-[1.08] text-ink"></h1>
+            <p id="productSummary" class="mt-6 max-w-[640px] text-[17px] leading-8 text-muted"></p>
+            <div class="mt-7 flex flex-wrap items-center gap-3">
+              <span id="productTag" class="rounded-full border border-black/10 bg-white/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted"></span>
+              <span id="productCategory" class="rounded-full border border-black/10 bg-white/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted"></span>
+              <span id="productVolume" class="rounded-full border border-black/10 bg-white/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-surface px-6 py-16 lg:py-20">
+        <div class="mx-auto grid max-w-[1120px] gap-6 lg:grid-cols-[1fr_1fr]">
+          <div class="rounded-[20px] border border-black/5 bg-page p-7 shadow-soft sm:p-9">
+            <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-copy="overview">Overview</p>
+            <p id="productDescription" class="text-base leading-8 text-muted"></p>
+          </div>
+          <div class="rounded-[20px] border border-black/5 bg-page p-7 shadow-soft sm:p-9">
+            <p class="mb-5 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-copy="features">Features</p>
+            <ul id="featureList" class="detail-list grid gap-3 text-base leading-7 text-muted"></ul>
+          </div>
+          <div class="rounded-[20px] border border-black/5 bg-page p-7 shadow-soft sm:p-9">
+            <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-copy="howToUse">How to Use</p>
+            <p id="howToUseText" class="text-base leading-8 text-muted"></p>
+          </div>
+          <div class="rounded-[20px] border border-black/5 bg-page p-7 shadow-soft sm:p-9">
+            <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-muted" data-copy="catalog">Catalog</p>
+            <p id="catalogStatus" class="mb-6 text-base leading-8 text-muted"></p>
+            <button id="downloadCatalogButton" type="button" class="download-button inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/60 bg-white/40 px-5 py-3.5 text-sm font-semibold text-ink shadow-glass backdrop-blur-[14px] transition hover:-translate-y-0.5 hover:bg-white/50 disabled:hover:translate-y-0 sm:w-auto">
+              <i data-lucide="download" style="width:16px;height:16px"></i>
+              <span data-copy="downloadCatalog">Download Catalog</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="border-t border-black/5 px-6 py-10">
+    <div class="mx-auto flex max-w-[1120px] flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <p class="text-[13px] text-muted">© 2024 THREE BODY. All rights reserved.</p>
+      <div class="flex flex-wrap gap-5">
+        <a href="privacy.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-copy="privacy">Privacy Policy</a>
+        <a href="terms.html" class="border-b border-black/20 text-[13px] text-muted no-underline" data-copy="terms">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/session-ui.js"></script>
+  <script type="module">
+    import { supabase, isSupabaseConfigured } from "./assets/js/supabase-client.js";
+
+    const LANGUAGE_STORAGE_KEY = "tbcos-language";
+    const copy = {
+      en: {
+        navAbout: "About",
+        navOdm: "ODM / OEM",
+        navBrand: "LUXFOLLICLE",
+        navContact: "Contact",
+        allProducts: "All Products",
+        loading: "Loading product information...",
+        notFoundTitle: "Product Not Found",
+        notFoundDesc: "The product page you requested could not be found.",
+        backToProducts: "Back to Products",
+        overview: "Overview",
+        features: "Features",
+        howToUse: "How to Use",
+        catalog: "Catalog",
+        catalogReady: "Members can download this product catalog after signing in.",
+        catalogPending: "The catalog file is being prepared. The download button will open after the private catalog is uploaded.",
+        loginRequired: "Please sign in to download the catalog.",
+        downloadCatalog: "Download Catalog",
+        downloadPending: "Catalog Preparing",
+        downloadError: "Catalog download could not be started. Please try again later.",
+        privacy: "Privacy Policy",
+        terms: "Terms of Use"
+      },
+      ko: {
+        navAbout: "회사 소개",
+        navOdm: "ODM / OEM",
+        navBrand: "럭스폴리클",
+        navContact: "문의",
+        allProducts: "전체 제품",
+        loading: "제품 정보를 불러오는 중입니다...",
+        notFoundTitle: "제품을 찾을 수 없습니다",
+        notFoundDesc: "요청하신 제품 상세 페이지를 찾을 수 없습니다.",
+        backToProducts: "제품 목록으로 돌아가기",
+        overview: "제품 개요",
+        features: "주요 특징",
+        howToUse: "사용 방법",
+        catalog: "카탈로그",
+        catalogReady: "회원 로그인 후 이 제품의 카탈로그를 다운로드할 수 있습니다.",
+        catalogPending: "카탈로그 파일 준비 중입니다. private 카탈로그 업로드 후 다운로드 버튼이 활성화됩니다.",
+        loginRequired: "카탈로그 다운로드를 위해 로그인해 주세요.",
+        downloadCatalog: "카탈로그 다운로드",
+        downloadPending: "카탈로그 준비 중",
+        downloadError: "카탈로그 다운로드를 시작하지 못했습니다. 잠시 후 다시 시도해 주세요.",
+        privacy: "개인정보처리방침",
+        terms: "이용약관"
+      }
+    };
+
+    let currentLanguage = "en";
+    let activeProduct = null;
+
+    function getText(key) {
+      return (copy[currentLanguage] && copy[currentLanguage][key]) || copy.en[key] || key;
+    }
+
+    function localizeProduct(product, field) {
+      const suffix = currentLanguage === "ko" ? "Ko" : "En";
+      return product[`${field}${suffix}`] || product[`${field}En`] || product[`${field}Ko`] || "";
+    }
+
+    function setLanguage(language) {
+      currentLanguage = language === "ko" ? "ko" : "en";
+      document.documentElement.lang = currentLanguage === "ko" ? "ko" : "en";
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+
+      document.querySelectorAll("[data-copy]").forEach((element) => {
+        element.textContent = getText(element.dataset.copy);
+      });
+
+      document.querySelectorAll("[data-auth-fallback='signin']").forEach((element) => {
+        element.textContent = currentLanguage === "ko" ? "로그인" : "Sign In";
+      });
+
+      document.querySelectorAll("[data-auth-fallback='signup']").forEach((element) => {
+        element.textContent = currentLanguage === "ko" ? "회원가입" : "Create Account";
+      });
+
+      document.querySelectorAll(".lang-switch").forEach((switcher) => {
+        switcher.dataset.active = currentLanguage;
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        const isActive = button.dataset.lang === currentLanguage;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      if (activeProduct) renderProduct(activeProduct);
+
+      document.dispatchEvent(new CustomEvent("tbcos:languagechange", {
+        detail: { language: currentLanguage }
+      }));
+    }
+
+    function renderProduct(product) {
+      const productName = localizeProduct(product, "name");
+      document.title = `${productName} | TBcos`;
+      document.querySelector("meta[name='description']").setAttribute("content", localizeProduct(product, "summary"));
+
+      document.getElementById("productImage").src = product.mainImage;
+      document.getElementById("productImage").alt = productName;
+      document.getElementById("productBrand").textContent = product.brand;
+      document.getElementById("productName").textContent = productName;
+      document.getElementById("productSummary").textContent = localizeProduct(product, "summary");
+      document.getElementById("productTag").textContent = currentLanguage === "ko" ? product.tagKo : product.tagEn;
+      document.getElementById("productCategory").textContent = product.category;
+      document.getElementById("productVolume").textContent = product.volume;
+      document.getElementById("productDescription").textContent = localizeProduct(product, "description");
+      document.getElementById("howToUseText").textContent = localizeProduct(product, "howToUse");
+
+      const features = currentLanguage === "ko" ? product.featuresKo : product.featuresEn;
+      document.getElementById("featureList").innerHTML = features.map((feature) => `<li>${feature}</li>`).join("");
+
+      const catalogStatus = document.getElementById("catalogStatus");
+      const downloadButton = document.getElementById("downloadCatalogButton");
+      const buttonLabel = downloadButton.querySelector("span");
+      const isAvailable = Boolean(product.catalog && product.catalog.available);
+
+      catalogStatus.textContent = isAvailable ? getText("catalogReady") : getText("catalogPending");
+      downloadButton.disabled = !isAvailable;
+      buttonLabel.textContent = isAvailable ? getText("downloadCatalog") : getText("downloadPending");
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function showState(state) {
+      document.getElementById("loadingState").classList.toggle("hidden", state !== "loading");
+      document.getElementById("notFoundState").classList.toggle("hidden", state !== "not-found");
+      document.getElementById("productState").classList.toggle("hidden", state !== "product");
+    }
+
+    async function handleCatalogDownload() {
+      if (!activeProduct?.catalog?.available) return;
+
+      if (!isSupabaseConfigured || !supabase) {
+        window.location.href = "auth.html";
+        return;
+      }
+
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
+        window.location.href = `auth.html?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`;
+        return;
+      }
+
+      const { bucket, storagePath } = activeProduct.catalog;
+      const { data: signedUrlData, error } = await supabase.storage
+        .from(bucket)
+        .createSignedUrl(storagePath, 60);
+
+      if (error || !signedUrlData?.signedUrl) {
+        window.alert(getText("downloadError"));
+        return;
+      }
+
+      window.location.href = signedUrlData.signedUrl;
+    }
+
+    async function loadProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("slug");
+      if (!slug) {
+        showState("not-found");
+        return;
+      }
+
+      try {
+        const response = await fetch("data/products.json", { cache: "no-store" });
+        const products = await response.json();
+        activeProduct = products.find((product) => product.slug === slug);
+
+        if (!activeProduct) {
+          showState("not-found");
+          return;
+        }
+
+        renderProduct(activeProduct);
+        showState("product");
+      } catch (_error) {
+        showState("not-found");
+      }
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    });
+
+    document.getElementById("downloadCatalogButton").addEventListener("click", handleCatalogDownload);
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileMenuTrigger = document.getElementById("mobileMenuTrigger");
+    mobileMenuTrigger.addEventListener("click", () => {
+      const nextIsOpen = !mobileMenu.classList.contains("open");
+      mobileMenu.classList.toggle("open", nextIsOpen);
+      mobileMenuTrigger.setAttribute("aria-expanded", String(nextIsOpen));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (window.innerWidth >= 1024) return;
+      if (!mobileMenu.contains(event.target) && !mobileMenuTrigger.contains(event.target)) {
+        mobileMenu.classList.remove("open");
+        mobileMenuTrigger.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    const navLogoVideo = document.getElementById("navLogoVideo");
+    const navLogoFallback = document.getElementById("navLogoFallback");
+
+    function useStaticLogo() {
+      navLogoVideo.style.display = "none";
+      navLogoVideo.pause();
+      navLogoFallback.classList.remove("hidden");
+    }
+
+    if (/iPhone|iPad|iPod/i.test(window.navigator.userAgent) || window.matchMedia("(pointer: coarse)").matches) {
+      useStaticLogo();
+    } else {
+      navLogoVideo.addEventListener("error", useStaticLogo, { once: true });
+    }
+
+    const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const preferredLanguage = savedLanguage || (navigator.language && navigator.language.startsWith("ko") ? "ko" : "en");
+    setLanguage(preferredLanguage);
+    loadProduct();
+  </script>
+</body>
+</html>
